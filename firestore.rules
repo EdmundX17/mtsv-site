@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users profile collection
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+    
+    // Items collection (MTS catalog)
+    match /items/{itemId} {
+      allow read, write: if true;
+    }
+    
+    // Price history and audits
+    match /auditLogs/{logId} {
+      allow read, write: if true;
+    }
+    
+    // Player price change reports
+    match /reports/{reportId} {
+      allow read, write: if true;
+    }
+
+    // Consultant proposals and commentator suggestions
+    match /consultantProposals/{proposalId} {
+      allow read, write: if true;
+    }
+
+    // Stored Images for permanent vehicle & unit thumbnails
+    match /storedImages/{imageId} {
+      allow read, write: if true;
+    }
+
+    // System configurations & star values & staff roster
+    match /system/{docId} {
+      allow read, write: if true;
+    }
+
+    // Site Backups (Daily snapshots and disaster recovery records)
+    match /siteBackups/{backupId} {
+      allow read, write: if true;
+    }
+  }
+}

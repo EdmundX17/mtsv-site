@@ -1,0 +1,1954 @@
+[
+  {
+    "name": "Sea Dragon",
+    "category": "Naval"
+  },
+  {
+    "name": "Super Sea Dragon",
+    "category": "Naval"
+  },
+  {
+    "name": "F35 Billion",
+    "category": "Air"
+  },
+  {
+    "name": "Mech Transport X",
+    "category": "Land"
+  },
+  {
+    "name": "Mech Transport",
+    "category": "Land"
+  },
+  {
+    "name": "Super Ace Pilot",
+    "category": "Soldier"
+  },
+  {
+    "name": "Super TU-160",
+    "category": "Air"
+  },
+  {
+    "name": "TU-160",
+    "category": "Air"
+  },
+  {
+    "name": "Super Stealth Boat",
+    "category": "Naval"
+  },
+  {
+    "name": "Medic Helicopter",
+    "category": "Air"
+  },
+  {
+    "name": "Super Medic Helicopter",
+    "category": "Air"
+  },
+  {
+    "name": "Raptor X",
+    "category": "Air"
+  },
+  {
+    "name": "UZI",
+    "category": "Soldier"
+  },
+  {
+    "name": "Battle Yacht",
+    "category": "Naval"
+  },
+  {
+    "name": "Super Battle Yacht",
+    "category": "Naval"
+  },
+  {
+    "name": "Super Hoverbike",
+    "category": "Land"
+  },
+  {
+    "name": "Super Air Carrier",
+    "category": "Air"
+  },
+  {
+    "name": "Air Carrier",
+    "category": "Air"
+  },
+  {
+    "name": "Air Commander",
+    "category": "Soldier"
+  },
+  {
+    "name": "Mig25",
+    "category": "Air"
+  },
+  {
+    "name": "Super Mig25",
+    "category": "Air"
+  },
+  {
+    "name": "Super CFA44",
+    "category": "Air"
+  },
+  {
+    "name": "Super S67",
+    "category": "Air"
+  },
+  {
+    "name": "S67",
+    "category": "Air"
+  },
+  {
+    "name": "Super Alien",
+    "category": "Soldier"
+  },
+  {
+    "name": "F24",
+    "category": "Air"
+  },
+  {
+    "name": "Red F14",
+    "category": "Air"
+  },
+  {
+    "name": "Limited XF12",
+    "category": "Air"
+  },
+  {
+    "name": "XF12",
+    "category": "Air"
+  },
+  {
+    "name": "Super Repair Drone",
+    "category": "Drone"
+  },
+  {
+    "name": "Limited SONAR",
+    "category": "Naval"
+  },
+  {
+    "name": "Rocket HE177",
+    "category": "Air"
+  },
+  {
+    "name": "Super He177",
+    "category": "Air"
+  },
+  {
+    "name": "Heavy T28",
+    "category": "Land"
+  },
+  {
+    "name": "Limited T28",
+    "category": "Land"
+  },
+  {
+    "name": "Overwatch",
+    "category": "Air"
+  },
+  {
+    "name": "LE Cobra Super",
+    "category": "Air"
+  },
+  {
+    "name": "Submarine (C)",
+    "category": "Naval"
+  },
+  {
+    "name": "Limited Patriot",
+    "category": "Land"
+  },
+  {
+    "name": "Steel Rain",
+    "category": "Naval"
+  },
+  {
+    "name": "Master Rain",
+    "category": "Naval"
+  },
+  {
+    "name": "Top5 MLRS",
+    "category": "Land"
+  },
+  {
+    "name": "Warspite",
+    "category": "Naval"
+  },
+  {
+    "name": "Super Warspite",
+    "category": "Naval"
+  },
+  {
+    "name": "LE_HealingDrone",
+    "category": "Drone"
+  },
+  {
+    "name": "K7",
+    "category": "Air"
+  },
+  {
+    "name": "Nuke K7",
+    "category": "Air"
+  },
+  {
+    "name": "Super M1E3",
+    "category": "Land"
+  },
+  {
+    "name": "M1E3",
+    "category": "Land"
+  },
+  {
+    "name": "Super Rafale",
+    "category": "Air"
+  },
+  {
+    "name": "Super Yamato",
+    "category": "Naval"
+  },
+  {
+    "name": "Super A37",
+    "category": "Air"
+  },
+  {
+    "name": "A37",
+    "category": "Air"
+  },
+  {
+    "name": "Phoenix Shotgun",
+    "category": "Other"
+  },
+  {
+    "name": "Anti-Air Turret",
+    "category": "Other"
+  },
+  {
+    "name": "Super Tiger Mech",
+    "category": "Land"
+  },
+  {
+    "name": "Tiger Mech",
+    "category": "Land"
+  },
+  {
+    "name": "BOSS MLRS",
+    "category": "Land"
+  },
+  {
+    "name": "MLRS",
+    "category": "Land"
+  },
+  {
+    "name": "Super Beam Tank",
+    "category": "Land"
+  },
+  {
+    "name": "Beam Tank",
+    "category": "Land"
+  },
+  {
+    "name": "Recon Destroyer",
+    "category": "Naval"
+  },
+  {
+    "name": "Super Recon Destroyer",
+    "category": "Naval"
+  },
+  {
+    "name": "Hammerhead",
+    "category": "Other"
+  },
+  {
+    "name": "Seacraft DPC",
+    "category": "Other"
+  },
+  {
+    "name": "Terracotta (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Plum (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Olive (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Navy (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Forest (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Earth (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Bronze (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Woodland (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Silver (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Onyx (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Naval (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Flora (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Desert (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Crimson (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Arid (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Urban (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Stealth (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Snakeskin (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Flecktarn (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Dune (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Dark Digital (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Brush Camo (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Lime (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Gold (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Frost (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Cyan (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Copper (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Blackout (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Azure (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Violet (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Ruby (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Platinum (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Phantom (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Midas (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Chrome (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Amethyst (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Amber (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Veteran (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Shotgun (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Pearl (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Egg (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Cyber (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Baseball (Banner)",
+    "category": "Other"
+  },
+  {
+    "name": "Top5 Overlord",
+    "category": "Land"
+  },
+  {
+    "name": "Corporal (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Lance Corporal (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Specialist (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Private First Class (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Private (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Basic (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Tower (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Target (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Tags (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Star (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Smoke (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Shovel (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Shield (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Radar (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Plane (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Pistol (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Mortar (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Missile (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Medkit (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Medic (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Medal (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Launcher (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Knife (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Jet (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Helm (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Handgun (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Grenade (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Gloves (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Flag (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Explosion (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Eagle (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Carrier (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Cannon (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Bullet (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Binoculars (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Anchor (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Tank (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Submarine (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Skull (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Parachute (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Mask (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Crosshair (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Combat Tank (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Strong Shield (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Sergeant (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Second Lieutenant (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Chief Warrant Officer (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Warrant Officer (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Sergeant Major (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Metal Helm (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Super Shield (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Rainbow Darkstar",
+    "category": "Air"
+  },
+  {
+    "name": "Brigadier General (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Colonel (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Lieutenant Colonel (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Major (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Captain (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "First Lieutenant (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Gold Star (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Flying Eagle (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Win Medal (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Super Star (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Strong Helm (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Star Eagle (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "5-Star General (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Major General (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Lieutenant General (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "General (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Skull Helm (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Shotgun (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Egg (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Baseball (Emblem)",
+    "category": "Other"
+  },
+  {
+    "name": "Salute (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Slow Clap (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Laugh (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Dab (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Worm (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "T Pose (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Kill You (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Griddy (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Flush (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Celebrate (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Zen (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "OJ (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Loser (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Mic Drop (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Knife Flip (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Shotgun (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Egg (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "Baseball (Emote)",
+    "category": "Other"
+  },
+  {
+    "name": "War Bunny",
+    "category": "Soldier"
+  },
+  {
+    "name": "Slash Bunny",
+    "category": "Soldier"
+  },
+  {
+    "name": "Grenade Bunny",
+    "category": "Soldier"
+  },
+  {
+    "name": "Egg Launcher",
+    "category": "Soldier"
+  },
+  {
+    "name": "Plat Skyhammer",
+    "category": "Air"
+  },
+  {
+    "name": "Warlord Bunny",
+    "category": "Soldier"
+  },
+  {
+    "name": "Noscope Bunny",
+    "category": "Soldier"
+  },
+  {
+    "name": "Super Razor",
+    "category": "Air"
+  },
+  {
+    "name": "Razor",
+    "category": "Air"
+  },
+  {
+    "name": "Antonov A40",
+    "category": "Air"
+  },
+  {
+    "name": "Korkut",
+    "category": "Land"
+  },
+  {
+    "name": "UAV Carrier",
+    "category": "Naval"
+  },
+  {
+    "name": "Super UAV Carrier",
+    "category": "Naval"
+  },
+  {
+    "name": "TU95",
+    "category": "Air"
+  },
+  {
+    "name": "Super TU95",
+    "category": "Air"
+  },
+  {
+    "name": "Super Mech Walker",
+    "category": "Land"
+  },
+  {
+    "name": "Mech Walker",
+    "category": "Land"
+  },
+  {
+    "name": "Jetpack Armor",
+    "category": "Other"
+  },
+  {
+    "name": "Valor",
+    "category": "Air"
+  },
+  {
+    "name": "Overlord",
+    "category": "Land"
+  },
+  {
+    "name": "Master Overlord",
+    "category": "Land"
+  },
+  {
+    "name": "Super Leonardo",
+    "category": "Air"
+  },
+  {
+    "name": "Leonardo",
+    "category": "Air"
+  },
+  {
+    "name": "Top5 AN Jeep",
+    "category": "Land"
+  },
+  {
+    "name": "Super Kieler",
+    "category": "Land"
+  },
+  {
+    "name": "Keiler",
+    "category": "Land"
+  },
+  {
+    "name": "Lovebird",
+    "category": "Air"
+  },
+  {
+    "name": "Love Buggy",
+    "category": "Land"
+  },
+  {
+    "name": "Drill Worker",
+    "category": "Soldier"
+  },
+  {
+    "name": "Driller",
+    "category": "Land"
+  },
+  {
+    "name": "S.W.A.R.M",
+    "category": "Air"
+  },
+  {
+    "name": "Super S.W.A.R.M",
+    "category": "Air"
+  },
+  {
+    "name": "Greyhound",
+    "category": "Air"
+  },
+  {
+    "name": "Quad Shock RPG",
+    "category": "Other"
+  },
+  {
+    "name": "Super Marasesti",
+    "category": "Naval"
+  },
+  {
+    "name": "Marasesti",
+    "category": "Naval"
+  },
+  {
+    "name": "Fireworks RPG",
+    "category": "Other"
+  },
+  {
+    "name": "Elite Zeplin-X",
+    "category": "Air"
+  },
+  {
+    "name": "F111",
+    "category": "Air"
+  },
+  {
+    "name": "Super F111",
+    "category": "Air"
+  },
+  {
+    "name": "Railgun-X Destroyer",
+    "category": "Naval"
+  },
+  {
+    "name": "Anti Nuke Jeep",
+    "category": "Land"
+  },
+  {
+    "name": "Super AN Jeep",
+    "category": "Land"
+  },
+  {
+    "name": "Chrysler",
+    "category": "Land"
+  },
+  {
+    "name": "Nuke Chrysler",
+    "category": "Land"
+  },
+  {
+    "name": "Festive BF109",
+    "category": "Air"
+  },
+  {
+    "name": "Wrapped C17",
+    "category": "Air"
+  },
+  {
+    "name": "Top3 GhostWind",
+    "category": "Air"
+  },
+  {
+    "name": "Tupolev TB3",
+    "category": "Air"
+  },
+  {
+    "name": "Super Tupolev",
+    "category": "Air"
+  },
+  {
+    "name": "Platinum SB-12",
+    "category": "Air"
+  },
+  {
+    "name": "Super Vespa Tap",
+    "category": "Land"
+  },
+  {
+    "name": "Vespa Tap",
+    "category": "Land"
+  },
+  {
+    "name": "Platinum Mech",
+    "category": "Land"
+  },
+  {
+    "name": "Super M50",
+    "category": "Air"
+  },
+  {
+    "name": "M50",
+    "category": "Air"
+  },
+  {
+    "name": "Santa Minigun",
+    "category": "Other"
+  },
+  {
+    "name": "Railgun",
+    "category": "Other"
+  },
+  {
+    "name": "Grumpy RPG",
+    "category": "Other"
+  },
+  {
+    "name": "PresentLauncher",
+    "category": "Other"
+  },
+  {
+    "name": "Snowball SMG",
+    "category": "Other"
+  },
+  {
+    "name": "Assassin Sniper",
+    "category": "Other"
+  },
+  {
+    "name": "Snow Grenade",
+    "category": "Other"
+  },
+  {
+    "name": "Scythe",
+    "category": "Other"
+  },
+  {
+    "name": "Strike Mech",
+    "category": "Land"
+  },
+  {
+    "name": "Super Mech",
+    "category": "Land"
+  },
+  {
+    "name": "Anti-Vehicle Rifle",
+    "category": "Other"
+  },
+  {
+    "name": "Blue F22",
+    "category": "Air"
+  },
+  {
+    "name": "Darkstar-X",
+    "category": "Air"
+  },
+  {
+    "name": "Super Missouri",
+    "category": "Naval"
+  },
+  {
+    "name": "USS Missouri",
+    "category": "Naval"
+  },
+  {
+    "name": "SeaHawk",
+    "category": "Air"
+  },
+  {
+    "name": "Mothership",
+    "category": "Air"
+  },
+  {
+    "name": "Corsair-X",
+    "category": "Naval"
+  },
+  {
+    "name": "Corsair",
+    "category": "Naval"
+  },
+  {
+    "name": "Top3 Shrike",
+    "category": "Air"
+  },
+  {
+    "name": "BOSS Ghostwind",
+    "category": "Air"
+  },
+  {
+    "name": "Ghostwind",
+    "category": "Air"
+  },
+  {
+    "name": "ME323",
+    "category": "Air"
+  },
+  {
+    "name": "Atomic ME323",
+    "category": "Air"
+  },
+  {
+    "name": "Akrep",
+    "category": "Land"
+  },
+  {
+    "name": "Zumwalt X",
+    "category": "Naval"
+  },
+  {
+    "name": "King Tiger",
+    "category": "Land"
+  },
+  {
+    "name": "AT Akrep",
+    "category": "Land"
+  },
+  {
+    "name": "AA Akrep",
+    "category": "Land"
+  },
+  {
+    "name": "Super Akrep",
+    "category": "Land"
+  },
+  {
+    "name": "Hacker Truck",
+    "category": "Land"
+  },
+  {
+    "name": "Hacker X",
+    "category": "Land"
+  },
+  {
+    "name": "Super Warship",
+    "category": "Naval"
+  },
+  {
+    "name": "Werewolf Tank",
+    "category": "Land"
+  },
+  {
+    "name": "Enraged Werewolf",
+    "category": "Soldier"
+  },
+  {
+    "name": "Enrageed Vampire",
+    "category": "Soldier"
+  },
+  {
+    "name": "Vampire",
+    "category": "Soldier"
+  },
+  {
+    "name": "Werewolf",
+    "category": "Soldier"
+  },
+  {
+    "name": "Silver Howl",
+    "category": "Air"
+  },
+  {
+    "name": "Haunted Jet",
+    "category": "Air"
+  },
+  {
+    "name": "Haunted Tank",
+    "category": "Land"
+  },
+  {
+    "name": "Tixplane",
+    "category": "Air"
+  },
+  {
+    "name": "Pumpkin Soldier",
+    "category": "Soldier"
+  },
+  {
+    "name": "Super Pumpkin",
+    "category": "Soldier"
+  },
+  {
+    "name": "Puckmonster",
+    "category": "Soldier"
+  },
+  {
+    "name": "Super Tucano",
+    "category": "Air"
+  },
+  {
+    "name": "LE F18 Hornet",
+    "category": "Air"
+  },
+  {
+    "name": "Nuke Project 665",
+    "category": "Naval"
+  },
+  {
+    "name": "Project 665",
+    "category": "Naval"
+  },
+  {
+    "name": "Alien",
+    "category": "Soldier"
+  },
+  {
+    "name": "TheIceZombieSlayer",
+    "category": "Soldier"
+  },
+  {
+    "name": "Super Skyfox",
+    "category": "Air"
+  },
+  {
+    "name": "Skyfox",
+    "category": "Air"
+  },
+  {
+    "name": "Super Speeder",
+    "category": "Land"
+  },
+  {
+    "name": "Tank Boat",
+    "category": "Naval"
+  },
+  {
+    "name": "Zhi 19E",
+    "category": "Air"
+  },
+  {
+    "name": "Super Zhi 19E",
+    "category": "Air"
+  },
+  {
+    "name": "BOSS War Shrike",
+    "category": "Air"
+  },
+  {
+    "name": "War Shrike",
+    "category": "Air"
+  },
+  {
+    "name": "Jet Engineer",
+    "category": "Soldier"
+  },
+  {
+    "name": "S.A.M. Truck",
+    "category": "Land"
+  },
+  {
+    "name": "Sukhoi SU25",
+    "category": "Air"
+  },
+  {
+    "name": "Sukhoi SU57",
+    "category": "Air"
+  },
+  {
+    "name": "Super Ironhawk",
+    "category": "Air"
+  },
+  {
+    "name": "Ironhawk",
+    "category": "Air"
+  },
+  {
+    "name": "Chinook CH-47",
+    "category": "Air"
+  },
+  {
+    "name": "Super Tesla Tank",
+    "category": "Land"
+  },
+  {
+    "name": "Tesla Tank",
+    "category": "Land"
+  },
+  {
+    "name": "Jetpack Fighter",
+    "category": "Soldier"
+  },
+  {
+    "name": "Armed Hoverbike",
+    "category": "Land"
+  },
+  {
+    "name": "Super B21",
+    "category": "Air"
+  },
+  {
+    "name": "B21 Raider",
+    "category": "Air"
+  },
+  {
+    "name": "Master Hellstorm",
+    "category": "Land"
+  },
+  {
+    "name": "Hellstorm",
+    "category": "Land"
+  },
+  {
+    "name": "Super YF1",
+    "category": "Air"
+  },
+  {
+    "name": "YF1",
+    "category": "Air"
+  },
+  {
+    "name": "Gold TKS20",
+    "category": "Land"
+  },
+  {
+    "name": "M10 Booker",
+    "category": "Land"
+  },
+  {
+    "name": "TKS-20",
+    "category": "Land"
+  },
+  {
+    "name": "Gold M10",
+    "category": "Land"
+  },
+  {
+    "name": "A50",
+    "category": "Air"
+  },
+  {
+    "name": "Super A50",
+    "category": "Air"
+  },
+  {
+    "name": "Nuke Sniper Soldier",
+    "category": "Soldier"
+  },
+  {
+    "name": "MQ4C Jet",
+    "category": "Air"
+  },
+  {
+    "name": "Master Warmaul",
+    "category": "Land"
+  },
+  {
+    "name": "Mortar Truck",
+    "category": "Land"
+  },
+  {
+    "name": "Nuke Mortar Truck",
+    "category": "Land"
+  },
+  {
+    "name": "Liberty Foch",
+    "category": "Land"
+  },
+  {
+    "name": "Super X59",
+    "category": "Air"
+  },
+  {
+    "name": "C17 Liberty",
+    "category": "Air"
+  },
+  {
+    "name": "Foch 155",
+    "category": "Land"
+  },
+  {
+    "name": "B1 Liberty",
+    "category": "Air"
+  },
+  {
+    "name": "PL-01 Liberty",
+    "category": "Land"
+  },
+  {
+    "name": "X-59",
+    "category": "Air"
+  },
+  {
+    "name": "Warmaul",
+    "category": "Land"
+  },
+  {
+    "name": "B2 Liberty",
+    "category": "Air"
+  },
+  {
+    "name": "SeaBreacher",
+    "category": "Naval"
+  },
+  {
+    "name": "SeaBreacher-X",
+    "category": "Naval"
+  },
+  {
+    "name": "Drone carrier",
+    "category": "Naval"
+  },
+  {
+    "name": "Super Drone Carrier",
+    "category": "Naval"
+  },
+  {
+    "name": "Stalker Drone",
+    "category": "Drone"
+  },
+  {
+    "name": "Vulcan",
+    "category": "Land"
+  },
+  {
+    "name": "Police AHRLAC",
+    "category": "Air"
+  },
+  {
+    "name": "Police APC",
+    "category": "Land"
+  },
+  {
+    "name": "Police Jeep",
+    "category": "Land"
+  },
+  {
+    "name": "Police Heli",
+    "category": "Air"
+  },
+  {
+    "name": "Super F24",
+    "category": "Air"
+  },
+  {
+    "name": "Reaper Drone",
+    "category": "Drone"
+  },
+  {
+    "name": "Bombardino",
+    "category": "Air"
+  },
+  {
+    "name": "Master Reaper",
+    "category": "Air"
+  },
+  {
+    "name": "Sky Reaper",
+    "category": "Air"
+  },
+  {
+    "name": "SM-27",
+    "category": "Air"
+  },
+  {
+    "name": "LE Cobra",
+    "category": "Air"
+  },
+  {
+    "name": "Super Harrier",
+    "category": "Air"
+  },
+  {
+    "name": "Harrier",
+    "category": "Air"
+  },
+  {
+    "name": "Tralalero",
+    "category": "Naval"
+  },
+  {
+    "name": "Imperial Tank",
+    "category": "Land"
+  },
+  {
+    "name": "Super Imperial Tank",
+    "category": "Land"
+  },
+  {
+    "name": "Skynex",
+    "category": "Land"
+  },
+  {
+    "name": "Elite Lancer",
+    "category": "Land"
+  },
+  {
+    "name": "The Annihilator",
+    "category": "Land"
+  },
+  {
+    "name": "Boss Annihilator",
+    "category": "Land"
+  },
+  {
+    "name": "Super A-14",
+    "category": "Air"
+  },
+  {
+    "name": "A14 Wolf",
+    "category": "Air"
+  },
+  {
+    "name": "Nova",
+    "category": "Air"
+  },
+  {
+    "name": "Super Nova",
+    "category": "Air"
+  },
+  {
+    "name": "Super Halftrack",
+    "category": "Land"
+  },
+  {
+    "name": "Flak Halftrack",
+    "category": "Land"
+  },
+  {
+    "name": "Halftrack",
+    "category": "Land"
+  },
+  {
+    "name": "Stealth Boat",
+    "category": "Naval"
+  },
+  {
+    "name": "LE YAL-1",
+    "category": "Air"
+  },
+  {
+    "name": "Shopping Cart",
+    "category": "Land"
+  },
+  {
+    "name": "TV Juggernaut",
+    "category": "Soldier"
+  },
+  {
+    "name": "Elite Hacker",
+    "category": "Soldier"
+  },
+  {
+    "name": "LE A-10",
+    "category": "Air"
+  },
+  {
+    "name": "Super TOS1",
+    "category": "Land"
+  },
+  {
+    "name": "Patriot Boat",
+    "category": "Naval"
+  },
+  {
+    "name": "Repair Drone",
+    "category": "Drone"
+  },
+  {
+    "name": "Missile Drone",
+    "category": "Drone"
+  },
+  {
+    "name": "Attack Drone",
+    "category": "Drone"
+  },
+  {
+    "name": "Black Hawk Trooper",
+    "category": "Soldier"
+  },
+  {
+    "name": "Boss Killer",
+    "category": "Soldier"
+  },
+  {
+    "name": "Boss Reaper",
+    "category": "Soldier"
+  },
+  {
+    "name": "Commander X",
+    "category": "Soldier"
+  },
+  {
+    "name": "Elite Grenadier",
+    "category": "Soldier"
+  },
+  {
+    "name": "Elite soldier",
+    "category": "Soldier"
+  },
+  {
+    "name": "Golden Soldier",
+    "category": "Soldier"
+  },
+  {
+    "name": "Grenadier",
+    "category": "Soldier"
+  },
+  {
+    "name": "Grumpy Killer",
+    "category": "Soldier"
+  },
+  {
+    "name": "Hacker",
+    "category": "Soldier"
+  },
+  {
+    "name": "Heavy",
+    "category": "Soldier"
+  },
+  {
+    "name": "Heavy Zombie",
+    "category": "Soldier"
+  },
+  {
+    "name": "Juggernaut",
+    "category": "Soldier"
+  },
+  {
+    "name": "Marine",
+    "category": "Soldier"
+  },
+  {
+    "name": "Medic",
+    "category": "Soldier"
+  },
+  {
+    "name": "Naval Officer",
+    "category": "Soldier"
+  },
+  {
+    "name": "Private",
+    "category": "Soldier"
+  },
+  {
+    "name": "Pyro",
+    "category": "Soldier"
+  },
+  {
+    "name": "Raid Soldier",
+    "category": "Soldier"
+  },
+  {
+    "name": "Railgun Killer",
+    "category": "Soldier"
+  },
+  {
+    "name": "Ravage Soldier",
+    "category": "Soldier"
+  },
+  {
+    "name": "RPG Soldier",
+    "category": "Soldier"
+  },
+  {
+    "name": "RPG Zombie",
+    "category": "Soldier"
+  },
+  {
+    "name": "Santa Assassin",
+    "category": "Soldier"
+  },
+  {
+    "name": "Santa Killer",
+    "category": "Soldier"
+  },
+  {
+    "name": "Santa Medic",
+    "category": "Soldier"
+  },
+  {
+    "name": "Santa Private",
+    "category": "Soldier"
+  },
+  {
+    "name": "Shock Trooper",
+    "category": "Soldier"
+  },
+  {
+    "name": "Sniper",
+    "category": "Soldier"
+  },
+  {
+    "name": "Super Sniper",
+    "category": "Soldier"
+  },
+  {
+    "name": "Toxic Trooper",
+    "category": "Soldier"
+  },
+  {
+    "name": "TV Soldier",
+    "category": "Soldier"
+  },
+  {
+    "name": "Vault Raider",
+    "category": "Soldier"
+  },
+  {
+    "name": "Zombie Juggernaut",
+    "category": "Soldier"
+  },
+  {
+    "name": "Assassin",
+    "category": "Soldier"
+  },
+  {
+    "name": "Ace Pilot",
+    "category": "Soldier"
+  },
+  {
+    "name": "AA Soldier",
+    "category": "Soldier"
+  },
+  {
+    "name": "Battle cruiser",
+    "category": "Naval"
+  },
+  {
+    "name": "Battleship",
+    "category": "Naval"
+  },
+  {
+    "name": "Boat",
+    "category": "Naval"
+  },
+  {
+    "name": "Boss North Carolina",
+    "category": "Naval"
+  },
+  {
+    "name": "Destroyer",
+    "category": "Naval"
+  },
+  {
+    "name": "Gold Typhoon",
+    "category": "Naval"
+  },
+  {
+    "name": "Golden Interceptor",
+    "category": "Naval"
+  },
+  {
+    "name": "Gun Boat",
+    "category": "Naval"
+  },
+  {
+    "name": "Hovercraft",
+    "category": "Naval"
+  },
+  {
+    "name": "Interceptor",
+    "category": "Naval"
+  },
+  {
+    "name": "Jetski",
+    "category": "Naval"
+  },
+  {
+    "name": "JS Atago",
+    "category": "Naval"
+  },
+  {
+    "name": "LE BISMARCK (G)",
+    "category": "Naval"
+  },
+  {
+    "name": "Gold Izumo",
+    "category": "Naval"
+  },
+  {
+    "name": "LE BISMARCK",
+    "category": "Naval"
+  },
+  {
+    "name": "LE5000 Izumo",
+    "category": "Naval"
+  },
+  {
+    "name": "Missile Boat",
+    "category": "Naval"
+  },
+  {
+    "name": "Nimitz",
+    "category": "Naval"
+  },
+  {
+    "name": "North Carolina",
+    "category": "Naval"
+  },
+  {
+    "name": "Nuke Sub",
+    "category": "Naval"
+  },
+  {
+    "name": "PACV Craft",
+    "category": "Naval"
+  },
+  {
+    "name": "Patria",
+    "category": "Naval"
+  },
+  {
+    "name": "Railgun Destroyer",
+    "category": "Naval"
+  },
+  {
+    "name": "Sachsen Frigate",
+    "category": "Naval"
+  },
+  {
+    "name": "SSBN",
+    "category": "Naval"
+  },
+  {
+    "name": "Submarine (Rare)",
+    "category": "Naval"
+  },
+  {
+    "name": "Super Hovercraft",
+    "category": "Naval"
+  },
+  {
+    "name": "Super Patria",
+    "category": "Naval"
+  },
+  {
+    "name": "Super Sub",
+    "category": "Naval"
+  },
+  {
+    "name": "Surrogat",
+    "category": "Naval"
+  },
+  {
+    "name": "Typhoon (Sub)",
+    "category": "Naval"
+  },
+  {
+    "name": "USS Independence",
+    "category": "Naval"
+  },
+  {
+    "name": "Warship",
+    "category": "Naval"
+  },
+  {
+    "name": "Yamato",
+    "category": "Naval"
+  },
+  {
+    "name": "ZUBR",
+    "category": "Naval"
+  },
+  {
+    "name": "Zumwalt",
+    "category": "Naval"
+  },
+  {
+    "name": "Attack Submarine",
+    "category": "Naval"
+  },
+  {
+    "name": "Armored Corvette",
+    "category": "Naval"
+  },
+  {
+    "name": "Alicorn",
+    "category": "Naval"
+  },
+  {
+    "name": "Carrier",
+    "category": "Naval"
+  },
+  {
+    "name": "Admiral Kuznetsov",
+    "category": "Naval"
+  },
+  {
+    "name": "AAV",
+    "category": "Land"
+  },
+  {
+    "name": "Abram Tank",
+    "category": "Land"
+  },
+  {
+    "name": "Abram X",
+    "category": "Land"
+  },
+  {
+    "name": "Alvis Stormer",
+    "category": "Land"
+  },
+  {
+    "name": "AATank",
+    "category": "Land"
+  },
+  {
+    "name": "APC",
+    "category": "Land"
+  },
+  {
+    "name": "Apocalypse",
+    "category": "Land"
+  },
+  {
+    "name": "Armored APC",
+    "category": "Land"
+  },
+  {
+    "name": "Armored Jeep",
+    "category": "Land"
+  },
+  {
+    "name": "Armored Snow mobile",
+    "category": "Land"
+  },
+  {
+    "name": "Armored Vehicle",
+    "category": "Land"
+  },
+  {
+    "name": "Artillery",
+    "category": "Land"
+  },
+  {
+    "name": "ATV",
+    "category": "Land"
+  },
+  {
+    "name": "Battle Tank",
+    "category": "Land"
+  },
+  {
+    "name": "Boss Buggy",
+    "category": "Land"
+  }
+]

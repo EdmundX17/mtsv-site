@@ -1,0 +1,2636 @@
+{
+  "matched": [
+    {
+      "index": 0,
+      "img": "Submarine (C).webp",
+      "base": "Submarine (C)",
+      "matchedItems": [
+        {
+          "name": "Submarine (C)",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 1,
+      "img": "Gun Boat.webp",
+      "base": "Gun Boat",
+      "matchedItems": [
+        {
+          "name": "Gun Boat",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 2,
+      "img": "JetSki.webp",
+      "base": "JetSki",
+      "matchedItems": [
+        {
+          "name": "Jetski",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 3,
+      "img": "Hovercraft.webp",
+      "base": "Hovercraft",
+      "matchedItems": [
+        {
+          "name": "Hovercraft",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 4,
+      "img": "Boat.webp",
+      "base": "Boat",
+      "matchedItems": [
+        {
+          "name": "Boat",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 5,
+      "img": "Battleship.webp",
+      "base": "Battleship",
+      "matchedItems": [
+        {
+          "name": "Battleship",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 6,
+      "img": "Destroyer.webp",
+      "base": "Destroyer",
+      "matchedItems": [
+        {
+          "name": "Destroyer",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 7,
+      "img": "Super Sub.webp",
+      "base": "Super Sub",
+      "matchedItems": [
+        {
+          "name": "Super Sub",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 8,
+      "img": "Battlecruiser.webp",
+      "base": "Battlecruiser",
+      "matchedItems": [
+        {
+          "name": "Battle cruiser",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 9,
+      "img": "Sachsen Frigate.webp",
+      "base": "Sachsen Frigate",
+      "matchedItems": [
+        {
+          "name": "Sachsen Frigate",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 10,
+      "img": "Submarine (Rare).webp",
+      "base": "Submarine (Rare)",
+      "matchedItems": [
+        {
+          "name": "Submarine (Rare)",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 11,
+      "img": "Missile Boat.webp",
+      "base": "Missile Boat",
+      "matchedItems": [
+        {
+          "name": "Missile Boat",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 12,
+      "img": "Carrier.webp",
+      "base": "Carrier",
+      "matchedItems": [
+        {
+          "name": "Carrier",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 13,
+      "img": "Yamato.webp",
+      "base": "Yamato",
+      "matchedItems": [
+        {
+          "name": "Yamato",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 14,
+      "img": "Patria.webp",
+      "base": "Patria",
+      "matchedItems": [
+        {
+          "name": "Patria",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 15,
+      "img": "North Carolina.webp",
+      "base": "North Carolina",
+      "matchedItems": [
+        {
+          "name": "North Carolina",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 16,
+      "img": "Interceptor.webp",
+      "base": "Interceptor",
+      "matchedItems": [
+        {
+          "name": "Interceptor",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 17,
+      "img": "Zumwalt.webp",
+      "base": "Zumwalt",
+      "matchedItems": [
+        {
+          "name": "Zumwalt",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 18,
+      "img": "War ship.webp",
+      "base": "War ship",
+      "matchedItems": [
+        {
+          "name": "Warship",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 19,
+      "img": "Zubr.webp",
+      "base": "Zubr",
+      "matchedItems": [
+        {
+          "name": "ZUBR",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 20,
+      "img": "Boss North Carolina.webp",
+      "base": "Boss North Carolina",
+      "matchedItems": [
+        {
+          "name": "Boss North Carolina",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 21,
+      "img": "Typhoon.webp",
+      "base": "Typhoon",
+      "matchedItems": [
+        {
+          "name": "Gold Typhoon",
+          "category": "Naval"
+        },
+        {
+          "name": "Typhoon (Sub)",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 22,
+      "img": "USS Independence.webp",
+      "base": "USS Independence",
+      "matchedItems": [
+        {
+          "name": "USS Independence",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 23,
+      "img": "Super Patria.webp",
+      "base": "Super Patria",
+      "matchedItems": [
+        {
+          "name": "Super Patria",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 24,
+      "img": "Tank Boat.webp",
+      "base": "Tank Boat",
+      "matchedItems": [
+        {
+          "name": "Tank Boat",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 25,
+      "img": "Surrogat.webp",
+      "base": "Surrogat",
+      "matchedItems": [
+        {
+          "name": "Surrogat",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 26,
+      "img": "Tralalero.webp",
+      "base": "Tralalero",
+      "matchedItems": [
+        {
+          "name": "Tralalero",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 27,
+      "img": "Super Hovercraft.webp",
+      "base": "Super Hovercraft",
+      "matchedItems": [
+        {
+          "name": "Super Hovercraft",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 28,
+      "img": "Steel Rain.webp",
+      "base": "Steel Rain",
+      "matchedItems": [
+        {
+          "name": "Steel Rain",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 29,
+      "img": "SSBN.webp",
+      "base": "SSBN",
+      "matchedItems": [
+        {
+          "name": "SSBN",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 30,
+      "img": "Stealth Boat.webp",
+      "base": "Stealth Boat",
+      "matchedItems": [
+        {
+          "name": "Stealth Boat",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 31,
+      "img": "Recon Destroyer.webp",
+      "base": "Recon Destroyer",
+      "matchedItems": [
+        {
+          "name": "Recon Destroyer",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 32,
+      "img": "Railgun Destroyer.webp",
+      "base": "Railgun Destroyer",
+      "matchedItems": [
+        {
+          "name": "Railgun Destroyer",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 33,
+      "img": "Nimitz.webp",
+      "base": "Nimitz",
+      "matchedItems": [
+        {
+          "name": "Nimitz",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 34,
+      "img": "LE5000 Izumo.webp",
+      "base": "LE5000 Izumo",
+      "matchedItems": [
+        {
+          "name": "LE5000 Izumo",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 35,
+      "img": "PACV Craft.webp",
+      "base": "PACV Craft",
+      "matchedItems": [
+        {
+          "name": "PACV Craft",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 36,
+      "img": "Patriot Boat.webp",
+      "base": "Patriot Boat",
+      "matchedItems": [
+        {
+          "name": "Patriot Boat",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 37,
+      "img": "Golden Interceptor.webp",
+      "base": "Golden Interceptor",
+      "matchedItems": [
+        {
+          "name": "Golden Interceptor",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 38,
+      "img": "Gold Typhoon.webp",
+      "base": "Gold Typhoon",
+      "matchedItems": [
+        {
+          "name": "Gold Typhoon",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 39,
+      "img": "Admiral Kuznetsov.webp",
+      "base": "Admiral Kuznetsov",
+      "matchedItems": [
+        {
+          "name": "Admiral Kuznetsov",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 40,
+      "img": "JS Atago.webp",
+      "base": "JS Atago",
+      "matchedItems": [
+        {
+          "name": "JS Atago",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 41,
+      "img": "Attack Submarine.webp",
+      "base": "Attack Submarine",
+      "matchedItems": [
+        {
+          "name": "Attack Submarine",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 42,
+      "img": "Corsair.webp",
+      "base": "Corsair",
+      "matchedItems": [
+        {
+          "name": "Corsair",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 43,
+      "img": "Alicorn.webp",
+      "base": "Alicorn",
+      "matchedItems": [
+        {
+          "name": "Alicorn",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 44,
+      "img": "Warspite.webp",
+      "base": "Warspite",
+      "matchedItems": [
+        {
+          "name": "Warspite",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 45,
+      "img": "USS Missouri.webp",
+      "base": "USS Missouri",
+      "matchedItems": [
+        {
+          "name": "USS Missouri",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 46,
+      "img": "Armored Corvette.webp",
+      "base": "Armored Corvette",
+      "matchedItems": [
+        {
+          "name": "Armored Corvette",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 47,
+      "img": "Super Warship.webp",
+      "base": "Super Warship",
+      "matchedItems": [
+        {
+          "name": "Super Warship",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 48,
+      "img": "UAV Carrier.webp",
+      "base": "UAV Carrier",
+      "matchedItems": [
+        {
+          "name": "UAV Carrier",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 49,
+      "img": "SeaBreacher.webp",
+      "base": "SeaBreacher",
+      "matchedItems": [
+        {
+          "name": "SeaBreacher",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 50,
+      "img": "Super Recon Destroyer.webp",
+      "base": "Super Recon Destroyer",
+      "matchedItems": [
+        {
+          "name": "Super Recon Destroyer",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 51,
+      "img": "Sea Dragon.webp",
+      "base": "Sea Dragon",
+      "matchedItems": [
+        {
+          "name": "Sea Dragon",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 52,
+      "img": "Marasesti.webp",
+      "base": "Marasesti",
+      "matchedItems": [
+        {
+          "name": "Marasesti",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 53,
+      "img": "Project 665.webp",
+      "base": "Project 665",
+      "matchedItems": [
+        {
+          "name": "Project 665",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 54,
+      "img": "Master Rain.webp",
+      "base": "Master Rain",
+      "matchedItems": [
+        {
+          "name": "Master Rain",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 55,
+      "img": "Nuke Sub.webp",
+      "base": "Nuke Sub",
+      "matchedItems": [
+        {
+          "name": "Nuke Sub",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 56,
+      "img": "Drone Carrier.webp",
+      "base": "Drone Carrier",
+      "matchedItems": [
+        {
+          "name": "Drone carrier",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 57,
+      "img": "LE BISMARCK.webp",
+      "base": "LE BISMARCK",
+      "matchedItems": [
+        {
+          "name": "LE BISMARCK",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 58,
+      "img": "Battle Yacht.webp",
+      "base": "Battle Yacht",
+      "matchedItems": [
+        {
+          "name": "Battle Yacht",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 59,
+      "img": "Zumwalt X.webp",
+      "base": "Zumwalt X",
+      "matchedItems": [
+        {
+          "name": "Zumwalt X",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 60,
+      "img": "Super Yamato.webp",
+      "base": "Super Yamato",
+      "matchedItems": [
+        {
+          "name": "Super Yamato",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 61,
+      "img": "Corsair X.webp",
+      "base": "Corsair X",
+      "matchedItems": [
+        {
+          "name": "Corsair-X",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 62,
+      "img": "Super Warspite.webp",
+      "base": "Super Warspite",
+      "matchedItems": [
+        {
+          "name": "Super Warspite",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 63,
+      "img": "Super UAV Carrier.webp",
+      "base": "Super UAV Carrier",
+      "matchedItems": [
+        {
+          "name": "Super UAV Carrier",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 64,
+      "img": "Super Sea Dragon.webp",
+      "base": "Super Sea Dragon",
+      "matchedItems": [
+        {
+          "name": "Super Sea Dragon",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 65,
+      "img": "Super Stealth Boat.webp",
+      "base": "Super Stealth Boat",
+      "matchedItems": [
+        {
+          "name": "Super Stealth Boat",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 66,
+      "img": "Super Marasesti.webp",
+      "base": "Super Marasesti",
+      "matchedItems": [
+        {
+          "name": "Super Marasesti",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 67,
+      "img": "Super Missouri.webp",
+      "base": "Super Missouri",
+      "matchedItems": [
+        {
+          "name": "Super Missouri",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 68,
+      "img": "Super Battle Yacht.webp",
+      "base": "Super Battle Yacht",
+      "matchedItems": [
+        {
+          "name": "Super Battle Yacht",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 69,
+      "img": "Super Drone Carrier.webp",
+      "base": "Super Drone Carrier",
+      "matchedItems": [
+        {
+          "name": "Super Drone Carrier",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 70,
+      "img": "Railgun-X Destroyer.webp",
+      "base": "Railgun-X Destroyer",
+      "matchedItems": [
+        {
+          "name": "Railgun-X Destroyer",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 71,
+      "img": "SeaBreacher-X.webp",
+      "base": "SeaBreacher-X",
+      "matchedItems": [
+        {
+          "name": "SeaBreacher-X",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 72,
+      "img": "Gold Izumo.webp",
+      "base": "Gold Izumo",
+      "matchedItems": [
+        {
+          "name": "Gold Izumo",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 73,
+      "img": "Nuke Project 665.webp",
+      "base": "Nuke Project 665",
+      "matchedItems": [
+        {
+          "name": "Nuke Project 665",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 74,
+      "img": "Limited SONAR.webp",
+      "base": "Limited SONAR",
+      "matchedItems": [
+        {
+          "name": "Limited SONAR",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 75,
+      "img": "LE BISMARCK(G).webp",
+      "base": "LE BISMARCK(G)",
+      "matchedItems": [
+        {
+          "name": "LE BISMARCK (G)",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 76,
+      "img": "Harrier.webp",
+      "base": "Harrier",
+      "matchedItems": [
+        {
+          "name": "Harrier",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 82,
+      "img": "Helicopter.webp",
+      "base": "Helicopter",
+      "matchedItems": [
+        {
+          "name": "Medic Helicopter",
+          "category": "Air"
+        },
+        {
+          "name": "Super Medic Helicopter",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 84,
+      "img": "F22.webp",
+      "base": "F22",
+      "matchedItems": [
+        {
+          "name": "Blue F22",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 93,
+      "img": "F35.webp",
+      "base": "F35",
+      "matchedItems": [
+        {
+          "name": "F35 Billion",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 104,
+      "img": "Raptor.webp",
+      "base": "Raptor",
+      "matchedItems": [
+        {
+          "name": "Raptor X",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 111,
+      "img": "F18.webp",
+      "base": "F18",
+      "matchedItems": [
+        {
+          "name": "LE F18 Hornet",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 114,
+      "img": "Darkstar.webp",
+      "base": "Darkstar",
+      "matchedItems": [
+        {
+          "name": "Rainbow Darkstar",
+          "category": "Air"
+        },
+        {
+          "name": "Darkstar-X",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 118,
+      "img": "AHRLAC.webp",
+      "base": "AHRLAC",
+      "matchedItems": [
+        {
+          "name": "Police AHRLAC",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 120,
+      "img": "Zeplin-X.webp",
+      "base": "Zeplin-X",
+      "matchedItems": [
+        {
+          "name": "Elite Zeplin-X",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 122,
+      "img": "YF1.webp",
+      "base": "YF1",
+      "matchedItems": [
+        {
+          "name": "YF1",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 123,
+      "img": "X59.webp",
+      "base": "X59",
+      "matchedItems": [
+        {
+          "name": "X-59",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 125,
+      "img": "War Shrike.webp",
+      "base": "War Shrike",
+      "matchedItems": [
+        {
+          "name": "War Shrike",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 127,
+      "img": "Valor.webp",
+      "base": "Valor",
+      "matchedItems": [
+        {
+          "name": "Valor",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 128,
+      "img": "Typhoon.webp",
+      "base": "Typhoon",
+      "matchedItems": [
+        {
+          "name": "Gold Typhoon",
+          "category": "Naval"
+        },
+        {
+          "name": "Typhoon (Sub)",
+          "category": "Naval"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 129,
+      "img": "U2.webp",
+      "base": "U2",
+      "matchedItems": [
+        {
+          "name": "Sukhoi SU25",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 131,
+      "img": "TU95.webp",
+      "base": "TU95",
+      "matchedItems": [
+        {
+          "name": "TU95",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 133,
+      "img": "Tixplane.webp",
+      "base": "Tixplane",
+      "matchedItems": [
+        {
+          "name": "Tixplane",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 134,
+      "img": "TU-160.webp",
+      "base": "TU-160",
+      "matchedItems": [
+        {
+          "name": "TU-160",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 138,
+      "img": "Super Tucano.webp",
+      "base": "Super Tucano",
+      "matchedItems": [
+        {
+          "name": "Super Tucano",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 142,
+      "img": "Sukhoi SU25.webp",
+      "base": "Sukhoi SU25",
+      "matchedItems": [
+        {
+          "name": "Sukhoi SU25",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 146,
+      "img": "Sky Reaper.webp",
+      "base": "Sky Reaper",
+      "matchedItems": [
+        {
+          "name": "Sky Reaper",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 147,
+      "img": "Silver Howl.webp",
+      "base": "Silver Howl",
+      "matchedItems": [
+        {
+          "name": "Silver Howl",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 148,
+      "img": "Skyfox.webp",
+      "base": "Skyfox",
+      "matchedItems": [
+        {
+          "name": "Skyfox",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 151,
+      "img": "SeaHawk.webp",
+      "base": "SeaHawk",
+      "matchedItems": [
+        {
+          "name": "SeaHawk",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 152,
+      "img": "SU57.webp",
+      "base": "SU57",
+      "matchedItems": [
+        {
+          "name": "Sukhoi SU57",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 153,
+      "img": "SU25.webp",
+      "base": "SU25",
+      "matchedItems": [
+        {
+          "name": "Sukhoi SU25",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 155,
+      "img": "Red F14.webp",
+      "base": "Red F14",
+      "matchedItems": [
+        {
+          "name": "Red F14",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 156,
+      "img": "SM-27.webp",
+      "base": "SM-27",
+      "matchedItems": [
+        {
+          "name": "SM-27",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 157,
+      "img": "Rocket HE177.webp",
+      "base": "Rocket HE177",
+      "matchedItems": [
+        {
+          "name": "Rocket HE177",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 158,
+      "img": "Police Heli.webp",
+      "base": "Police Heli",
+      "matchedItems": [
+        {
+          "name": "Police Heli",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 160,
+      "img": "Rafale.webp",
+      "base": "Rafale",
+      "matchedItems": [
+        {
+          "name": "Super Rafale",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 163,
+      "img": "NovaBlitz.webp",
+      "base": "NovaBlitz",
+      "matchedItems": [
+        {
+          "name": "Nova",
+          "category": "Air"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 165,
+      "img": "Nova.webp",
+      "base": "Nova",
+      "matchedItems": [
+        {
+          "name": "Nova",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 169,
+      "img": "Mig25.webp",
+      "base": "Mig25",
+      "matchedItems": [
+        {
+          "name": "Mig25",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 170,
+      "img": "M50.webp",
+      "base": "M50",
+      "matchedItems": [
+        {
+          "name": "M50",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 172,
+      "img": "Lovebird.webp",
+      "base": "Lovebird",
+      "matchedItems": [
+        {
+          "name": "Lovebird",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 173,
+      "img": "MQ4C Jet.webp",
+      "base": "MQ4C Jet",
+      "matchedItems": [
+        {
+          "name": "MQ4C Jet",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 174,
+      "img": "LE Cobra.webp",
+      "base": "LE Cobra",
+      "matchedItems": [
+        {
+          "name": "LE Cobra",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 175,
+      "img": "Ironhawk.webp",
+      "base": "Ironhawk",
+      "matchedItems": [
+        {
+          "name": "Ironhawk",
+          "category": "Air"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 178,
+      "img": "Truck.webp",
+      "base": "Truck",
+      "matchedItems": [
+        {
+          "name": "Hacker Truck",
+          "category": "Land"
+        },
+        {
+          "name": "S.A.M. Truck",
+          "category": "Land"
+        },
+        {
+          "name": "Mortar Truck",
+          "category": "Land"
+        },
+        {
+          "name": "Nuke Mortar Truck",
+          "category": "Land"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 180,
+      "img": "Snowmobile.webp",
+      "base": "Snowmobile",
+      "matchedItems": [
+        {
+          "name": "Armored Snow mobile",
+          "category": "Land"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 186,
+      "img": "Jeep.webp",
+      "base": "Jeep",
+      "matchedItems": [
+        {
+          "name": "Top5 AN Jeep",
+          "category": "Land"
+        },
+        {
+          "name": "Anti Nuke Jeep",
+          "category": "Land"
+        },
+        {
+          "name": "Super AN Jeep",
+          "category": "Land"
+        },
+        {
+          "name": "Police Jeep",
+          "category": "Land"
+        },
+        {
+          "name": "Armored Jeep",
+          "category": "Land"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 188,
+      "img": "Grapple ATV.webp",
+      "base": "Grapple ATV",
+      "matchedItems": [
+        {
+          "name": "ATV",
+          "category": "Land"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 190,
+      "img": "Armored Vehicle.webp",
+      "base": "Armored Vehicle",
+      "matchedItems": [
+        {
+          "name": "Armored Vehicle",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 191,
+      "img": "Artillery.webp",
+      "base": "Artillery",
+      "matchedItems": [
+        {
+          "name": "Artillery",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 192,
+      "img": "Armored Jeep.webp",
+      "base": "Armored Jeep",
+      "matchedItems": [
+        {
+          "name": "Armored Jeep",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 193,
+      "img": "Armored Snowmobile.webp",
+      "base": "Armored Snowmobile",
+      "matchedItems": [
+        {
+          "name": "Armored Snow mobile",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 194,
+      "img": "ATV.webp",
+      "base": "ATV",
+      "matchedItems": [
+        {
+          "name": "ATV",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 195,
+      "img": "Green Abram Tank.webp",
+      "base": "Green Abram Tank",
+      "matchedItems": [
+        {
+          "name": "Abram Tank",
+          "category": "Land"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 196,
+      "img": "APC.webp",
+      "base": "APC",
+      "matchedItems": [
+        {
+          "name": "APC",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 197,
+      "img": "AAV.webp",
+      "base": "AAV",
+      "matchedItems": [
+        {
+          "name": "AAV",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 203,
+      "img": "Halftrack.webp",
+      "base": "Halftrack",
+      "matchedItems": [
+        {
+          "name": "Halftrack",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 205,
+      "img": "Alvis Stormer.webp",
+      "base": "Alvis Stormer",
+      "matchedItems": [
+        {
+          "name": "Alvis Stormer",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 206,
+      "img": "BOSS Buggy.webp",
+      "base": "BOSS Buggy",
+      "matchedItems": [
+        {
+          "name": "Boss Buggy",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 207,
+      "img": "AATank.webp",
+      "base": "AATank",
+      "matchedItems": [
+        {
+          "name": "AATank",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 208,
+      "img": "Abram Tank.webp",
+      "base": "Abram Tank",
+      "matchedItems": [
+        {
+          "name": "Abram Tank",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 209,
+      "img": "Abram X.webp",
+      "base": "Abram X",
+      "matchedItems": [
+        {
+          "name": "Abram X",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 211,
+      "img": "TKS-20.webp",
+      "base": "TKS-20",
+      "matchedItems": [
+        {
+          "name": "TKS-20",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 216,
+      "img": "Rg-1 Railgun Car.webp",
+      "base": "Rg-1 Railgun Car",
+      "matchedItems": [
+        {
+          "name": "Railgun",
+          "category": "Other"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 217,
+      "img": "Pyro Tank.webp",
+      "base": "Pyro Tank",
+      "matchedItems": [
+        {
+          "name": "Pyro",
+          "category": "Soldier"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 220,
+      "img": "PL-01.webp",
+      "base": "PL-01",
+      "matchedItems": [
+        {
+          "name": "PL-01 Liberty",
+          "category": "Land"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 221,
+      "img": "M10 Booker.webp",
+      "base": "M10 Booker",
+      "matchedItems": [
+        {
+          "name": "M10 Booker",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 225,
+      "img": "Flak Halftrack.webp",
+      "base": "Flak Halftrack",
+      "matchedItems": [
+        {
+          "name": "Flak Halftrack",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 228,
+      "img": "Vulcan.webp",
+      "base": "Vulcan",
+      "matchedItems": [
+        {
+          "name": "Vulcan",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 229,
+      "img": "Warmaul.webp",
+      "base": "Warmaul",
+      "matchedItems": [
+        {
+          "name": "Warmaul",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 231,
+      "img": "Vespa TAP.webp",
+      "base": "Vespa TAP",
+      "matchedItems": [
+        {
+          "name": "Vespa Tap",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 232,
+      "img": "The Annihilator.webp",
+      "base": "The Annihilator",
+      "matchedItems": [
+        {
+          "name": "The Annihilator",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 233,
+      "img": "Tank.webp",
+      "base": "Tank",
+      "matchedItems": [
+        {
+          "name": "Super Beam Tank",
+          "category": "Land"
+        },
+        {
+          "name": "Beam Tank",
+          "category": "Land"
+        },
+        {
+          "name": "Tank (Emblem)",
+          "category": "Other"
+        },
+        {
+          "name": "Combat Tank (Emblem)",
+          "category": "Other"
+        },
+        {
+          "name": "Werewolf Tank",
+          "category": "Land"
+        },
+        {
+          "name": "Haunted Tank",
+          "category": "Land"
+        },
+        {
+          "name": "Tank Boat",
+          "category": "Naval"
+        },
+        {
+          "name": "Super Tesla Tank",
+          "category": "Land"
+        },
+        {
+          "name": "Tesla Tank",
+          "category": "Land"
+        },
+        {
+          "name": "Imperial Tank",
+          "category": "Land"
+        },
+        {
+          "name": "Super Imperial Tank",
+          "category": "Land"
+        },
+        {
+          "name": "Abram Tank",
+          "category": "Land"
+        },
+        {
+          "name": "AATank",
+          "category": "Land"
+        },
+        {
+          "name": "Battle Tank",
+          "category": "Land"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 236,
+      "img": "SuperAPC.webp",
+      "base": "SuperAPC",
+      "matchedItems": [
+        {
+          "name": "APC",
+          "category": "Land"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 239,
+      "img": "Super TOS1.webp",
+      "base": "Super TOS1",
+      "matchedItems": [
+        {
+          "name": "Super TOS1",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 240,
+      "img": "Super Speeder.webp",
+      "base": "Super Speeder",
+      "matchedItems": [
+        {
+          "name": "Super Speeder",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 241,
+      "img": "Super Halftrack.webp",
+      "base": "Super Halftrack",
+      "matchedItems": [
+        {
+          "name": "Super Halftrack",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 243,
+      "img": "Super Akrep.webp",
+      "base": "Super Akrep",
+      "matchedItems": [
+        {
+          "name": "Super Akrep",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 246,
+      "img": "Shopping Cart.webp",
+      "base": "Shopping Cart",
+      "matchedItems": [
+        {
+          "name": "Shopping Cart",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 247,
+      "img": "Skynex.webp",
+      "base": "Skynex",
+      "matchedItems": [
+        {
+          "name": "Skynex",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 251,
+      "img": "S.A.M. Truck.webp",
+      "base": "S.A.M. Truck",
+      "matchedItems": [
+        {
+          "name": "S.A.M. Truck",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 253,
+      "img": "Railgun Tank.webp",
+      "base": "Railgun Tank",
+      "matchedItems": [
+        {
+          "name": "Railgun",
+          "category": "Other"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 255,
+      "img": "Police Jeep.webp",
+      "base": "Police Jeep",
+      "matchedItems": [
+        {
+          "name": "Police Jeep",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 259,
+      "img": "Police APC.webp",
+      "base": "Police APC",
+      "matchedItems": [
+        {
+          "name": "Police APC",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 262,
+      "img": "PL-01 Liberty.webp",
+      "base": "PL-01 Liberty",
+      "matchedItems": [
+        {
+          "name": "PL-01 Liberty",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 263,
+      "img": "Medic Truck.webp",
+      "base": "Medic Truck",
+      "matchedItems": [
+        {
+          "name": "Medic",
+          "category": "Soldier"
+        }
+      ],
+      "matchType": "fuzzy"
+    },
+    {
+      "index": 265,
+      "img": "Overlord.webp",
+      "base": "Overlord",
+      "matchedItems": [
+        {
+          "name": "Overlord",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 268,
+      "img": "Liberty Foch.webp",
+      "base": "Liberty Foch",
+      "matchedItems": [
+        {
+          "name": "Liberty Foch",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 269,
+      "img": "MLRS.webp",
+      "base": "MLRS",
+      "matchedItems": [
+        {
+          "name": "MLRS",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 270,
+      "img": "Love Buggy.webp",
+      "base": "Love Buggy",
+      "matchedItems": [
+        {
+          "name": "Love Buggy",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 272,
+      "img": "Keiler.webp",
+      "base": "Keiler",
+      "matchedItems": [
+        {
+          "name": "Keiler",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 273,
+      "img": "King Tiger.webp",
+      "base": "King Tiger",
+      "matchedItems": [
+        {
+          "name": "King Tiger",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    },
+    {
+      "index": 274,
+      "img": "Korkut.webp",
+      "base": "Korkut",
+      "matchedItems": [
+        {
+          "name": "Korkut",
+          "category": "Land"
+        }
+      ],
+      "matchType": "exact_norm"
+    }
+  ],
+  "unmatched": [
+    {
+      "index": 77,
+      "img": "Turret Helicopter.webp",
+      "base": "Turret Helicopter"
+    },
+    {
+      "index": 78,
+      "img": "Turret Chinook.webp",
+      "base": "Turret Chinook"
+    },
+    {
+      "index": 79,
+      "img": "Spitfire MK2.webp",
+      "base": "Spitfire MK2"
+    },
+    {
+      "index": 80,
+      "img": "Invictus.webp",
+      "base": "Invictus"
+    },
+    {
+      "index": 81,
+      "img": "Fighter Biplane.webp",
+      "base": "Fighter Biplane"
+    },
+    {
+      "index": 83,
+      "img": "Dive Bomber.webp",
+      "base": "Dive Bomber"
+    },
+    {
+      "index": 85,
+      "img": "F16.webp",
+      "base": "F16"
+    },
+    {
+      "index": 86,
+      "img": "Blackhawk Helicopter.webp",
+      "base": "Blackhawk Helicopter"
+    },
+    {
+      "index": 87,
+      "img": "Biplane.webp",
+      "base": "Biplane"
+    },
+    {
+      "index": 88,
+      "img": "B-17.webp",
+      "base": "B-17"
+    },
+    {
+      "index": 89,
+      "img": "Attack Helicopter.webp",
+      "base": "Attack Helicopter"
+    },
+    {
+      "index": 90,
+      "img": "V22.webp",
+      "base": "V22"
+    },
+    {
+      "index": 91,
+      "img": "YF-23.webp",
+      "base": "YF-23"
+    },
+    {
+      "index": 92,
+      "img": "Warplane.webp",
+      "base": "Warplane"
+    },
+    {
+      "index": 94,
+      "img": "Spitfire.webp",
+      "base": "Spitfire"
+    },
+    {
+      "index": 95,
+      "img": "FX1.webp",
+      "base": "FX1"
+    },
+    {
+      "index": 96,
+      "img": "Toy B-17.webp",
+      "base": "Toy B-17"
+    },
+    {
+      "index": 97,
+      "img": "B29 Bomber.webp",
+      "base": "B29 Bomber"
+    },
+    {
+      "index": 98,
+      "img": "AC130.webp",
+      "base": "AC130"
+    },
+    {
+      "index": 99,
+      "img": "Stealth F35.webp",
+      "base": "Stealth F35"
+    },
+    {
+      "index": 100,
+      "img": "SU47.webp",
+      "base": "SU47"
+    },
+    {
+      "index": 101,
+      "img": "SU-24.webp",
+      "base": "SU-24"
+    },
+    {
+      "index": 102,
+      "img": "MIG29.webp",
+      "base": "MIG29"
+    },
+    {
+      "index": 103,
+      "img": "Recon Helicopter.webp",
+      "base": "Recon Helicopter"
+    },
+    {
+      "index": 105,
+      "img": "MI-28.webp",
+      "base": "MI-28"
+    },
+    {
+      "index": 106,
+      "img": "KA52.webp",
+      "base": "KA52"
+    },
+    {
+      "index": 107,
+      "img": "MI35.webp",
+      "base": "MI35"
+    },
+    {
+      "index": 108,
+      "img": "FC31.webp",
+      "base": "FC31"
+    },
+    {
+      "index": 109,
+      "img": "Golden F16.webp",
+      "base": "Golden F16"
+    },
+    {
+      "index": 110,
+      "img": "Golden F22.webp",
+      "base": "Golden F22"
+    },
+    {
+      "index": 112,
+      "img": "F117.webp",
+      "base": "F117"
+    },
+    {
+      "index": 113,
+      "img": "Darkstar Mk2.webp",
+      "base": "Darkstar Mk2"
+    },
+    {
+      "index": 115,
+      "img": "Defiant.webp",
+      "base": "Defiant"
+    },
+    {
+      "index": 116,
+      "img": "Blackbird.webp",
+      "base": "Blackbird"
+    },
+    {
+      "index": 117,
+      "img": "BOSS MI-28.webp",
+      "base": "BOSS MI-28"
+    },
+    {
+      "index": 119,
+      "img": "AC-119K.webp",
+      "base": "AC-119K"
+    },
+    {
+      "index": 121,
+      "img": "Zombie AC130.webp",
+      "base": "Zombie AC130"
+    },
+    {
+      "index": 124,
+      "img": "XB-70.webp",
+      "base": "XB-70"
+    },
+    {
+      "index": 126,
+      "img": "Wulf.webp",
+      "base": "Wulf"
+    },
+    {
+      "index": 130,
+      "img": "UFO.webp",
+      "base": "UFO"
+    },
+    {
+      "index": 132,
+      "img": "TU-22M.webp",
+      "base": "TU-22M"
+    },
+    {
+      "index": 135,
+      "img": "Super YF-23.webp",
+      "base": "Super YF-23"
+    },
+    {
+      "index": 136,
+      "img": "Super F15.webp",
+      "base": "Super F15"
+    },
+    {
+      "index": 137,
+      "img": "Super Raptor.webp",
+      "base": "Super Raptor"
+    },
+    {
+      "index": 139,
+      "img": "Super Darkstar MK-2.webp",
+      "base": "Super Darkstar MK-2"
+    },
+    {
+      "index": 140,
+      "img": "Super F14.webp",
+      "base": "Super F14"
+    },
+    {
+      "index": 141,
+      "img": "Super AHRLAC.webp",
+      "base": "Super AHRLAC"
+    },
+    {
+      "index": 143,
+      "img": "Stealth F14.webp",
+      "base": "Stealth F14"
+    },
+    {
+      "index": 144,
+      "img": "Stallion.webp",
+      "base": "Stallion"
+    },
+    {
+      "index": 145,
+      "img": "Golden Spitfire.webp",
+      "base": "Golden Spitfire"
+    },
+    {
+      "index": 149,
+      "img": "ATC Silkfire.webp",
+      "base": "ATC Silkfire"
+    },
+    {
+      "index": 150,
+      "img": "Scorpion.webp",
+      "base": "Scorpion"
+    },
+    {
+      "index": 154,
+      "img": "SU34.webp",
+      "base": "SU34"
+    },
+    {
+      "index": 159,
+      "img": "Prowler.webp",
+      "base": "Prowler"
+    },
+    {
+      "index": 161,
+      "img": "Platinum F16.webp",
+      "base": "Platinum F16"
+    },
+    {
+      "index": 162,
+      "img": "Phantom Jet.webp",
+      "base": "Phantom Jet"
+    },
+    {
+      "index": 164,
+      "img": "Pelican.webp",
+      "base": "Pelican"
+    },
+    {
+      "index": 166,
+      "img": "Miron.webp",
+      "base": "Miron"
+    },
+    {
+      "index": 167,
+      "img": "NGAD.webp",
+      "base": "NGAD"
+    },
+    {
+      "index": 168,
+      "img": "Mig31.webp",
+      "base": "Mig31"
+    },
+    {
+      "index": 171,
+      "img": "ME262.webp",
+      "base": "ME262"
+    },
+    {
+      "index": 176,
+      "img": "AA Abram.webp",
+      "base": "AA Abram"
+    },
+    {
+      "index": 177,
+      "img": "Volk.webp",
+      "base": "Volk"
+    },
+    {
+      "index": 179,
+      "img": "Turret Truck.webp",
+      "base": "Turret Truck"
+    },
+    {
+      "index": 181,
+      "img": "Tiger Tank.webp",
+      "base": "Tiger Tank"
+    },
+    {
+      "index": 182,
+      "img": "Sand Hyena.webp",
+      "base": "Sand Hyena"
+    },
+    {
+      "index": 183,
+      "img": "Leopard Tank.webp",
+      "base": "Leopard Tank"
+    },
+    {
+      "index": 184,
+      "img": "Humvee.webp",
+      "base": "Humvee"
+    },
+    {
+      "index": 185,
+      "img": "Himars.webp",
+      "base": "Himars"
+    },
+    {
+      "index": 187,
+      "img": "Laser Truck.webp",
+      "base": "Laser Truck"
+    },
+    {
+      "index": 189,
+      "img": "Dune Buggy.webp",
+      "base": "Dune Buggy"
+    },
+    {
+      "index": 198,
+      "img": "T90 Tank.webp",
+      "base": "T90 Tank"
+    },
+    {
+      "index": 199,
+      "img": "Rocket Tank.webp",
+      "base": "Rocket Tank"
+    },
+    {
+      "index": 200,
+      "img": "Terrorbyte.webp",
+      "base": "Terrorbyte"
+    },
+    {
+      "index": 201,
+      "img": "QN506.webp",
+      "base": "QN506"
+    },
+    {
+      "index": 202,
+      "img": "Edjer.webp",
+      "base": "Edjer"
+    },
+    {
+      "index": 204,
+      "img": "Missile Truck.webp",
+      "base": "Missile Truck"
+    },
+    {
+      "index": 210,
+      "img": "Super Laser Truck.webp",
+      "base": "Super Laser Truck"
+    },
+    {
+      "index": 212,
+      "img": "Sea Tank.webp",
+      "base": "Sea Tank"
+    },
+    {
+      "index": 213,
+      "img": "Striker.webp",
+      "base": "Striker"
+    },
+    {
+      "index": 214,
+      "img": "Phanter.webp",
+      "base": "Phanter"
+    },
+    {
+      "index": 215,
+      "img": "S-Tank Barrage.webp",
+      "base": "S-Tank Barrage"
+    },
+    {
+      "index": 218,
+      "img": "Minigun Edjer.webp",
+      "base": "Minigun Edjer"
+    },
+    {
+      "index": 219,
+      "img": "Motorbike.webp",
+      "base": "Motorbike"
+    },
+    {
+      "index": 222,
+      "img": "Maus Tank.webp",
+      "base": "Maus Tank"
+    },
+    {
+      "index": 223,
+      "img": "Challenger.webp",
+      "base": "Challenger"
+    },
+    {
+      "index": 224,
+      "img": "BOSS Stormer.webp",
+      "base": "BOSS Stormer"
+    },
+    {
+      "index": 226,
+      "img": "Super Volk.webp",
+      "base": "Super Volk"
+    },
+    {
+      "index": 227,
+      "img": "Weiner Wagon.webp",
+      "base": "Weiner Wagon"
+    },
+    {
+      "index": 230,
+      "img": "Stomper.webp",
+      "base": "Stomper"
+    },
+    {
+      "index": 234,
+      "img": "Terminator.webp",
+      "base": "Terminator"
+    },
+    {
+      "index": 235,
+      "img": "TV Tank.webp",
+      "base": "TV Tank"
+    },
+    {
+      "index": 237,
+      "img": "T90-M.webp",
+      "base": "T90-M"
+    },
+    {
+      "index": 238,
+      "img": "Super Striker.webp",
+      "base": "Super Striker"
+    },
+    {
+      "index": 242,
+      "img": "Super Phanter.webp",
+      "base": "Super Phanter"
+    },
+    {
+      "index": 244,
+      "img": "Sturmtank.webp",
+      "base": "Sturmtank"
+    },
+    {
+      "index": 245,
+      "img": "Super Edjer.webp",
+      "base": "Super Edjer"
+    },
+    {
+      "index": 248,
+      "img": "Strela.webp",
+      "base": "Strela"
+    },
+    {
+      "index": 249,
+      "img": "Shocker.webp",
+      "base": "Shocker"
+    },
+    {
+      "index": 250,
+      "img": "Santa Maus.webp",
+      "base": "Santa Maus"
+    },
+    {
+      "index": 252,
+      "img": "Rocket Truck.webp",
+      "base": "Rocket Truck"
+    },
+    {
+      "index": 254,
+      "img": "S-tank Gatling.webp",
+      "base": "S-tank Gatling"
+    },
+    {
+      "index": 256,
+      "img": "Puma Recon.webp",
+      "base": "Puma Recon"
+    },
+    {
+      "index": 257,
+      "img": "RT01.webp",
+      "base": "RT01"
+    },
+    {
+      "index": 258,
+      "img": "Patriot truck.webp",
+      "base": "Patriot truck"
+    },
+    {
+      "index": 260,
+      "img": "PHL-03.webp",
+      "base": "PHL-03"
+    },
+    {
+      "index": 261,
+      "img": "Pantsir.webp",
+      "base": "Pantsir"
+    },
+    {
+      "index": 264,
+      "img": "Merkava.webp",
+      "base": "Merkava"
+    },
+    {
+      "index": 266,
+      "img": "MZKT.webp",
+      "base": "MZKT"
+    },
+    {
+      "index": 267,
+      "img": "Manti Core.webp",
+      "base": "Manti Core"
+    },
+    {
+      "index": 271,
+      "img": "Leopard 2A7.webp",
+      "base": "Leopard 2A7"
+    },
+    {
+      "index": 275,
+      "img": "Katyusha.webp",
+      "base": "Katyusha"
+    }
+  ],
+  "duplicates": [
+    [
+      "Typhoon.webp",
+      2
+    ]
+  ]
+}

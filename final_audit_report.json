@@ -1,0 +1,2706 @@
+{
+  "totalUploaded": 276,
+  "matchedCount": 267,
+  "uniqueUsedImagesCount": 266,
+  "unusedImagesCount": 9,
+  "unusedImages": [
+    "Turret Chinook.webp",
+    "B-17.webp",
+    "YF-23.webp",
+    "Toy B-17.webp",
+    "AC130.webp",
+    "Zombie AC130.webp",
+    "Super YF-23.webp",
+    "BOSS Stormer.webp",
+    "SuperAPC.webp"
+  ],
+  "duplicates": [
+    [
+      "Typhoon.webp",
+      2
+    ]
+  ],
+  "errors": [
+    "Image \"Turret Chinook.webp\" could not be matched to any vehicle in the database.",
+    "Image \"B-17.webp\" could not be matched to any vehicle in the database.",
+    "Image \"YF-23.webp\" could not be matched to any vehicle in the database.",
+    "Image \"Toy B-17.webp\" could not be matched to any vehicle in the database.",
+    "Image \"AC130.webp\" could not be matched to any vehicle in the database.",
+    "Image \"Zombie AC130.webp\" could not be matched to any vehicle in the database.",
+    "Image \"Super YF-23.webp\" could not be matched to any vehicle in the database.",
+    "Image \"BOSS Stormer.webp\" could not be matched to any vehicle in the database.",
+    "Image \"SuperAPC.webp\" could not be matched to any vehicle in the database."
+  ],
+  "matchedAssignments": [
+    {
+      "uploadIndex": 0,
+      "filename": "Submarine (C).webp",
+      "baseName": "Submarine (C)",
+      "matchedItemName": "Submarine (C)",
+      "itemId": "022b66e9-5be7-48d4-94b5-3cec17c5b89e",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_2bbd216742574a6499dc9046bf590634~mv2.png/v1/fill/w_182,h_202,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_2bbd216742574a6499dc9046bf590634~mv2.png",
+      "newThumbnail": "/images/vehicles/Submarine (C).webp"
+    },
+    {
+      "uploadIndex": 1,
+      "filename": "Gun Boat.webp",
+      "baseName": "Gun Boat",
+      "matchedItemName": "Gun Boat",
+      "itemId": "4eeaf191-d3d3-4571-b018-732f93c072ad",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_22fdbde9a01244a39502c09d13ffddaf~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-08_152112958.png",
+      "newThumbnail": "/images/vehicles/Gun Boat.webp"
+    },
+    {
+      "uploadIndex": 2,
+      "filename": "JetSki.webp",
+      "baseName": "JetSki",
+      "matchedItemName": "Jetski",
+      "itemId": "b3c587f2-8238-4f0a-8293-b2ee095c8ff6",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_1b26f5003e3e4583b5edbacae1fec09b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-08_151956283.png",
+      "newThumbnail": "/images/vehicles/JetSki.webp"
+    },
+    {
+      "uploadIndex": 3,
+      "filename": "Hovercraft.webp",
+      "baseName": "Hovercraft",
+      "matchedItemName": "Hovercraft",
+      "itemId": "0d2bfc7f-3fe8-46a8-9ed2-86952b9d7dc8",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17GCeJ2Zjddd8fJGgniF-2hfJaxlRm972IXXQ2s3XsAo3mzBplZFJQs8drOpv31UI-i-e7dgfKZG94nacRsFK3ItiwM6o4OM6GpNhd2IGCb2L8nK01aoitUaoLA2_OKKu6SYbSKtjUSg266Ux7Qdrg=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Hovercraft.webp"
+    },
+    {
+      "uploadIndex": 4,
+      "filename": "Boat.webp",
+      "baseName": "Boat",
+      "matchedItemName": "Boat",
+      "itemId": "6ff99997-0383-4d09-be6e-3ab0ab3664dd",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_8de44ba6d9ae4542a4e551620fc3ecee~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-08_152209112.png",
+      "newThumbnail": "/images/vehicles/Boat.webp"
+    },
+    {
+      "uploadIndex": 5,
+      "filename": "Battleship.webp",
+      "baseName": "Battleship",
+      "matchedItemName": "Battleship",
+      "itemId": "5a6a82f2-78b5-49f1-bcea-906573d9733d",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17HMFcIWzXxPs_Ng7QGuZfYldYgLDBGzhUOKbhxpo-1y_fmIElvVaTEMCGxxuSTm1b81ycLAHGLQkh4Th8QNK2OjSKVkGIyXIeBhOI7EqlOwbw2csgmkZH1PYcSokMDRHk7cNRx0Hbdze98sRt8u8rY=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Battleship.webp"
+    },
+    {
+      "uploadIndex": 6,
+      "filename": "Destroyer.webp",
+      "baseName": "Destroyer",
+      "matchedItemName": "Destroyer",
+      "itemId": "30638f0c-3a6f-40b1-8bad-0c2d53789f82",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17HA5hY_adtU1_O9ONnAZRFlK_0VFaZpZ4CsVOUfXlIP3hEqBp70mTjb1XEGBPrsBOYuE-5Dvq60huO_9g_OKqWdaGCS7v2555N7sTckT3iGhye3uvr3uTnFbkiyWNJ9rNCRMQcwmxhANsTA0FYkN3E=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Destroyer.webp"
+    },
+    {
+      "uploadIndex": 7,
+      "filename": "Super Sub.webp",
+      "baseName": "Super Sub",
+      "matchedItemName": "Super Sub",
+      "itemId": "8d717679-e4a5-4400-aac9-3c0963834d8e",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17HWupaVjdlGUMZNcrP-s3d9mEBWq5MpBhYHo8kiOzjtsoVkA18cEVNMpzpGhnAqIdd-w6bhh6mJq9EMPsFTr0kIdmrgtwgYP7LLuxtxwS3IXP54XmQn4-_V0qYvF-BzJin7eLxZGQrG-tmdtr3-hos=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Super Sub.webp"
+    },
+    {
+      "uploadIndex": 8,
+      "filename": "Battlecruiser.webp",
+      "baseName": "Battlecruiser",
+      "matchedItemName": "Battle cruiser",
+      "itemId": "233008f9-d022-4cfc-8178-a4cc875cb5a6",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17EgIAgVC2ZDsxAfME62pcd6D_m7ifKij4ZNGQUoldT17IGZPIjHv6iO0I43oLfb9WrTZxUX0bVbHiTcp5GAsMIXXsZghH0O-3llr4GErmPbFXJSWWk0qiVkCXzRGMWs7V2dt9Lg0nqDe23M_uJwKiY=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Battlecruiser.webp"
+    },
+    {
+      "uploadIndex": 9,
+      "filename": "Sachsen Frigate.webp",
+      "baseName": "Sachsen Frigate",
+      "matchedItemName": "Sachsen Frigate",
+      "itemId": "cf3d0ceb-8072-4594-97ca-e84ace056701",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17FDbpGtXwEe50c7LnDkvHv2NPo6PIoD46Yf3dkwR1TcuUz8ktDvwr275A-KC3B5E5K9bxN_BqatOdWhMzWbzwaZ24_DNoPezG0_G9KiY42BOrgeuUtyZsH2rehfA3oeeBzyyDogCfrFxEuSBrqFvYE=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Sachsen Frigate.webp"
+    },
+    {
+      "uploadIndex": 10,
+      "filename": "Submarine (Rare).webp",
+      "baseName": "Submarine (Rare)",
+      "matchedItemName": "Submarine (Rare)",
+      "itemId": "e903bdff-0360-4731-a76c-0507b3c7882c",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17E9cg64q42GSqc5iHp0dRA2OApkwp4vo1YIp75Kw6iM21h3oIxbXHKhX5b-A9GgxddqOQ-f7XhnKYguZShZkuZvOFqLZIhupZ_BPuqKATdVg9q5bDwKlqBTXTfKOkPi4X-UjUQAN97-KWfNEO960BY=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Submarine (Rare).webp"
+    },
+    {
+      "uploadIndex": 11,
+      "filename": "Missile Boat.webp",
+      "baseName": "Missile Boat",
+      "matchedItemName": "Missile Boat",
+      "itemId": "8d1560d0-4f1e-466b-a8cb-34b599979219",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_7729900a4b1e44afa2367b99d6563975~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-08_151758599.png",
+      "newThumbnail": "/images/vehicles/Missile Boat.webp"
+    },
+    {
+      "uploadIndex": 12,
+      "filename": "Carrier.webp",
+      "baseName": "Carrier",
+      "matchedItemName": "Carrier",
+      "itemId": "92270e52-e60d-4dbf-bd12-6a261aeea11d",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17H7abvdYfJyggW_6Ufkw8HK2aPAfhFJfs-rBP0XE8lHKkoOPIp7kll1KxlB-DxEGAfaz6OYB2JzkZk3heOLKShdUtXOYk4f1R77O-BPpspISvW3mr2NhTqpSb1VsId-oG01fkhomVoa2DOILW5-Gg=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Carrier.webp"
+    },
+    {
+      "uploadIndex": 13,
+      "filename": "Yamato.webp",
+      "baseName": "Yamato",
+      "matchedItemName": "Yamato",
+      "itemId": "9e86efb7-546c-48cf-891f-d6676a7fd414",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17FR64e3wpUbeYJTAPJymz7aVXjGF3toWBLGjXQ5ot97APuHaHt-RcMOLxjw0wz1n3DmZxdBYs2XCo-4mtASbbP413Caszjw_zQc6dig-I3KLK-Ob9-ZFmhxExVsj_b70HA5RWpui4MEK0qf4Q_KtP0=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Yamato.webp"
+    },
+    {
+      "uploadIndex": 14,
+      "filename": "Patria.webp",
+      "baseName": "Patria",
+      "matchedItemName": "Patria",
+      "itemId": "511e8c8d-fac3-42b7-bc4f-da20755ec6b1",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17FNJ_P3CQup-InMZIvS7kHx3p3P3sKh2lKQLwrD6CB4feFKpPBWUwQezJpAztoB30BBEszWfwgz_OcnT39BUOMycGNnLAySynKriKeJX7O6MtTeEDrvHRMZH3Antbp5TLzwuZD1mWbnts9mm3C-JdA=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Patria.webp"
+    },
+    {
+      "uploadIndex": 15,
+      "filename": "North Carolina.webp",
+      "baseName": "North Carolina",
+      "matchedItemName": "North Carolina",
+      "itemId": "b05f3dfe-b5df-490d-b4b2-bb29931ea0ff",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17FcIZ7-keDmUToS456akKPBqUuMwS308_D4SPKzrkL9VU17x5BR55QNzzLqhS9bLCJWzCqqmS8BLVPg62T_HhO-tqlIL9xe3TVag6Wm844ur3bAISvOUJ8H-nwwDRqoYLSAtY6Q2UoMwY3-zuSj99g=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/North Carolina.webp"
+    },
+    {
+      "uploadIndex": 16,
+      "filename": "Interceptor.webp",
+      "baseName": "Interceptor",
+      "matchedItemName": "Interceptor",
+      "itemId": "68db578d-766b-45f3-a0b8-59e1d4894800",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17G7VRgb5erqwqCnmQJHMZgk7_5gvs5_7yuk3Oqvx1R5XHFQ9qZi0Ir0p_btSMjLu1f9a2mxrOtrEx6Yy8I0uyNeFjBnvTp8gojZmKChuiisYz7FB0FiShDyajtCTbDlSFe-p7D61w6MPzSBmWG10HQ=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Interceptor.webp"
+    },
+    {
+      "uploadIndex": 17,
+      "filename": "Zumwalt.webp",
+      "baseName": "Zumwalt",
+      "matchedItemName": "Zumwalt",
+      "itemId": "9fef8b23-5060-457b-8d23-c9fbc6959f42",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17HYOf-QxziH76cPaVWvZ_9FakMZnhcl2X0pLcNL5MhRwXHGO0ALd2uIhxQjTS7yf5tIqGqHMZkqlNB-VU4wwjZqqGkdOVpq2_HFumew0xJyZ25DBO-LPGco4OD6llpc03Kh0YOaT3FbxpgC3wEQomo=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Zumwalt.webp"
+    },
+    {
+      "uploadIndex": 18,
+      "filename": "War ship.webp",
+      "baseName": "War ship",
+      "matchedItemName": "Warship",
+      "itemId": "428f7690-f70f-490b-aa45-5c11815138cb",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/4db42e_bea565d23c234fdba3bf13f42e40a4fb~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-04-07%20174811.png",
+      "newThumbnail": "/images/vehicles/War ship.webp"
+    },
+    {
+      "uploadIndex": 19,
+      "filename": "Zubr.webp",
+      "baseName": "Zubr",
+      "matchedItemName": "ZUBR",
+      "itemId": "408760a2-b975-4396-b1f6-be6538ac83ae",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17HZLk1haAwhS1n-TYqFc6WNwxUmC9h7vO_is2a2_GmiB3-O-2dXauUfnQ6u-z-pr0WbTKv1VSEMULvgVO5XoeDXODOpcGAs5XBuuICxuB3nBY1uwTrXf3LKtcdcRRf6EOfDEkzjyOGRvDWowmHiaA=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Zubr.webp"
+    },
+    {
+      "uploadIndex": 20,
+      "filename": "Boss North Carolina.webp",
+      "baseName": "Boss North Carolina",
+      "matchedItemName": "Boss North Carolina",
+      "itemId": "828c0a26-b41f-4479-903b-7bdd1f7a349a",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17EamKUFmvYcKmTMV-dPGPJsv3qAWOwXZTnjERzEOfFFX6edAAE44xpDkzILWtQgXZAMZn-ZUBkxrMg5MphOsqayqdWBZ6jmaouTqzQz20szh1RZHA1JO2I5vJz62-DXumDkviQw8rEqF2egnGu4w5E=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Boss North Carolina.webp"
+    },
+    {
+      "uploadIndex": 21,
+      "filename": "Typhoon.webp",
+      "baseName": "Typhoon",
+      "matchedItemName": "Typhoon (Sub)",
+      "itemId": "5ad67b93-3251-4557-861b-b0772452041b",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_57903158878f4dad8ba952460393b42c~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20004010.png",
+      "newThumbnail": "/images/vehicles/Typhoon.webp"
+    },
+    {
+      "uploadIndex": 22,
+      "filename": "USS Independence.webp",
+      "baseName": "USS Independence",
+      "matchedItemName": "USS Independence",
+      "itemId": "18d78d2c-468b-4fed-bc15-6e4cd3eac605",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17Ehpopkgdt6OOh1fF2RuvYSxQiN5BOtvVzHDiOPcR7x9XonrOKCflRS8kqHy4gZbkEqdqLqTi7XMeRtYviA4wC-lcxs0Pscmv-tD_qkmMmm4HbaVnhAsekmISaWcE9AW7keyWj8cOMw9tqBELXdQRU=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/USS Independence.webp"
+    },
+    {
+      "uploadIndex": 23,
+      "filename": "Super Patria.webp",
+      "baseName": "Super Patria",
+      "matchedItemName": "Super Patria",
+      "itemId": "b78dd734-3503-4807-b1b7-34477501cb54",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17Fa19gQuN1JHlXfXYzoc3uRDZq5tF-GJJee9UE_9-cYQ-SVy3NNYSHGky-VJu5hEbsxzLnjp7hqoTCbj9pIPUhdRVrFuyYJ9wtu6v0K6IRjy5JWvU3U1aeIow5ADfk9Wt6oPkAxdihEZYzkO9M4PrE=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Super Patria.webp"
+    },
+    {
+      "uploadIndex": 24,
+      "filename": "Tank Boat.webp",
+      "baseName": "Tank Boat",
+      "matchedItemName": "Tank Boat",
+      "itemId": "2fdc6575-0bda-407d-b919-e5a3194e28d4",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_339801ab9d354cbf9e43ca259c999930~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-09-28%20194839.png",
+      "newThumbnail": "/images/vehicles/Tank Boat.webp"
+    },
+    {
+      "uploadIndex": 25,
+      "filename": "Surrogat.webp",
+      "baseName": "Surrogat",
+      "matchedItemName": "Surrogat",
+      "itemId": "2eb8b007-dbc8-48f4-8e06-034806da91ef",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17Gt_uUQayFIj7kbFwYV3314TL_6EI-FTZMWY6l_3imLSByYlvyBJjAFdJqTPtQLzCXj4BjJAL8-elH9enFRShMCMa91L_VVHU7Um3VDtzzehzOkVi3wZC2M_MKScq1C0fH_NnMjuwoHN_0BUmZoti4=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Surrogat.webp"
+    },
+    {
+      "uploadIndex": 26,
+      "filename": "Tralalero.webp",
+      "baseName": "Tralalero",
+      "matchedItemName": "Tralalero",
+      "itemId": "b2fafeb5-64f7-42a3-b1d1-3f91b5720878",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_beb7635aa70e46a8bbc0483700b577dc~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-05-18%20000413.png",
+      "newThumbnail": "/images/vehicles/Tralalero.webp"
+    },
+    {
+      "uploadIndex": 27,
+      "filename": "Super Hovercraft.webp",
+      "baseName": "Super Hovercraft",
+      "matchedItemName": "Super Hovercraft",
+      "itemId": "c1e843e4-582c-4207-a4d8-f87049cc34fb",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17ECVsKX3TsrvrO1xUZ5SAusm2jfO_PE7ahtGNnKss6xdDJWZFxIHuUh78C9e5GLTXbPE-9F2dcL8GaYf1q3qKktCATy5lgY2CAaCFF_2VHZM0w-7B9_J_gyi_8FVTpl2rpyQ0Nt0rgm3RXU31Ko3tg=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Super Hovercraft.webp"
+    },
+    {
+      "uploadIndex": 28,
+      "filename": "Steel Rain.webp",
+      "baseName": "Steel Rain",
+      "matchedItemName": "Steel Rain",
+      "itemId": "bacb9fdb-b1e3-4776-8acb-12e53497faba",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_fc74ee8ad0274bfd8425124c26049835~mv2.png/v1/fill/w_185,h_204,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_fc74ee8ad0274bfd8425124c26049835~mv2.png",
+      "newThumbnail": "/images/vehicles/Steel Rain.webp"
+    },
+    {
+      "uploadIndex": 29,
+      "filename": "SSBN.webp",
+      "baseName": "SSBN",
+      "matchedItemName": "SSBN",
+      "itemId": "df1b2e4f-3299-4b60-8ec3-f82f9c25b97b",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17Hx8TIbSEp7-x90DybflZdi4hFQnT9cYPFaB-Qzrm9K8IGbgoIt6jBkMTut0IQKDMo74jmFyEkaGVTt-LqkSGYa0s_J3hYO70pY0hyiM8qi2a-F04elJ1VaVpYXGUWBGu7wf9kUUUta4mVWgxPbYOU=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/SSBN.webp"
+    },
+    {
+      "uploadIndex": 30,
+      "filename": "Stealth Boat.webp",
+      "baseName": "Stealth Boat",
+      "matchedItemName": "Stealth Boat",
+      "itemId": "706bb55b-398f-4e22-850f-15fb0b5db46d",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_efa3f4f6d536487ba30bb6a381321615~mv2.png/v1/fill/w_177,h_196,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_efa3f4f6d536487ba30bb6a381321615~mv2.png",
+      "newThumbnail": "/images/vehicles/Stealth Boat.webp"
+    },
+    {
+      "uploadIndex": 31,
+      "filename": "Recon Destroyer.webp",
+      "baseName": "Recon Destroyer",
+      "matchedItemName": "Recon Destroyer",
+      "itemId": "22d307ec-0c7b-40c6-b97e-2688b99c2f78",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_7669b508a5a843ff8681a1bd5c8cc145~mv2.png/v1/fill/w_182,h_202,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_7669b508a5a843ff8681a1bd5c8cc145~mv2.png",
+      "newThumbnail": "/images/vehicles/Recon Destroyer.webp"
+    },
+    {
+      "uploadIndex": 32,
+      "filename": "Railgun Destroyer.webp",
+      "baseName": "Railgun Destroyer",
+      "matchedItemName": "Railgun Destroyer",
+      "itemId": "4cefd99c-d2d6-48ee-a76a-e2b1d4bd6b04",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17HQIuglpb0seBslqmoV1rmF8iK1LHwJyB9Lno45me_lzCHF-vHBamwchb5Ln-OjaHDR7hUlvBSsncpLvLniZJb8ZpZEhS9WhBOus8y_3ssEUeWzlwpoJ8cE9zil3EtUK52iT5EEFLv-ZX63B74DNw=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Railgun Destroyer.webp"
+    },
+    {
+      "uploadIndex": 33,
+      "filename": "Nimitz.webp",
+      "baseName": "Nimitz",
+      "matchedItemName": "Nimitz",
+      "itemId": "7a761101-438b-4b10-b435-7aa3cb590220",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/4db42e_9afdf3d0c5b74fcb80d8e6daf6975dd3~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-04-06%20131524.png",
+      "newThumbnail": "/images/vehicles/Nimitz.webp"
+    },
+    {
+      "uploadIndex": 34,
+      "filename": "LE5000 Izumo.webp",
+      "baseName": "LE5000 Izumo",
+      "matchedItemName": "LE5000 Izumo",
+      "itemId": "75c69351-e880-4e0f-893b-59742e192a23",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_d6dc551afa244811a672ca0f4d9b7c0b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20010145.png",
+      "newThumbnail": "/images/vehicles/LE5000 Izumo.webp"
+    },
+    {
+      "uploadIndex": 35,
+      "filename": "PACV Craft.webp",
+      "baseName": "PACV Craft",
+      "matchedItemName": "PACV Craft",
+      "itemId": "6bcf3432-f426-4bf0-999d-7b772dff827b",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17Gd51xG8v7TDZngyLwjU40IQUwgsn1UwBqKCOVhqtNt7m2zF8LE2IfGabYN3y7niAN1fy7bJr2zIvEXquZulOVsIeyorxXLo_TNQbHiiYgVikEqHLVaopgffDcOakTZ9scETVh_yYKfM8TgLOJg7C0=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/PACV Craft.webp"
+    },
+    {
+      "uploadIndex": 36,
+      "filename": "Patriot Boat.webp",
+      "baseName": "Patriot Boat",
+      "matchedItemName": "Patriot Boat",
+      "itemId": "12456313-de4e-47cf-980b-5656c911ae0b",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_61cc043705c440129238d96ce9233d8c~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-03-29%20135847.png",
+      "newThumbnail": "/images/vehicles/Patriot Boat.webp"
+    },
+    {
+      "uploadIndex": 37,
+      "filename": "Golden Interceptor.webp",
+      "baseName": "Golden Interceptor",
+      "matchedItemName": "Golden Interceptor",
+      "itemId": "91b2d475-8975-4f19-b60a-bc1efb6f709d",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17EZszfQPOauTXScPHdxmzol2AxxVhCLQQf87cQU14Sk_CGQdQx1RbjHUUxQZ3z-s4G4t4wfxkDeujZccA6woTWkbTclzorLcKTNCXUo45CBFj5MzhCqkH7nXyRy6WFei18iYvlRk--0wL7sj5OoZg=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Golden Interceptor.webp"
+    },
+    {
+      "uploadIndex": 38,
+      "filename": "Gold Typhoon.webp",
+      "baseName": "Gold Typhoon",
+      "matchedItemName": "Gold Typhoon",
+      "itemId": "44bc9b47-8b29-4837-9f59-071deb04649d",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_b902441dfbe94d6394d8753d0d5549ad~mv2.png/v1/fill/w_373,h_413,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/f89faf_b902441dfbe94d6394d8753d0d5549ad~mv2.png",
+      "newThumbnail": "/images/vehicles/Gold Typhoon.webp"
+    },
+    {
+      "uploadIndex": 39,
+      "filename": "Admiral Kuznetsov.webp",
+      "baseName": "Admiral Kuznetsov",
+      "matchedItemName": "Admiral Kuznetsov",
+      "itemId": "15532068-5374-4aea-af6b-2ba4ae7bdc01",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17GeyLTzMvXjBOYTgTerM0hrBiQf1qlOseK684AZjq7KcAnWY8ouT2upMMsHqMFS4XsEoRTwrjRJRzwspU4HgVxIKnBwzyVVTKlJae8shycGRgukl9F2E6p5o-9Qx3Bhkdy6Dx_t5adkOZQ5w3WcDls=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Admiral Kuznetsov.webp"
+    },
+    {
+      "uploadIndex": 40,
+      "filename": "JS Atago.webp",
+      "baseName": "JS Atago",
+      "matchedItemName": "JS Atago",
+      "itemId": "5a430e61-d924-4324-b1f3-810e36aedb1c",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17F5ZETqgdWAP7Kk1wbzj1ejdVWX-uasM5goZQ0CaopMQIAMXexLzjYQS7AYc3207k3ugU2I2j5s3q8Wnl8I0RAoCamlHOlUtnI3ZN70zzCxYdCTQf3XR52QxRcJGl0DUiUmDtiBWW9AgYgjC0a8cwA=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/JS Atago.webp"
+    },
+    {
+      "uploadIndex": 41,
+      "filename": "Attack Submarine.webp",
+      "baseName": "Attack Submarine",
+      "matchedItemName": "Attack Submarine",
+      "itemId": "a98fd1bc-f195-4770-9339-0958e0d43339",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17GhK3-UbdYBnO6h2skpByzbiJZX30mgGe-2eQkNlE-d6VgtscX0tBh8gRc9H-PfCx4OBm6OacRsjrL0DSDbDCKLfXHKdt1DobRxouniGP4wBGDpIfbj4sc4Q__csQuHqINB75hOFFVLcqcYDA1zb-U=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Attack Submarine.webp"
+    },
+    {
+      "uploadIndex": 42,
+      "filename": "Corsair.webp",
+      "baseName": "Corsair",
+      "matchedItemName": "Corsair",
+      "itemId": "db919605-bbcf-4719-a38d-be858f80f974",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_62aa9bbf39aa4e938794eb195eabb277~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-22%20224629.png",
+      "newThumbnail": "/images/vehicles/Corsair.webp"
+    },
+    {
+      "uploadIndex": 43,
+      "filename": "Alicorn.webp",
+      "baseName": "Alicorn",
+      "matchedItemName": "Alicorn",
+      "itemId": "5bf99424-5a01-4d9b-9dd5-f94783cf336d",
+      "category": "Naval",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17FP8O53CxxZoL8qQVwfRUV3mbAdiFW-lgO3p1xoT8T1QFvst-lj1zGwHhvPcCFoVvnu_dzN8wQq-9398pgmRXYNL0ZtCnsziX4JEExaXozaDrm1kl5XIynfLeBdtg5cw_6FC8BT05FpxGK8p7nbs_c=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Alicorn.webp"
+    },
+    {
+      "uploadIndex": 44,
+      "filename": "Warspite.webp",
+      "baseName": "Warspite",
+      "matchedItemName": "Warspite",
+      "itemId": "6d79f1e3-535b-4282-a1d0-d1dc5ae31c02",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_8c62c872a780437491abe1ba49a37cdd~mv2.png/v1/fill/w_177,h_196,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_8c62c872a780437491abe1ba49a37cdd~mv2.png",
+      "newThumbnail": "/images/vehicles/Warspite.webp"
+    },
+    {
+      "uploadIndex": 45,
+      "filename": "USS Missouri.webp",
+      "baseName": "USS Missouri",
+      "matchedItemName": "USS Missouri",
+      "itemId": "7c0bf909-635a-4289-8b69-306c207329a0",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_b29485d223ec40fda25e8eab9b444351~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-29%20174740.png",
+      "newThumbnail": "/images/vehicles/USS Missouri.webp"
+    },
+    {
+      "uploadIndex": 46,
+      "filename": "Armored Corvette.webp",
+      "baseName": "Armored Corvette",
+      "matchedItemName": "Armored Corvette",
+      "itemId": "ae300aab-6057-4d10-b570-ab9d6f35d636",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_82d5a986581548a2b987a4c7000a22c9~mv2.png/v1/fill/w_182,h_202,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_82d5a986581548a2b987a4c7000a22c9~mv2.png",
+      "newThumbnail": "/images/vehicles/Armored Corvette.webp"
+    },
+    {
+      "uploadIndex": 47,
+      "filename": "Super Warship.webp",
+      "baseName": "Super Warship",
+      "matchedItemName": "Super Warship",
+      "itemId": "281043b5-ff50-488d-9f48-7b2619f66d71",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_e88734f95ec24e62b288b2cac1cdf7cc~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20011023.png",
+      "newThumbnail": "/images/vehicles/Super Warship.webp"
+    },
+    {
+      "uploadIndex": 48,
+      "filename": "UAV Carrier.webp",
+      "baseName": "UAV Carrier",
+      "matchedItemName": "UAV Carrier",
+      "itemId": "2566d76a-823c-4eab-84db-feca50cd6b5d",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_e5ed5c53acb340589f8bc9d02ce1003f~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-22%20202435.png",
+      "newThumbnail": "/images/vehicles/UAV Carrier.webp"
+    },
+    {
+      "uploadIndex": 49,
+      "filename": "SeaBreacher.webp",
+      "baseName": "SeaBreacher",
+      "matchedItemName": "SeaBreacher",
+      "itemId": "5723f9b4-a830-4997-8b22-caf914da2d83",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_1f4f687f0e0e4352ada514c2d8978c62~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20020219.png",
+      "newThumbnail": "/images/vehicles/SeaBreacher.webp"
+    },
+    {
+      "uploadIndex": 50,
+      "filename": "Super Recon Destroyer.webp",
+      "baseName": "Super Recon Destroyer",
+      "matchedItemName": "Super Recon Destroyer",
+      "itemId": "96b8225d-ee66-4b0a-b734-691801576dbd",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_9deb5b9062e24e1d94465dff4ab0ce9e~mv2.png/v1/fill/w_185,h_204,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_9deb5b9062e24e1d94465dff4ab0ce9e~mv2.png",
+      "newThumbnail": "/images/vehicles/Super Recon Destroyer.webp"
+    },
+    {
+      "uploadIndex": 51,
+      "filename": "Sea Dragon.webp",
+      "baseName": "Sea Dragon",
+      "matchedItemName": "Sea Dragon",
+      "itemId": "1d563caf-cd71-4eb4-b084-73cd749bfaa7",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_79a94e124844450389a25e9594ad9b7f~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_79a94e124844450389a25e9594ad9b7f~mv2.png",
+      "newThumbnail": "/images/vehicles/Sea Dragon.webp"
+    },
+    {
+      "uploadIndex": 52,
+      "filename": "Marasesti.webp",
+      "baseName": "Marasesti",
+      "matchedItemName": "Marasesti",
+      "itemId": "d60fb9d4-42ce-4c3a-9dea-066c1646f844",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_c4755674eb90446ebb4fc85e63504d60~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-01-28%20194922.png",
+      "newThumbnail": "/images/vehicles/Marasesti.webp"
+    },
+    {
+      "uploadIndex": 53,
+      "filename": "Project 665.webp",
+      "baseName": "Project 665",
+      "matchedItemName": "Project 665",
+      "itemId": "b1bccff8-76f9-4472-829d-bf8a0c32296e",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_95621bcc5cbd460db4a57aa82303022e~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20002213.png",
+      "newThumbnail": "/images/vehicles/Project 665.webp"
+    },
+    {
+      "uploadIndex": 54,
+      "filename": "Master Rain.webp",
+      "baseName": "Master Rain",
+      "matchedItemName": "Master Rain",
+      "itemId": "502fa70c-ba06-43b4-8d37-49607331edca",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_7de6cd7966014882958ce707fc02f5b4~mv2.png/v1/fill/w_187,h_207,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_7de6cd7966014882958ce707fc02f5b4~mv2.png",
+      "newThumbnail": "/images/vehicles/Master Rain.webp"
+    },
+    {
+      "uploadIndex": 55,
+      "filename": "Nuke Sub.webp",
+      "baseName": "Nuke Sub",
+      "matchedItemName": "Nuke Sub",
+      "itemId": "af119a42-95c4-4da3-b274-5f0529d7fa12",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_3c27ff84adc34817ae0f10b1a3f88e53~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20021732.png",
+      "newThumbnail": "/images/vehicles/Nuke Sub.webp"
+    },
+    {
+      "uploadIndex": 56,
+      "filename": "Drone Carrier.webp",
+      "baseName": "Drone Carrier",
+      "matchedItemName": "Drone carrier",
+      "itemId": "7b7c2b66-6e9a-483f-8947-b1d1271448b3",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_090dab95daf54e48b9056eb784e6e74a~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20014021.png",
+      "newThumbnail": "/images/vehicles/Drone Carrier.webp"
+    },
+    {
+      "uploadIndex": 57,
+      "filename": "LE BISMARCK.webp",
+      "baseName": "LE BISMARCK",
+      "matchedItemName": "LE BISMARCK",
+      "itemId": "69ab0fc4-0253-450a-a0be-92e1d8e7b1f9",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_642c21ea253a4cde9c45ded098d9474d~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20005412.png",
+      "newThumbnail": "/images/vehicles/LE BISMARCK.webp"
+    },
+    {
+      "uploadIndex": 58,
+      "filename": "Battle Yacht.webp",
+      "baseName": "Battle Yacht",
+      "matchedItemName": "Battle Yacht",
+      "itemId": "67563d48-df47-49ee-858c-6fb291a59b6e",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_0a982daca0c3429eabcb176413dfa688~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_0a982daca0c3429eabcb176413dfa688~mv2.png",
+      "newThumbnail": "/images/vehicles/Battle Yacht.webp"
+    },
+    {
+      "uploadIndex": 59,
+      "filename": "Zumwalt X.webp",
+      "baseName": "Zumwalt X",
+      "matchedItemName": "Zumwalt X",
+      "itemId": "30c605f5-8121-4610-a9c8-90062e6b24af",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_5efbcbe3793846989a0dc7f2619d043a~mv2.png/v1/fill/w_154,h_171,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_5efbcbe3793846989a0dc7f2619d043a~mv2.png",
+      "newThumbnail": "/images/vehicles/Zumwalt X.webp"
+    },
+    {
+      "uploadIndex": 60,
+      "filename": "Super Yamato.webp",
+      "baseName": "Super Yamato",
+      "matchedItemName": "Super Yamato",
+      "itemId": "752871f8-345d-44fb-a2ac-cc195de4bf91",
+      "category": "Naval",
+      "previousThumbnail": "https://imgur.com/4X2UXq1.png",
+      "newThumbnail": "/images/vehicles/Super Yamato.webp"
+    },
+    {
+      "uploadIndex": 61,
+      "filename": "Corsair X.webp",
+      "baseName": "Corsair X",
+      "matchedItemName": "Corsair-X",
+      "itemId": "dfbbbb20-6ca2-403c-a1f1-182e074a32f2",
+      "category": "Naval",
+      "previousThumbnail": "https://i.imgur.com/KC9lAqL.png",
+      "newThumbnail": "/images/vehicles/Corsair X.webp"
+    },
+    {
+      "uploadIndex": 62,
+      "filename": "Super Warspite.webp",
+      "baseName": "Super Warspite",
+      "matchedItemName": "Super Warspite",
+      "itemId": "7991d23d-3c5f-4b39-894d-065c8087adfe",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_1129c17f17cb4355bd755c4c100bd553~mv2.png/v1/fill/w_193,h_214,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_1129c17f17cb4355bd755c4c100bd553~mv2.png",
+      "newThumbnail": "/images/vehicles/Super Warspite.webp"
+    },
+    {
+      "uploadIndex": 63,
+      "filename": "Super UAV Carrier.webp",
+      "baseName": "Super UAV Carrier",
+      "matchedItemName": "Super UAV Carrier",
+      "itemId": "1dc0b45e-4c22-4157-805f-411e00b13822",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_e0599b5e102449afa7c15d18244491bc~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-24%20181456.png",
+      "newThumbnail": "/images/vehicles/Super UAV Carrier.webp"
+    },
+    {
+      "uploadIndex": 64,
+      "filename": "Super Sea Dragon.webp",
+      "baseName": "Super Sea Dragon",
+      "matchedItemName": "Super Sea Dragon",
+      "itemId": "8c4f6ad2-14ee-4642-8bb6-c2d882bfce10",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_d35d105fc08246b2a9f060ca05c18819~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_d35d105fc08246b2a9f060ca05c18819~mv2.png",
+      "newThumbnail": "/images/vehicles/Super Sea Dragon.webp"
+    },
+    {
+      "uploadIndex": 65,
+      "filename": "Super Stealth Boat.webp",
+      "baseName": "Super Stealth Boat",
+      "matchedItemName": "Super Stealth Boat",
+      "itemId": "5d97dee1-7687-4cad-afa7-a0a25a9a86b3",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_1443026f897b47d09332bc8d9d91158a~mv2.png/v1/fill/w_180,h_199,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_1443026f897b47d09332bc8d9d91158a~mv2.png",
+      "newThumbnail": "/images/vehicles/Super Stealth Boat.webp"
+    },
+    {
+      "uploadIndex": 66,
+      "filename": "Super Marasesti.webp",
+      "baseName": "Super Marasesti",
+      "matchedItemName": "Super Marasesti",
+      "itemId": "2a0d9acd-cf1a-4cef-9abf-8d2b9465510e",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_f94f58d489f64a8a899bf21244d215c3~mv2.png/v1/fill/w_154,h_171,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_f94f58d489f64a8a899bf21244d215c3~mv2.png",
+      "newThumbnail": "/images/vehicles/Super Marasesti.webp"
+    },
+    {
+      "uploadIndex": 67,
+      "filename": "Super Missouri.webp",
+      "baseName": "Super Missouri",
+      "matchedItemName": "Super Missouri",
+      "itemId": "d49bd83a-3666-4007-b4c6-966a545ea398",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_f03c95e71d5944dca1160ff83c1b7a31~mv2.png/v1/fill/w_157,h_174,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_f03c95e71d5944dca1160ff83c1b7a31~mv2.png",
+      "newThumbnail": "/images/vehicles/Super Missouri.webp"
+    },
+    {
+      "uploadIndex": 68,
+      "filename": "Super Battle Yacht.webp",
+      "baseName": "Super Battle Yacht",
+      "matchedItemName": "Super Battle Yacht",
+      "itemId": "2929c428-cac9-4bc2-8ed4-0e0d3638c6cf",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_aeb06409a72f489f96faa61dbe431e3c~mv2.png/v1/fill/w_190,h_210,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_aeb06409a72f489f96faa61dbe431e3c~mv2.png",
+      "newThumbnail": "/images/vehicles/Super Battle Yacht.webp"
+    },
+    {
+      "uploadIndex": 69,
+      "filename": "Super Drone Carrier.webp",
+      "baseName": "Super Drone Carrier",
+      "matchedItemName": "Super Drone Carrier",
+      "itemId": "4bd75bd6-ded0-428f-9555-c3a4b5abdcc7",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_9177299834a142b393d588cbdd56a3be~mv2.png/v1/fill/w_154,h_171,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_9177299834a142b393d588cbdd56a3be~mv2.png",
+      "newThumbnail": "/images/vehicles/Super Drone Carrier.webp"
+    },
+    {
+      "uploadIndex": 70,
+      "filename": "Railgun-X Destroyer.webp",
+      "baseName": "Railgun-X Destroyer",
+      "matchedItemName": "Railgun-X Destroyer",
+      "itemId": "1a6b4b52-9abc-47b9-a56e-67203dbe377d",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_c28f0b1920a04f6a9705ab1687c347eb~mv2.png/v1/fill/w_154,h_171,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_c28f0b1920a04f6a9705ab1687c347eb~mv2.png",
+      "newThumbnail": "/images/vehicles/Railgun-X Destroyer.webp"
+    },
+    {
+      "uploadIndex": 71,
+      "filename": "SeaBreacher-X.webp",
+      "baseName": "SeaBreacher-X",
+      "matchedItemName": "SeaBreacher-X",
+      "itemId": "b81ae5a9-c427-448c-a5f7-ef01af13c36c",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_12dd476c0c8c449b84e9e86c7d0b67d0~mv2.png/v1/fill/w_156,h_172,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_12dd476c0c8c449b84e9e86c7d0b67d0~mv2.png",
+      "newThumbnail": "/images/vehicles/SeaBreacher-X.webp"
+    },
+    {
+      "uploadIndex": 72,
+      "filename": "Gold Izumo.webp",
+      "baseName": "Gold Izumo",
+      "matchedItemName": "Gold Izumo",
+      "itemId": "0990fb44-cf05-4b87-bdac-0f1f60278072",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_e2010d518dd8437f9d5667d7696d4b95~mv2.png/v1/fill/w_156,h_172,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_e2010d518dd8437f9d5667d7696d4b95~mv2.png",
+      "newThumbnail": "/images/vehicles/Gold Izumo.webp"
+    },
+    {
+      "uploadIndex": 73,
+      "filename": "Nuke Project 665.webp",
+      "baseName": "Nuke Project 665",
+      "matchedItemName": "Nuke Project 665",
+      "itemId": "41a64191-a838-403f-88f9-06fb1f87d170",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_80ad378bc48242f9a677deab05dfc1bd~mv2.png/v1/fill/w_152,h_168,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_80ad378bc48242f9a677deab05dfc1bd~mv2.png",
+      "newThumbnail": "/images/vehicles/Nuke Project 665.webp"
+    },
+    {
+      "uploadIndex": 74,
+      "filename": "Limited SONAR.webp",
+      "baseName": "Limited SONAR",
+      "matchedItemName": "Limited SONAR",
+      "itemId": "ce603059-dd52-4d00-adf5-39f7dd191047",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_1e981963ebca45cd8136e3c794158dfe~mv2.png/v1/fill/w_183,h_203,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_1e981963ebca45cd8136e3c794158dfe~mv2.png",
+      "newThumbnail": "/images/vehicles/Limited SONAR.webp"
+    },
+    {
+      "uploadIndex": 75,
+      "filename": "LE BISMARCK(G).webp",
+      "baseName": "LE BISMARCK(G)",
+      "matchedItemName": "LE BISMARCK (G)",
+      "itemId": "d4a8dc48-aeb0-4538-9225-6320ec85ce47",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_371f3221b2f64b4d83b992389649d005~mv2.png/v1/fill/w_156,h_172,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_371f3221b2f64b4d83b992389649d005~mv2.png",
+      "newThumbnail": "/images/vehicles/LE BISMARCK(G).webp"
+    },
+    {
+      "uploadIndex": 76,
+      "filename": "Harrier.webp",
+      "baseName": "Harrier",
+      "matchedItemName": "Harrier",
+      "itemId": "f3fcb540-a50c-4ad3-a876-0b0c9c26e11c",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_2a05f3578b104003a85e18f7893660f6~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-05-18%20000802.png",
+      "newThumbnail": "/images/vehicles/Harrier.webp"
+    },
+    {
+      "uploadIndex": 77,
+      "filename": "Turret Helicopter.webp",
+      "baseName": "Turret Helicopter",
+      "matchedItemName": "Medic Helicopter",
+      "itemId": "805c0306-f833-427b-9d70-3ba2efa5e305",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6e91555b1afb43309b716838dbceddb5~mv2.png/v1/fill/w_186,h_206,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_6e91555b1afb43309b716838dbceddb5~mv2.png",
+      "newThumbnail": "/images/vehicles/Turret Helicopter.webp"
+    },
+    {
+      "uploadIndex": 79,
+      "filename": "Spitfire MK2.webp",
+      "baseName": "Spitfire MK2",
+      "matchedItemName": "Festive BF109",
+      "itemId": "1e7b6885-9472-48e7-837a-908c796b85d6",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_f994533e2731425e9e2fda8bcf3b3d14~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-30%20152315.png",
+      "newThumbnail": "/images/vehicles/Spitfire MK2.webp"
+    },
+    {
+      "uploadIndex": 80,
+      "filename": "Invictus.webp",
+      "baseName": "Invictus",
+      "matchedItemName": "Leonardo",
+      "itemId": "36372158-330f-4b5a-83d1-ec45a9ff9c4c",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_46ec6c7243694307ad28a6fd57f47290~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-21%20123441.png",
+      "newThumbnail": "/images/vehicles/Invictus.webp"
+    },
+    {
+      "uploadIndex": 81,
+      "filename": "Fighter Biplane.webp",
+      "baseName": "Fighter Biplane",
+      "matchedItemName": "Tupolev TB3",
+      "itemId": "65aa2ef3-08b7-4040-b5e8-0ae17b29b1ee",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_27789e17082346ee97a1c28ac9e9f634~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-12-27%20182006.png",
+      "newThumbnail": "/images/vehicles/Fighter Biplane.webp"
+    },
+    {
+      "uploadIndex": 82,
+      "filename": "Helicopter.webp",
+      "baseName": "Helicopter",
+      "matchedItemName": "Medic Helicopter",
+      "itemId": "805c0306-f833-427b-9d70-3ba2efa5e305",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6e91555b1afb43309b716838dbceddb5~mv2.png/v1/fill/w_186,h_206,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_6e91555b1afb43309b716838dbceddb5~mv2.png",
+      "newThumbnail": "/images/vehicles/Helicopter.webp"
+    },
+    {
+      "uploadIndex": 83,
+      "filename": "Dive Bomber.webp",
+      "baseName": "Dive Bomber",
+      "matchedItemName": "Rocket HE177",
+      "itemId": "e671e5f3-3711-475c-bc47-f9ae84038f9a",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_f0885feead384a33bce55e725658f5fd~mv2.png/v1/fill/w_186,h_206,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_f0885feead384a33bce55e725658f5fd~mv2.png",
+      "newThumbnail": "/images/vehicles/Dive Bomber.webp"
+    },
+    {
+      "uploadIndex": 84,
+      "filename": "F22.webp",
+      "baseName": "F22",
+      "matchedItemName": "Raptor X",
+      "itemId": "2255610b-16bd-4ee0-83a4-1bfb06c5fa0c",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_5638c5d0139641a8884b2158c5d5b01c~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_5638c5d0139641a8884b2158c5d5b01c~mv2.png",
+      "newThumbnail": "/images/vehicles/F22.webp"
+    },
+    {
+      "uploadIndex": 85,
+      "filename": "F16.webp",
+      "baseName": "F16",
+      "matchedItemName": "Platinum SB-12",
+      "itemId": "31df7903-be6a-474b-bde2-1c50df628d02",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_cf0229e0d990490091602a5e076026a5~mv2.png/v1/fill/w_183,h_203,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_cf0229e0d990490091602a5e076026a5~mv2.png",
+      "newThumbnail": "/images/vehicles/F16.webp"
+    },
+    {
+      "uploadIndex": 86,
+      "filename": "Blackhawk Helicopter.webp",
+      "baseName": "Blackhawk Helicopter",
+      "matchedItemName": "Chinook CH-47",
+      "itemId": "00155e4d-36de-4248-929c-f75c2b27856b",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_08765a0a1cf148d39f3db5dc6e40be38~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-08-30%20193749.png",
+      "newThumbnail": "/images/vehicles/Blackhawk Helicopter.webp"
+    },
+    {
+      "uploadIndex": 87,
+      "filename": "Biplane.webp",
+      "baseName": "Biplane",
+      "matchedItemName": "Tupolev TB3",
+      "itemId": "65aa2ef3-08b7-4040-b5e8-0ae17b29b1ee",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_27789e17082346ee97a1c28ac9e9f634~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-12-27%20182006.png",
+      "newThumbnail": "/images/vehicles/Biplane.webp"
+    },
+    {
+      "uploadIndex": 89,
+      "filename": "Attack Helicopter.webp",
+      "baseName": "Attack Helicopter",
+      "matchedItemName": "Zhi 19E",
+      "itemId": "f7bf78f8-c1d5-4c27-bd6b-fcec86fa6ed7",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_bebc33c8914643edb280372340b08ff6~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20001816.png",
+      "newThumbnail": "/images/vehicles/Attack Helicopter.webp"
+    },
+    {
+      "uploadIndex": 90,
+      "filename": "V22.webp",
+      "baseName": "V22",
+      "matchedItemName": "Super S.W.A.R.M",
+      "itemId": "acef4b79-1252-4b5c-a2b5-d49349761473",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_9ab24ec36f7d48e087a934b7bf377dce~mv2.png/v1/fill/w_154,h_171,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_9ab24ec36f7d48e087a934b7bf377dce~mv2.png",
+      "newThumbnail": "/images/vehicles/V22.webp"
+    },
+    {
+      "uploadIndex": 92,
+      "filename": "Warplane.webp",
+      "baseName": "Warplane",
+      "matchedItemName": "Super He177",
+      "itemId": "f7b0fefd-02d6-493e-93b1-515c45ac41fa",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_5159d3d8bae347f1b0815356ee32132b~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_5159d3d8bae347f1b0815356ee32132b~mv2.png",
+      "newThumbnail": "/images/vehicles/Warplane.webp"
+    },
+    {
+      "uploadIndex": 93,
+      "filename": "F35.webp",
+      "baseName": "F35",
+      "matchedItemName": "F35 Billion",
+      "itemId": "04665f20-9d91-41be-8b39-fbef426b04d7",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_44900889e63d43e3bd04c2bc15bc6eab~mv2.png/v1/fill/w_186,h_206,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_44900889e63d43e3bd04c2bc15bc6eab~mv2.png",
+      "newThumbnail": "/images/vehicles/F35.webp"
+    },
+    {
+      "uploadIndex": 94,
+      "filename": "Spitfire.webp",
+      "baseName": "Spitfire",
+      "matchedItemName": "Festive BF109",
+      "itemId": "1e7b6885-9472-48e7-837a-908c796b85d6",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_f994533e2731425e9e2fda8bcf3b3d14~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-30%20152315.png",
+      "newThumbnail": "/images/vehicles/Spitfire.webp"
+    },
+    {
+      "uploadIndex": 95,
+      "filename": "FX1.webp",
+      "baseName": "FX1",
+      "matchedItemName": "XF12",
+      "itemId": "3dd6d3ae-98cc-43de-ad2d-542fa6683988",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_9b28e6e880bf449caebbe1a5da32bb6f~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_9b28e6e880bf449caebbe1a5da32bb6f~mv2.png",
+      "newThumbnail": "/images/vehicles/FX1.webp"
+    },
+    {
+      "uploadIndex": 97,
+      "filename": "B29 Bomber.webp",
+      "baseName": "B29 Bomber",
+      "matchedItemName": "Super TU95",
+      "itemId": "9e7ff8f1-83b5-471d-be56-de6d34443f88",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_3da48335721d435d8d7ffeaf1b4e19c4~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-17%20151743.png",
+      "newThumbnail": "/images/vehicles/B29 Bomber.webp"
+    },
+    {
+      "uploadIndex": 99,
+      "filename": "Stealth F35.webp",
+      "baseName": "Stealth F35",
+      "matchedItemName": "F35 Billion",
+      "itemId": "04665f20-9d91-41be-8b39-fbef426b04d7",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_44900889e63d43e3bd04c2bc15bc6eab~mv2.png/v1/fill/w_186,h_206,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_44900889e63d43e3bd04c2bc15bc6eab~mv2.png",
+      "newThumbnail": "/images/vehicles/Stealth F35.webp"
+    },
+    {
+      "uploadIndex": 100,
+      "filename": "SU47.webp",
+      "baseName": "SU47",
+      "matchedItemName": "Super CFA44",
+      "itemId": "06df876a-4351-4c7d-a63e-1f494df7762f",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_3dd2ea55af07478e8815fb9f013cb5a5~mv2.png/v1/fill/w_185,h_204,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_3dd2ea55af07478e8815fb9f013cb5a5~mv2.png",
+      "newThumbnail": "/images/vehicles/SU47.webp"
+    },
+    {
+      "uploadIndex": 101,
+      "filename": "SU-24.webp",
+      "baseName": "SU-24",
+      "matchedItemName": "S67",
+      "itemId": "16b78482-0ed5-4dd4-9e41-f81b8951377d",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_ec4bbf7d89124b8881e48e0f76dc896c~mv2.png/v1/fill/w_183,h_203,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_ec4bbf7d89124b8881e48e0f76dc896c~mv2.png",
+      "newThumbnail": "/images/vehicles/SU-24.webp"
+    },
+    {
+      "uploadIndex": 102,
+      "filename": "MIG29.webp",
+      "baseName": "MIG29",
+      "matchedItemName": "Super S67",
+      "itemId": "09f35e69-cb90-48d3-a2cb-402d4265a20f",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_3805e54cfd564f5cac56a32e2be79380~mv2.png/v1/fill/w_190,h_210,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_3805e54cfd564f5cac56a32e2be79380~mv2.png",
+      "newThumbnail": "/images/vehicles/MIG29.webp"
+    },
+    {
+      "uploadIndex": 103,
+      "filename": "Recon Helicopter.webp",
+      "baseName": "Recon Helicopter",
+      "matchedItemName": "Medic Helicopter",
+      "itemId": "805c0306-f833-427b-9d70-3ba2efa5e305",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6e91555b1afb43309b716838dbceddb5~mv2.png/v1/fill/w_186,h_206,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_6e91555b1afb43309b716838dbceddb5~mv2.png",
+      "newThumbnail": "/images/vehicles/Recon Helicopter.webp"
+    },
+    {
+      "uploadIndex": 104,
+      "filename": "Raptor.webp",
+      "baseName": "Raptor",
+      "matchedItemName": "Raptor X",
+      "itemId": "2255610b-16bd-4ee0-83a4-1bfb06c5fa0c",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_5638c5d0139641a8884b2158c5d5b01c~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_5638c5d0139641a8884b2158c5d5b01c~mv2.png",
+      "newThumbnail": "/images/vehicles/Raptor.webp"
+    },
+    {
+      "uploadIndex": 105,
+      "filename": "MI-28.webp",
+      "baseName": "MI-28",
+      "matchedItemName": "Overwatch",
+      "itemId": "46089e2c-e5d4-44d1-9da3-7e8e52e431a4",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_4edde11124e34102bfca040eb17e2e2d~mv2.png/v1/fill/w_186,h_206,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_4edde11124e34102bfca040eb17e2e2d~mv2.png",
+      "newThumbnail": "/images/vehicles/MI-28.webp"
+    },
+    {
+      "uploadIndex": 106,
+      "filename": "KA52.webp",
+      "baseName": "KA52",
+      "matchedItemName": "LE Cobra Super",
+      "itemId": "c5814f48-3d98-4a80-a68b-d04f29ac03be",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_b66740832a504c719b9a3589fd9c5864~mv2.png/v1/fill/w_180,h_199,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_b66740832a504c719b9a3589fd9c5864~mv2.png",
+      "newThumbnail": "/images/vehicles/KA52.webp"
+    },
+    {
+      "uploadIndex": 107,
+      "filename": "MI35.webp",
+      "baseName": "MI35",
+      "matchedItemName": "LE Cobra",
+      "itemId": "2728ea7e-d38a-4978-a1a4-9d29cb8f4f57",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6af91f7cf12c4cfa954303d8b41c3472~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-05-24%20215003.png",
+      "newThumbnail": "/images/vehicles/MI35.webp"
+    },
+    {
+      "uploadIndex": 108,
+      "filename": "FC31.webp",
+      "baseName": "FC31",
+      "matchedItemName": "F24",
+      "itemId": "21c70052-7473-4124-9517-620e42dd10e4",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_aa8247b1dcbc41a3b257fd560c63ac84~mv2.png/v1/fill/w_183,h_203,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_aa8247b1dcbc41a3b257fd560c63ac84~mv2.png",
+      "newThumbnail": "/images/vehicles/FC31.webp"
+    },
+    {
+      "uploadIndex": 109,
+      "filename": "Golden F16.webp",
+      "baseName": "Golden F16",
+      "matchedItemName": "Plat Skyhammer",
+      "itemId": "cb824716-2b74-4259-b6a1-45443f400f6c",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_0c3c8709f0254733885abbd4921d461e~mv2.png/v1/fill/w_373,h_413,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/f89faf_0c3c8709f0254733885abbd4921d461e~mv2.png",
+      "newThumbnail": "/images/vehicles/Golden F16.webp"
+    },
+    {
+      "uploadIndex": 110,
+      "filename": "Golden F22.webp",
+      "baseName": "Golden F22",
+      "matchedItemName": "Raptor X",
+      "itemId": "2255610b-16bd-4ee0-83a4-1bfb06c5fa0c",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_5638c5d0139641a8884b2158c5d5b01c~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_5638c5d0139641a8884b2158c5d5b01c~mv2.png",
+      "newThumbnail": "/images/vehicles/Golden F22.webp"
+    },
+    {
+      "uploadIndex": 111,
+      "filename": "F18.webp",
+      "baseName": "F18",
+      "matchedItemName": "LE F18 Hornet",
+      "itemId": "c0e99903-7d86-4f88-a65d-2bf5871c6a66",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_7f795eaa27db42caa03deacfc5e33382~mv2.png/v1/fill/w_158,h_175,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_7f795eaa27db42caa03deacfc5e33382~mv2.png",
+      "newThumbnail": "/images/vehicles/F18.webp"
+    },
+    {
+      "uploadIndex": 112,
+      "filename": "F117.webp",
+      "baseName": "F117",
+      "matchedItemName": "Ghostwind",
+      "itemId": "99f22f2d-1b65-402f-b0e6-9c4538f9bdba",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_ecd55546e5394191a760cb9b224787b8~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-19%20233212.png",
+      "newThumbnail": "/images/vehicles/F117.webp"
+    },
+    {
+      "uploadIndex": 113,
+      "filename": "Darkstar Mk2.webp",
+      "baseName": "Darkstar Mk2",
+      "matchedItemName": "Rainbow Darkstar",
+      "itemId": "a692bd13-3a4c-4f68-8041-7186c02e00bd",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_c3bcc9b9e5794fb0ad60716fa81ce580~mv2.png/v1/fill/w_373,h_413,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/f89faf_c3bcc9b9e5794fb0ad60716fa81ce580~mv2.png",
+      "newThumbnail": "/images/vehicles/Darkstar Mk2.webp"
+    },
+    {
+      "uploadIndex": 114,
+      "filename": "Darkstar.webp",
+      "baseName": "Darkstar",
+      "matchedItemName": "Darkstar-X",
+      "itemId": "0a779732-bb5f-4a31-8054-85e548f8c2c3",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_d2fee375229848218e8251facb66c56b~mv2.png/v1/fill/w_156,h_172,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_d2fee375229848218e8251facb66c56b~mv2.png",
+      "newThumbnail": "/images/vehicles/Darkstar.webp"
+    },
+    {
+      "uploadIndex": 115,
+      "filename": "Defiant.webp",
+      "baseName": "Defiant",
+      "matchedItemName": "Greyhound",
+      "itemId": "b08e453a-9096-4d02-bdbd-cc3967b689cb",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_8e0c60c4637e4eef9ef607922e716e84~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-02%20203248.png",
+      "newThumbnail": "/images/vehicles/Defiant.webp"
+    },
+    {
+      "uploadIndex": 116,
+      "filename": "Blackbird.webp",
+      "baseName": "Blackbird",
+      "matchedItemName": "Rainbow Darkstar",
+      "itemId": "a692bd13-3a4c-4f68-8041-7186c02e00bd",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_c3bcc9b9e5794fb0ad60716fa81ce580~mv2.png/v1/fill/w_373,h_413,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/f89faf_c3bcc9b9e5794fb0ad60716fa81ce580~mv2.png",
+      "newThumbnail": "/images/vehicles/Blackbird.webp"
+    },
+    {
+      "uploadIndex": 117,
+      "filename": "BOSS MI-28.webp",
+      "baseName": "BOSS MI-28",
+      "matchedItemName": "Overwatch",
+      "itemId": "46089e2c-e5d4-44d1-9da3-7e8e52e431a4",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_4edde11124e34102bfca040eb17e2e2d~mv2.png/v1/fill/w_186,h_206,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_4edde11124e34102bfca040eb17e2e2d~mv2.png",
+      "newThumbnail": "/images/vehicles/BOSS MI-28.webp"
+    },
+    {
+      "uploadIndex": 118,
+      "filename": "AHRLAC.webp",
+      "baseName": "AHRLAC",
+      "matchedItemName": "Police AHRLAC",
+      "itemId": "abeb7289-0c4b-4b67-8431-6b1f00e16e97",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_5bfcb856f2bf489f884dbb7b4c5d5f3a~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20020945.png",
+      "newThumbnail": "/images/vehicles/AHRLAC.webp"
+    },
+    {
+      "uploadIndex": 119,
+      "filename": "AC-119K.webp",
+      "baseName": "AC-119K",
+      "matchedItemName": "Mothership",
+      "itemId": "6a8c660a-3bc2-401e-a60a-07d4273a8ae2",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_b100458ba7f745ab89e677024ed831a5~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/image.png",
+      "newThumbnail": "/images/vehicles/AC-119K.webp"
+    },
+    {
+      "uploadIndex": 120,
+      "filename": "Zeplin-X.webp",
+      "baseName": "Zeplin-X",
+      "matchedItemName": "Elite Zeplin-X",
+      "itemId": "4e73d38b-d9eb-43f1-82d2-2641e1231231",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_811208de5ca24d779a79a00102595027~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-01-24%20144402.png",
+      "newThumbnail": "/images/vehicles/Zeplin-X.webp"
+    },
+    {
+      "uploadIndex": 122,
+      "filename": "YF1.webp",
+      "baseName": "YF1",
+      "matchedItemName": "YF1",
+      "itemId": "4afd16bb-2687-4d01-9545-03457d02e7bd",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_9f21eb98e8f340d8b5e9dd5ee645b59a~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_9f21eb98e8f340d8b5e9dd5ee645b59a~mv2.png",
+      "newThumbnail": "/images/vehicles/YF1.webp"
+    },
+    {
+      "uploadIndex": 123,
+      "filename": "X59.webp",
+      "baseName": "X59",
+      "matchedItemName": "X-59",
+      "itemId": "52df01b9-ee4f-4566-aaab-9c60fadb3364",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_283b979aa46640cc93b6a467f6807f3c~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20014821.png",
+      "newThumbnail": "/images/vehicles/X59.webp"
+    },
+    {
+      "uploadIndex": 124,
+      "filename": "XB-70.webp",
+      "baseName": "XB-70",
+      "matchedItemName": "Tupolev TB3",
+      "itemId": "65aa2ef3-08b7-4040-b5e8-0ae17b29b1ee",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_27789e17082346ee97a1c28ac9e9f634~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-12-27%20182006.png",
+      "newThumbnail": "/images/vehicles/XB-70.webp"
+    },
+    {
+      "uploadIndex": 125,
+      "filename": "War Shrike.webp",
+      "baseName": "War Shrike",
+      "matchedItemName": "War Shrike",
+      "itemId": "68444456-23a7-4fec-94b4-229ba56f42be",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_a05f9d48c04d449bbe89807cc31f96b0~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20001035.png",
+      "newThumbnail": "/images/vehicles/War Shrike.webp"
+    },
+    {
+      "uploadIndex": 126,
+      "filename": "Wulf.webp",
+      "baseName": "Wulf",
+      "matchedItemName": "Festive BF109",
+      "itemId": "1e7b6885-9472-48e7-837a-908c796b85d6",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_f994533e2731425e9e2fda8bcf3b3d14~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-30%20152315.png",
+      "newThumbnail": "/images/vehicles/Wulf.webp"
+    },
+    {
+      "uploadIndex": 127,
+      "filename": "Valor.webp",
+      "baseName": "Valor",
+      "matchedItemName": "Valor",
+      "itemId": "8ce3d71b-cb78-4c30-8624-87f0a73da0d8",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_094b950474b64c9fb4d3422397cdadda~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-01%20113455.png",
+      "newThumbnail": "/images/vehicles/Valor.webp"
+    },
+    {
+      "uploadIndex": 128,
+      "filename": "Typhoon.webp",
+      "baseName": "Typhoon",
+      "matchedItemName": "Typhoon (Sub)",
+      "itemId": "5ad67b93-3251-4557-861b-b0772452041b",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_57903158878f4dad8ba952460393b42c~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20004010.png",
+      "newThumbnail": "/images/vehicles/Typhoon.webp"
+    },
+    {
+      "uploadIndex": 129,
+      "filename": "U2.webp",
+      "baseName": "U2",
+      "matchedItemName": "Super A-14",
+      "itemId": "83bdda15-7e41-422c-9aa8-eb8a3514ef8b",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_dfd7db0cffd64080b0ab6e90aeec90cc~mv2.png/v1/fill/w_153,h_169,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_dfd7db0cffd64080b0ab6e90aeec90cc~mv2.png",
+      "newThumbnail": "/images/vehicles/U2.webp"
+    },
+    {
+      "uploadIndex": 130,
+      "filename": "UFO.webp",
+      "baseName": "UFO",
+      "matchedItemName": "Super Alien",
+      "itemId": "9f330164-15a7-44d7-a898-5ae7f3293829",
+      "category": "Soldier",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_86e7076a2b814bfda333aa192eb5690a~mv2.png/v1/fill/w_281,h_311,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_86e7076a2b814bfda333aa192eb5690a~mv2.png",
+      "newThumbnail": "/images/vehicles/UFO.webp"
+    },
+    {
+      "uploadIndex": 131,
+      "filename": "TU95.webp",
+      "baseName": "TU95",
+      "matchedItemName": "TU95",
+      "itemId": "d039580d-7ce3-4d5a-b50a-b5faab122cdf",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_9c7df674283b4d0eabf357172cf4c968~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-17%20151751.png",
+      "newThumbnail": "/images/vehicles/TU95.webp"
+    },
+    {
+      "uploadIndex": 132,
+      "filename": "TU-22M.webp",
+      "baseName": "TU-22M",
+      "matchedItemName": "Super TU-160",
+      "itemId": "cfcbc634-e71e-4e8b-a7ed-03fc08e2929c",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_9dc1f0f79f584eac8ed8f4ef9e5d7f51~mv2.png/v1/fill/w_180,h_199,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_9dc1f0f79f584eac8ed8f4ef9e5d7f51~mv2.png",
+      "newThumbnail": "/images/vehicles/TU-22M.webp"
+    },
+    {
+      "uploadIndex": 133,
+      "filename": "Tixplane.webp",
+      "baseName": "Tixplane",
+      "matchedItemName": "Tixplane",
+      "itemId": "c0ed4fd8-2c1e-41e9-a3b3-26128e1dc4e4",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_997349a327174c1982721f4308af0a7e~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-10-19%20010545.png",
+      "newThumbnail": "/images/vehicles/Tixplane.webp"
+    },
+    {
+      "uploadIndex": 134,
+      "filename": "TU-160.webp",
+      "baseName": "TU-160",
+      "matchedItemName": "TU-160",
+      "itemId": "3a16fd5a-1138-4c9b-925e-7c726de95274",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_91d2240160b04c80b579e202970b75cb~mv2.png/v1/fill/w_173,h_192,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_91d2240160b04c80b579e202970b75cb~mv2.png",
+      "newThumbnail": "/images/vehicles/TU-160.webp"
+    },
+    {
+      "uploadIndex": 136,
+      "filename": "Super F15.webp",
+      "baseName": "Super F15",
+      "matchedItemName": "Super F111",
+      "itemId": "b379d0a2-d070-4733-bae5-e25344b1375d",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_9104520ffd8f4efc814cd3f0cf492ce7~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-01-17%20121627.png",
+      "newThumbnail": "/images/vehicles/Super F15.webp"
+    },
+    {
+      "uploadIndex": 137,
+      "filename": "Super Raptor.webp",
+      "baseName": "Super Raptor",
+      "matchedItemName": "Raptor X",
+      "itemId": "2255610b-16bd-4ee0-83a4-1bfb06c5fa0c",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_5638c5d0139641a8884b2158c5d5b01c~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_5638c5d0139641a8884b2158c5d5b01c~mv2.png",
+      "newThumbnail": "/images/vehicles/Super Raptor.webp"
+    },
+    {
+      "uploadIndex": 138,
+      "filename": "Super Tucano.webp",
+      "baseName": "Super Tucano",
+      "matchedItemName": "Super Tucano",
+      "itemId": "0e3cf7aa-87fb-46a3-92cf-68da134545e5",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_00fd55013ba445d4b6a596257ff6d8a1~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20002044.png",
+      "newThumbnail": "/images/vehicles/Super Tucano.webp"
+    },
+    {
+      "uploadIndex": 139,
+      "filename": "Super Darkstar MK-2.webp",
+      "baseName": "Super Darkstar MK-2",
+      "matchedItemName": "Rainbow Darkstar",
+      "itemId": "a692bd13-3a4c-4f68-8041-7186c02e00bd",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_c3bcc9b9e5794fb0ad60716fa81ce580~mv2.png/v1/fill/w_373,h_413,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/f89faf_c3bcc9b9e5794fb0ad60716fa81ce580~mv2.png",
+      "newThumbnail": "/images/vehicles/Super Darkstar MK-2.webp"
+    },
+    {
+      "uploadIndex": 140,
+      "filename": "Super F14.webp",
+      "baseName": "Super F14",
+      "matchedItemName": "Super F24",
+      "itemId": "54049353-9ab9-40b4-8458-c4a8e3a697b4",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_073a71d03d50432893b802f912bb2aa3~mv2.png/v1/fill/w_183,h_203,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_073a71d03d50432893b802f912bb2aa3~mv2.png",
+      "newThumbnail": "/images/vehicles/Super F14.webp"
+    },
+    {
+      "uploadIndex": 141,
+      "filename": "Super AHRLAC.webp",
+      "baseName": "Super AHRLAC",
+      "matchedItemName": "Police AHRLAC",
+      "itemId": "abeb7289-0c4b-4b67-8431-6b1f00e16e97",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_5bfcb856f2bf489f884dbb7b4c5d5f3a~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20020945.png",
+      "newThumbnail": "/images/vehicles/Super AHRLAC.webp"
+    },
+    {
+      "uploadIndex": 142,
+      "filename": "Sukhoi SU25.webp",
+      "baseName": "Sukhoi SU25",
+      "matchedItemName": "Sukhoi SU25",
+      "itemId": "b12c2108-4ea3-45ea-9097-01c3f138ac34",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_83b895324d964fba99fe16525b768a4b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20013612.png",
+      "newThumbnail": "/images/vehicles/Sukhoi SU25.webp"
+    },
+    {
+      "uploadIndex": 143,
+      "filename": "Stealth F14.webp",
+      "baseName": "Stealth F14",
+      "matchedItemName": "Super F24",
+      "itemId": "54049353-9ab9-40b4-8458-c4a8e3a697b4",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_073a71d03d50432893b802f912bb2aa3~mv2.png/v1/fill/w_183,h_203,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_073a71d03d50432893b802f912bb2aa3~mv2.png",
+      "newThumbnail": "/images/vehicles/Stealth F14.webp"
+    },
+    {
+      "uploadIndex": 144,
+      "filename": "Stallion.webp",
+      "baseName": "Stallion",
+      "matchedItemName": "Super Zhi 19E",
+      "itemId": "1f3d60b9-ee36-453a-a0e7-3b0c544e46ec",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_c7028af52c664981bbb399c596bc7c29~mv2.png/v1/fill/w_154,h_171,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_c7028af52c664981bbb399c596bc7c29~mv2.png",
+      "newThumbnail": "/images/vehicles/Stallion.webp"
+    },
+    {
+      "uploadIndex": 145,
+      "filename": "Golden Spitfire.webp",
+      "baseName": "Golden Spitfire",
+      "matchedItemName": "Festive BF109",
+      "itemId": "1e7b6885-9472-48e7-837a-908c796b85d6",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_f994533e2731425e9e2fda8bcf3b3d14~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-30%20152315.png",
+      "newThumbnail": "/images/vehicles/Golden Spitfire.webp"
+    },
+    {
+      "uploadIndex": 146,
+      "filename": "Sky Reaper.webp",
+      "baseName": "Sky Reaper",
+      "matchedItemName": "Sky Reaper",
+      "itemId": "db08b73b-60cc-4f9c-bab4-beca26ebb01e",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_a9d929ad88be4df9b917ffd041462e2b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot_2025-05-23_at_5.01.51_PM.png",
+      "newThumbnail": "/images/vehicles/Sky Reaper.webp"
+    },
+    {
+      "uploadIndex": 147,
+      "filename": "Silver Howl.webp",
+      "baseName": "Silver Howl",
+      "matchedItemName": "Silver Howl",
+      "itemId": "2d1abeea-b57f-4d74-8f5d-bf4c04d6c924",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_1a81fa353bd54a25a661b361a964e333~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-10-25%20231646.png",
+      "newThumbnail": "/images/vehicles/Silver Howl.webp"
+    },
+    {
+      "uploadIndex": 148,
+      "filename": "Skyfox.webp",
+      "baseName": "Skyfox",
+      "matchedItemName": "Skyfox",
+      "itemId": "e4211db9-d714-425b-b3f0-46adbe917af6",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_f57f4358891147fdbf5656b469691de9~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20012344.png",
+      "newThumbnail": "/images/vehicles/Skyfox.webp"
+    },
+    {
+      "uploadIndex": 149,
+      "filename": "ATC Silkfire.webp",
+      "baseName": "ATC Silkfire",
+      "matchedItemName": "Skyfox",
+      "itemId": "e4211db9-d714-425b-b3f0-46adbe917af6",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_f57f4358891147fdbf5656b469691de9~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20012344.png",
+      "newThumbnail": "/images/vehicles/ATC Silkfire.webp"
+    },
+    {
+      "uploadIndex": 150,
+      "filename": "Scorpion.webp",
+      "baseName": "Scorpion",
+      "matchedItemName": "Super Skyfox",
+      "itemId": "491ac995-b342-47fe-a1ad-23687aba360a",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_c54e4181a87c48a5b4dd8569617ea42f~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20012340.png",
+      "newThumbnail": "/images/vehicles/Scorpion.webp"
+    },
+    {
+      "uploadIndex": 151,
+      "filename": "SeaHawk.webp",
+      "baseName": "SeaHawk",
+      "matchedItemName": "SeaHawk",
+      "itemId": "439c3dc3-b727-42a5-864c-d20bdc97a7d5",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_c9430515764e441cbc88734092aad3ed~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-29%20173821.png",
+      "newThumbnail": "/images/vehicles/SeaHawk.webp"
+    },
+    {
+      "uploadIndex": 152,
+      "filename": "SU57.webp",
+      "baseName": "SU57",
+      "matchedItemName": "Sukhoi SU57",
+      "itemId": "a3d0a702-2fdf-4d62-9c47-1bf073fa3a42",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_428da1b54aae437093847d6e5eb8aeca~mv2.png/v1/fill/w_154,h_171,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_428da1b54aae437093847d6e5eb8aeca~mv2.png",
+      "newThumbnail": "/images/vehicles/SU57.webp"
+    },
+    {
+      "uploadIndex": 153,
+      "filename": "SU25.webp",
+      "baseName": "SU25",
+      "matchedItemName": "Sukhoi SU25",
+      "itemId": "b12c2108-4ea3-45ea-9097-01c3f138ac34",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_83b895324d964fba99fe16525b768a4b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20013612.png",
+      "newThumbnail": "/images/vehicles/SU25.webp"
+    },
+    {
+      "uploadIndex": 154,
+      "filename": "SU34.webp",
+      "baseName": "SU34",
+      "matchedItemName": "Super Tupolev",
+      "itemId": "5f6cb6d9-feeb-4dc6-b56f-d05f099d5799",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_c7625acf7d094bd4a824b42091e64383~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-12-27%20182029.png",
+      "newThumbnail": "/images/vehicles/SU34.webp"
+    },
+    {
+      "uploadIndex": 155,
+      "filename": "Red F14.webp",
+      "baseName": "Red F14",
+      "matchedItemName": "Red F14",
+      "itemId": "7db14095-379b-4dc2-8de6-7ecac27989b3",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_2b2365fba93b419eb6ba4d8ff19d5d50~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_2b2365fba93b419eb6ba4d8ff19d5d50~mv2.png",
+      "newThumbnail": "/images/vehicles/Red F14.webp"
+    },
+    {
+      "uploadIndex": 156,
+      "filename": "SM-27.webp",
+      "baseName": "SM-27",
+      "matchedItemName": "SM-27",
+      "itemId": "fe4a72d7-762e-4925-9486-ca7a6836f47d",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_22f0ff76952c48679ac81e8fa53b2580~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-05-24%20183500.png",
+      "newThumbnail": "/images/vehicles/SM-27.webp"
+    },
+    {
+      "uploadIndex": 157,
+      "filename": "Rocket HE177.webp",
+      "baseName": "Rocket HE177",
+      "matchedItemName": "Rocket HE177",
+      "itemId": "e671e5f3-3711-475c-bc47-f9ae84038f9a",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_f0885feead384a33bce55e725658f5fd~mv2.png/v1/fill/w_186,h_206,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_f0885feead384a33bce55e725658f5fd~mv2.png",
+      "newThumbnail": "/images/vehicles/Rocket HE177.webp"
+    },
+    {
+      "uploadIndex": 158,
+      "filename": "Police Heli.webp",
+      "baseName": "Police Heli",
+      "matchedItemName": "Police Heli",
+      "itemId": "5a64c72e-bb27-4122-bc3a-b8285647692f",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_28483b22656b4f978311abdcc245197c~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-08-19%20145649.png",
+      "newThumbnail": "/images/vehicles/Police Heli.webp"
+    },
+    {
+      "uploadIndex": 159,
+      "filename": "Prowler.webp",
+      "baseName": "Prowler",
+      "matchedItemName": "Super A37",
+      "itemId": "d0079328-3d73-4826-ac2e-7159b7bb6d2b",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_7ad2c322f67e4f27ad4c2d15936541de~mv2.png/v1/fill/w_180,h_199,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_7ad2c322f67e4f27ad4c2d15936541de~mv2.png",
+      "newThumbnail": "/images/vehicles/Prowler.webp"
+    },
+    {
+      "uploadIndex": 160,
+      "filename": "Rafale.webp",
+      "baseName": "Rafale",
+      "matchedItemName": "Super Rafale",
+      "itemId": "9d76a679-b7c5-46dd-b867-4ad10bc1709c",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_439eb0a4dabf49a39543c8a025becce3~mv2.png/v1/fill/w_180,h_199,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_439eb0a4dabf49a39543c8a025becce3~mv2.png",
+      "newThumbnail": "/images/vehicles/Rafale.webp"
+    },
+    {
+      "uploadIndex": 161,
+      "filename": "Platinum F16.webp",
+      "baseName": "Platinum F16",
+      "matchedItemName": "Plat Skyhammer",
+      "itemId": "cb824716-2b74-4259-b6a1-45443f400f6c",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_0c3c8709f0254733885abbd4921d461e~mv2.png/v1/fill/w_373,h_413,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/f89faf_0c3c8709f0254733885abbd4921d461e~mv2.png",
+      "newThumbnail": "/images/vehicles/Platinum F16.webp"
+    },
+    {
+      "uploadIndex": 162,
+      "filename": "Phantom Jet.webp",
+      "baseName": "Phantom Jet",
+      "matchedItemName": "Super A50",
+      "itemId": "1fad2bb9-5f0d-4f10-b322-012815d06458",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_854da194efa649cd84c3cf84d40c251c~mv2.png/v1/fill/w_158,h_175,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_854da194efa649cd84c3cf84d40c251c~mv2.png",
+      "newThumbnail": "/images/vehicles/Phantom Jet.webp"
+    },
+    {
+      "uploadIndex": 163,
+      "filename": "NovaBlitz.webp",
+      "baseName": "NovaBlitz",
+      "matchedItemName": "Super Nova",
+      "itemId": "ec9730e0-87e4-4e75-8c32-2d7a520f1375",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_4cc1c0d750df46efa11352d79e4b5bf2~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-13_133242764.png",
+      "newThumbnail": "/images/vehicles/NovaBlitz.webp"
+    },
+    {
+      "uploadIndex": 164,
+      "filename": "Pelican.webp",
+      "baseName": "Pelican",
+      "matchedItemName": "Wrapped C17",
+      "itemId": "f8a199ae-3682-41b5-a8c8-aae5c2d5c3a4",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_ab05d6d621b94ceeb703192f063ca580~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-30%20152411.png",
+      "newThumbnail": "/images/vehicles/Pelican.webp"
+    },
+    {
+      "uploadIndex": 165,
+      "filename": "Nova.webp",
+      "baseName": "Nova",
+      "matchedItemName": "Nova",
+      "itemId": "5a59a95d-5f83-486a-a922-9dd598342196",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_721253068d3b4d5fade0af1bff8912e4~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/N%C3%A4ytt%C3%B6kuva%202025-04-13%20134402.png",
+      "newThumbnail": "/images/vehicles/Nova.webp"
+    },
+    {
+      "uploadIndex": 166,
+      "filename": "Miron.webp",
+      "baseName": "Miron",
+      "matchedItemName": "Super B21",
+      "itemId": "c5b67128-0d8a-4d3e-9e19-088e2d1b52ae",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6e05cc8cf13449279a65c592df36ae64~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_6e05cc8cf13449279a65c592df36ae64~mv2.png",
+      "newThumbnail": "/images/vehicles/Miron.webp"
+    },
+    {
+      "uploadIndex": 167,
+      "filename": "NGAD.webp",
+      "baseName": "NGAD",
+      "matchedItemName": "Top3 GhostWind",
+      "itemId": "5b6bbe5e-56e9-4966-aec4-a8cebd7e1898",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_99ed250c4c5c40a2a4318676af56ec72~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-12-27%20182012.png",
+      "newThumbnail": "/images/vehicles/NGAD.webp"
+    },
+    {
+      "uploadIndex": 168,
+      "filename": "Mig31.webp",
+      "baseName": "Mig31",
+      "matchedItemName": "Super Mig25",
+      "itemId": "ab191829-707e-46ea-bf66-7c9266cf6a2d",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_389bb5df242e4828bc72fc94d61c4ea3~mv2.png/v1/fill/w_178,h_197,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_389bb5df242e4828bc72fc94d61c4ea3~mv2.png",
+      "newThumbnail": "/images/vehicles/Mig31.webp"
+    },
+    {
+      "uploadIndex": 169,
+      "filename": "Mig25.webp",
+      "baseName": "Mig25",
+      "matchedItemName": "Mig25",
+      "itemId": "ac0eeda5-c505-4a6a-ae2d-d4e2caebce81",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_acf76062b4b44ddf834ae1386334a8e9~mv2.png/v1/fill/w_180,h_199,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_acf76062b4b44ddf834ae1386334a8e9~mv2.png",
+      "newThumbnail": "/images/vehicles/Mig25.webp"
+    },
+    {
+      "uploadIndex": 170,
+      "filename": "M50.webp",
+      "baseName": "M50",
+      "matchedItemName": "M50",
+      "itemId": "d8c44b9d-a5a0-425e-98ff-215b1940d937",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_14aca2f51c8548a7a0eddf00efe7eaef~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-12-25%20205118.png",
+      "newThumbnail": "/images/vehicles/M50.webp"
+    },
+    {
+      "uploadIndex": 171,
+      "filename": "ME262.webp",
+      "baseName": "ME262",
+      "matchedItemName": "ME323",
+      "itemId": "d72f47e1-f484-4974-923b-32bf86b84d85",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_e7e800dda9f3472298265a73f241c1ba~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-20%20214331.png",
+      "newThumbnail": "/images/vehicles/ME262.webp"
+    },
+    {
+      "uploadIndex": 172,
+      "filename": "Lovebird.webp",
+      "baseName": "Lovebird",
+      "matchedItemName": "Lovebird",
+      "itemId": "1b9a4911-3a77-4323-9009-711db287a8ba",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_2a83ae078d784b30a60cfe6b922a5fec~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-14%20210207.png",
+      "newThumbnail": "/images/vehicles/Lovebird.webp"
+    },
+    {
+      "uploadIndex": 173,
+      "filename": "MQ4C Jet.webp",
+      "baseName": "MQ4C Jet",
+      "matchedItemName": "MQ4C Jet",
+      "itemId": "4dfb2614-fd9b-4b4d-901f-ed319e9b5fb6",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_0de1f7728c6a4bd6b18b7a4df178cdbf~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-07-19%20220737.png",
+      "newThumbnail": "/images/vehicles/MQ4C Jet.webp"
+    },
+    {
+      "uploadIndex": 174,
+      "filename": "LE Cobra.webp",
+      "baseName": "LE Cobra",
+      "matchedItemName": "LE Cobra",
+      "itemId": "2728ea7e-d38a-4978-a1a4-9d29cb8f4f57",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6af91f7cf12c4cfa954303d8b41c3472~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-05-24%20215003.png",
+      "newThumbnail": "/images/vehicles/LE Cobra.webp"
+    },
+    {
+      "uploadIndex": 175,
+      "filename": "Ironhawk.webp",
+      "baseName": "Ironhawk",
+      "matchedItemName": "Ironhawk",
+      "itemId": "701d87ae-3c28-4ac6-8dea-6026579f5ccc",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_fdd35f507b394d168db0fae4767bc204~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20013218.png",
+      "newThumbnail": "/images/vehicles/Ironhawk.webp"
+    },
+    {
+      "uploadIndex": 176,
+      "filename": "AA Abram.webp",
+      "baseName": "AA Abram",
+      "matchedItemName": "Abram Tank",
+      "itemId": "f5a04d7e-74de-40b0-ba05-184b02b042b1",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_35446876e8d645ff83d6a276fa0b0b87~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-08_145856411.png",
+      "newThumbnail": "/images/vehicles/AA Abram.webp"
+    },
+    {
+      "uploadIndex": 177,
+      "filename": "Volk.webp",
+      "baseName": "Volk",
+      "matchedItemName": "Super Speeder",
+      "itemId": "3a6f5f32-d009-4e2d-a1a1-92138e6a6232",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_d7af3dece4014c4e8b3e0ebbbe5f9105~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20001514.png",
+      "newThumbnail": "/images/vehicles/Volk.webp"
+    },
+    {
+      "uploadIndex": 178,
+      "filename": "Truck.webp",
+      "baseName": "Truck",
+      "matchedItemName": "Hacker Truck",
+      "itemId": "7eaaf257-c66f-4e55-a5f3-6d2db2970c76",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_0fb640cc320742b4949de6207200ed31~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-19%20235430.png",
+      "newThumbnail": "/images/vehicles/Truck.webp"
+    },
+    {
+      "uploadIndex": 179,
+      "filename": "Turret Truck.webp",
+      "baseName": "Turret Truck",
+      "matchedItemName": "Mortar Truck",
+      "itemId": "b86b6672-d692-4a7d-bd3e-1114d5637665",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_3f756c1390f9411c8535ab22011a8bc4~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20015649.png",
+      "newThumbnail": "/images/vehicles/Turret Truck.webp"
+    },
+    {
+      "uploadIndex": 180,
+      "filename": "Snowmobile.webp",
+      "baseName": "Snowmobile",
+      "matchedItemName": "Armored Snow mobile",
+      "itemId": "c595c5e0-cc76-4032-8f71-00a418a4bec3",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17GLy7J-gJNQP9AdZeKt_nsSZ7gT8fSgIjdYDBDsc8iUecQ_1zN3uGUqJxkGm9FAUwhcoHOO22Q33Ulq9GnbixVXHvC0n48CS8mfHDAhaJ7-RATOyE4Cj-vYTm1BAG39dfY_uTbuzHI51udsZK5DwRY=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Snowmobile.webp"
+    },
+    {
+      "uploadIndex": 181,
+      "filename": "Tiger Tank.webp",
+      "baseName": "Tiger Tank",
+      "matchedItemName": "Tiger Mech",
+      "itemId": "7a2b895e-7ae1-43c0-b77d-586ae504dc6d",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_68d63ba2e30c4149b879f8cb0bcd531e~mv2.png/v1/fill/w_183,h_203,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_68d63ba2e30c4149b879f8cb0bcd531e~mv2.png",
+      "newThumbnail": "/images/vehicles/Tiger Tank.webp"
+    },
+    {
+      "uploadIndex": 182,
+      "filename": "Sand Hyena.webp",
+      "baseName": "Sand Hyena",
+      "matchedItemName": "Hellstorm",
+      "itemId": "95255650-d985-4ed9-b43e-f48097acd13f",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_cc37bd8c42734033a054a103e995ced0~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20003115.png",
+      "newThumbnail": "/images/vehicles/Sand Hyena.webp"
+    },
+    {
+      "uploadIndex": 183,
+      "filename": "Leopard Tank.webp",
+      "baseName": "Leopard Tank",
+      "matchedItemName": "Keiler",
+      "itemId": "b91a520b-48b3-4189-bb73-c30599527d8b",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_99f400eb37b7437aa2932fcbf4392689~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-14%20205934.png",
+      "newThumbnail": "/images/vehicles/Leopard Tank.webp"
+    },
+    {
+      "uploadIndex": 184,
+      "filename": "Humvee.webp",
+      "baseName": "Humvee",
+      "matchedItemName": "Super AN Jeep",
+      "itemId": "5a3b1d26-ebaf-4b4b-9b79-358c9921877e",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/341c64_77e26a1d76a04ef7a6e7a6a72b23be15~mv2.jpg/v1/fill/w_298,h_330,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/341c64_77e26a1d76a04ef7a6e7a6a72b23be15~mv2.jpg",
+      "newThumbnail": "/images/vehicles/Humvee.webp"
+    },
+    {
+      "uploadIndex": 185,
+      "filename": "Himars.webp",
+      "baseName": "Himars",
+      "matchedItemName": "MLRS",
+      "itemId": "28e891de-8ab8-4bba-9b64-24023b6061f4",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_29f57f590f91446192f6be74710b3592~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_29f57f590f91446192f6be74710b3592~mv2.png",
+      "newThumbnail": "/images/vehicles/Himars.webp"
+    },
+    {
+      "uploadIndex": 186,
+      "filename": "Jeep.webp",
+      "baseName": "Jeep",
+      "matchedItemName": "Armored Jeep",
+      "itemId": "ac777ce0-5422-4330-9bdd-8704bcd6333f",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17FJP_7kiT5-WkCMH0UGuYjrJdL0oa4f6pC6JQ7mgZsnzN2UFB-2pYUO_lajbV33_ifDO9jHticRWcM0D3mciEpW7yZV50NCliLlkC54DUubczNofOj4i13R0ntVMV9ZAMAos46w6MkviNT5ClIx-O4=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Jeep.webp"
+    },
+    {
+      "uploadIndex": 187,
+      "filename": "Laser Truck.webp",
+      "baseName": "Laser Truck",
+      "matchedItemName": "Super Beam Tank",
+      "itemId": "b8f5267c-1d07-4557-8434-4a2e65394a4f",
+      "category": "Land",
+      "previousThumbnail": "https://i.imgur.com/OSeZmf7.png",
+      "newThumbnail": "/images/vehicles/Laser Truck.webp"
+    },
+    {
+      "uploadIndex": 188,
+      "filename": "Grapple ATV.webp",
+      "baseName": "Grapple ATV",
+      "matchedItemName": "ATV",
+      "itemId": "85bdaf3f-8ad1-4c34-b610-5fe5d538521c",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17GEF9pbZF92Mp9qluvsrOmB8E21-QNj2dgf73zFRNBBSQhXy4U5vcsfSLoId784OgqejbLwwJSdZcx7LPUj41kAkQWKl9eW9yNmYyUiUNImXGwtEF9mzDG3ZhDu0qdpjW-F8lWTRiSZEPFH48exvLI=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Grapple ATV.webp"
+    },
+    {
+      "uploadIndex": 189,
+      "filename": "Dune Buggy.webp",
+      "baseName": "Dune Buggy",
+      "matchedItemName": "Boss Buggy",
+      "itemId": "1870db02-578f-4b2a-b1a2-c195532d3960",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17G8SfnItkQ-pr25qbXirEJ9hgIxYK3MRkr0cdrVuZK1Q81n9KeQpcFN13BmM1sE2IO6HgQHq66DS-gl3iKJapT4YyogR5aebEF7LGYF7mgQebUiQXjKYTwv7kswb86Wbs2dK9OnM5ZwvVgbLelKDA=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Dune Buggy.webp"
+    },
+    {
+      "uploadIndex": 190,
+      "filename": "Armored Vehicle.webp",
+      "baseName": "Armored Vehicle",
+      "matchedItemName": "Armored Vehicle",
+      "itemId": "4d293b23-8711-459d-b641-699d223de729",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17GXuwH3MWPnf34n94BOwdEDLngpt-3qqYWvDXgivT5t_4TuPV-q_AKLdNS8fKYapBdvySLmiWZQABNW3fQ94btC6lXJXFGhR_CxljDDmhy1VwTUYiiYg6jXpxRqH6tz8IUO3j_zWqUhRcE7YYfh0iI=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Armored Vehicle.webp"
+    },
+    {
+      "uploadIndex": 191,
+      "filename": "Artillery.webp",
+      "baseName": "Artillery",
+      "matchedItemName": "Artillery",
+      "itemId": "5c7ed32d-dd4d-49c0-b8bb-a1803f2a4662",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17Hk9YYNkIX5FDQNK6wUrre2QoipmZfBXFIC0E1AdJOojtGLuFm9mDdPLGm0tPcaMoFdHhitm5Iv-qiYC5M1w2pJS3KgKQfeyyaV-ideNwjR2WX0jRJPtNBcPmJI8h0AIykVvp-FWBD7i_W50cOFyEI=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Artillery.webp"
+    },
+    {
+      "uploadIndex": 192,
+      "filename": "Armored Jeep.webp",
+      "baseName": "Armored Jeep",
+      "matchedItemName": "Armored Jeep",
+      "itemId": "ac777ce0-5422-4330-9bdd-8704bcd6333f",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17FJP_7kiT5-WkCMH0UGuYjrJdL0oa4f6pC6JQ7mgZsnzN2UFB-2pYUO_lajbV33_ifDO9jHticRWcM0D3mciEpW7yZV50NCliLlkC54DUubczNofOj4i13R0ntVMV9ZAMAos46w6MkviNT5ClIx-O4=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Armored Jeep.webp"
+    },
+    {
+      "uploadIndex": 193,
+      "filename": "Armored Snowmobile.webp",
+      "baseName": "Armored Snowmobile",
+      "matchedItemName": "Armored Snow mobile",
+      "itemId": "c595c5e0-cc76-4032-8f71-00a418a4bec3",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17GLy7J-gJNQP9AdZeKt_nsSZ7gT8fSgIjdYDBDsc8iUecQ_1zN3uGUqJxkGm9FAUwhcoHOO22Q33Ulq9GnbixVXHvC0n48CS8mfHDAhaJ7-RATOyE4Cj-vYTm1BAG39dfY_uTbuzHI51udsZK5DwRY=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Armored Snowmobile.webp"
+    },
+    {
+      "uploadIndex": 194,
+      "filename": "ATV.webp",
+      "baseName": "ATV",
+      "matchedItemName": "ATV",
+      "itemId": "85bdaf3f-8ad1-4c34-b610-5fe5d538521c",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17GEF9pbZF92Mp9qluvsrOmB8E21-QNj2dgf73zFRNBBSQhXy4U5vcsfSLoId784OgqejbLwwJSdZcx7LPUj41kAkQWKl9eW9yNmYyUiUNImXGwtEF9mzDG3ZhDu0qdpjW-F8lWTRiSZEPFH48exvLI=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/ATV.webp"
+    },
+    {
+      "uploadIndex": 195,
+      "filename": "Green Abram Tank.webp",
+      "baseName": "Green Abram Tank",
+      "matchedItemName": "Abram Tank",
+      "itemId": "f5a04d7e-74de-40b0-ba05-184b02b042b1",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_35446876e8d645ff83d6a276fa0b0b87~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-08_145856411.png",
+      "newThumbnail": "/images/vehicles/Green Abram Tank.webp"
+    },
+    {
+      "uploadIndex": 196,
+      "filename": "APC.webp",
+      "baseName": "APC",
+      "matchedItemName": "APC",
+      "itemId": "74e19b33-801e-478b-b126-2805f6e9f149",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17GuJIOW3dmjxruMaNdW0Ajjwsykfil7TjRfBWA0b-iXO6wWxssBIvwqd7zHmQXqfA51WOj_z-zxfIddmcuGI6u_2Rg-DJSevqN_ksqE0aBvQ8vLqTWk_TUkZ2M9bzXzZZ1shrUyvrkX2b5I-ZDGlA=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/APC.webp"
+    },
+    {
+      "uploadIndex": 197,
+      "filename": "AAV.webp",
+      "baseName": "AAV",
+      "matchedItemName": "AAV",
+      "itemId": "72456a82-e3ca-43fd-a5f9-3ac917b1e548",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17EkoBQ88aVdO4a9lL5UetLOZh23TSR_BQRA0o8dpC0Yx0v9arKz8TJB9kdMmCj5xxMd6JoQz1orUPpEXsuNoNkSckdXecPmgdcdDzLo2peS9OSgIcJisXy3_0TdxokNCdTFp3QqQg_AYcOuywxXOVE=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/AAV.webp"
+    },
+    {
+      "uploadIndex": 198,
+      "filename": "T90 Tank.webp",
+      "baseName": "T90 Tank",
+      "matchedItemName": "Heavy T28",
+      "itemId": "cffbedb4-9e3b-442c-bb54-e840ad603706",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_68fb648c3b644d33856e7a6e115312c0~mv2.png/v1/fill/w_177,h_196,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_68fb648c3b644d33856e7a6e115312c0~mv2.png",
+      "newThumbnail": "/images/vehicles/T90 Tank.webp"
+    },
+    {
+      "uploadIndex": 199,
+      "filename": "Rocket Tank.webp",
+      "baseName": "Rocket Tank",
+      "matchedItemName": "Super TOS1",
+      "itemId": "879252bc-7824-4d6d-b46f-e2cbd5f9d325",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_ab9e8d1506054f39af822e49cfeb0063~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-27%20165922.png",
+      "newThumbnail": "/images/vehicles/Rocket Tank.webp"
+    },
+    {
+      "uploadIndex": 200,
+      "filename": "Terrorbyte.webp",
+      "baseName": "Terrorbyte",
+      "matchedItemName": "Hacker X",
+      "itemId": "f6c74f0f-165b-49c1-8326-15e607d4ab0c",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_5e4597794b9642ea9d87ba5c476984e4~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-19%20235425.png",
+      "newThumbnail": "/images/vehicles/Terrorbyte.webp"
+    },
+    {
+      "uploadIndex": 201,
+      "filename": "QN506.webp",
+      "baseName": "QN506",
+      "matchedItemName": "Korkut",
+      "itemId": "6013b227-4c4f-4ac2-b971-3a517959d4b8",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_4afd7161074044d4b6f742a1edfd9529~mv2.png/v1/fill/w_164,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-29%20000210.png",
+      "newThumbnail": "/images/vehicles/QN506.webp"
+    },
+    {
+      "uploadIndex": 202,
+      "filename": "Edjer.webp",
+      "baseName": "Edjer",
+      "matchedItemName": "Driller",
+      "itemId": "90abf680-0098-415e-9f07-f593e31bb3f8",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_313bbf2c27e84f0d8d5cb97da9c0758b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-14%20150854.png",
+      "newThumbnail": "/images/vehicles/Edjer.webp"
+    },
+    {
+      "uploadIndex": 203,
+      "filename": "Halftrack.webp",
+      "baseName": "Halftrack",
+      "matchedItemName": "Halftrack",
+      "itemId": "dbc7563b-e204-4cb1-9ee2-de7afb3e73cc",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_ea1f25cedaf54f079b29b18c92db4695~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/halfiebalfie.png",
+      "newThumbnail": "/images/vehicles/Halftrack.webp"
+    },
+    {
+      "uploadIndex": 204,
+      "filename": "Missile Truck.webp",
+      "baseName": "Missile Truck",
+      "matchedItemName": "Nuke Mortar Truck",
+      "itemId": "9b028a15-2980-40b3-ad0d-c4561d5aa536",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_42fcb5fa122d4d7ba74ab2c3b56cc05d~mv2.png/v1/fill/w_152,h_168,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_42fcb5fa122d4d7ba74ab2c3b56cc05d~mv2.png",
+      "newThumbnail": "/images/vehicles/Missile Truck.webp"
+    },
+    {
+      "uploadIndex": 205,
+      "filename": "Alvis Stormer.webp",
+      "baseName": "Alvis Stormer",
+      "matchedItemName": "Alvis Stormer",
+      "itemId": "693fa4d3-2ef8-47a0-a802-9c11c9ddc383",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_50e447e5d7cf4e34954d844aca4f4a93~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-08_145649586.png",
+      "newThumbnail": "/images/vehicles/Alvis Stormer.webp"
+    },
+    {
+      "uploadIndex": 206,
+      "filename": "BOSS Buggy.webp",
+      "baseName": "BOSS Buggy",
+      "matchedItemName": "Boss Buggy",
+      "itemId": "1870db02-578f-4b2a-b1a2-c195532d3960",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17G8SfnItkQ-pr25qbXirEJ9hgIxYK3MRkr0cdrVuZK1Q81n9KeQpcFN13BmM1sE2IO6HgQHq66DS-gl3iKJapT4YyogR5aebEF7LGYF7mgQebUiQXjKYTwv7kswb86Wbs2dK9OnM5ZwvVgbLelKDA=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/BOSS Buggy.webp"
+    },
+    {
+      "uploadIndex": 207,
+      "filename": "AATank.webp",
+      "baseName": "AATank",
+      "matchedItemName": "AATank",
+      "itemId": "f966c125-08a5-49fd-9ba0-0ee98b11ffac",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_1e8b40eed0b342e9aeecb006b554d938~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20022106.png",
+      "newThumbnail": "/images/vehicles/AATank.webp"
+    },
+    {
+      "uploadIndex": 208,
+      "filename": "Abram Tank.webp",
+      "baseName": "Abram Tank",
+      "matchedItemName": "Abram Tank",
+      "itemId": "f5a04d7e-74de-40b0-ba05-184b02b042b1",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_35446876e8d645ff83d6a276fa0b0b87~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-08_145856411.png",
+      "newThumbnail": "/images/vehicles/Abram Tank.webp"
+    },
+    {
+      "uploadIndex": 209,
+      "filename": "Abram X.webp",
+      "baseName": "Abram X",
+      "matchedItemName": "Abram X",
+      "itemId": "99481266-e425-423e-8598-0569fb57322c",
+      "category": "Land",
+      "previousThumbnail": "https://lh7-rt.googleusercontent.com/sheetsz/AHOq17HSmtk8aEb9ntlXEfXQEuLq2oyU96-oMGkPNh8izpVdphjH2KHhQvN4mtpf5124_-vUXJVlaTBKT68Uy_kWrQCF4JoHIs8gr3EBnGRJw7Xor5tzv34bXmG1f_CIsHXCMrMVSwMfpZXEmlA1pN3MWw=w242-h139?key=ciJ0EC-fnXrfPQT28arVYeIv",
+      "newThumbnail": "/images/vehicles/Abram X.webp"
+    },
+    {
+      "uploadIndex": 210,
+      "filename": "Super Laser Truck.webp",
+      "baseName": "Super Laser Truck",
+      "matchedItemName": "Super Beam Tank",
+      "itemId": "b8f5267c-1d07-4557-8434-4a2e65394a4f",
+      "category": "Land",
+      "previousThumbnail": "https://i.imgur.com/OSeZmf7.png",
+      "newThumbnail": "/images/vehicles/Super Laser Truck.webp"
+    },
+    {
+      "uploadIndex": 211,
+      "filename": "TKS-20.webp",
+      "baseName": "TKS-20",
+      "matchedItemName": "TKS-20",
+      "itemId": "5fd6d199-d1cb-4b55-b62a-89e00352a8a4",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_77300053a6244bdbbf0a00006d81edf5~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-08-13%20235255.png",
+      "newThumbnail": "/images/vehicles/TKS-20.webp"
+    },
+    {
+      "uploadIndex": 212,
+      "filename": "Sea Tank.webp",
+      "baseName": "Sea Tank",
+      "matchedItemName": "Tank Boat",
+      "itemId": "2fdc6575-0bda-407d-b919-e5a3194e28d4",
+      "category": "Naval",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_339801ab9d354cbf9e43ca259c999930~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-09-28%20194839.png",
+      "newThumbnail": "/images/vehicles/Sea Tank.webp"
+    },
+    {
+      "uploadIndex": 213,
+      "filename": "Striker.webp",
+      "baseName": "Striker",
+      "matchedItemName": "Super Akrep",
+      "itemId": "22cf8b75-ef1e-486f-9b5d-f7a35c64c15b",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_b679f9d8b25b470887533c44e442c265~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20011234.png",
+      "newThumbnail": "/images/vehicles/Striker.webp"
+    },
+    {
+      "uploadIndex": 214,
+      "filename": "Phanter.webp",
+      "baseName": "Phanter",
+      "matchedItemName": "Chrysler",
+      "itemId": "54f35e9c-4df0-487a-9a5f-8da757b3e48a",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_43060e2496c54b3d959e074857a42e51~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-30%20152955.png",
+      "newThumbnail": "/images/vehicles/Phanter.webp"
+    },
+    {
+      "uploadIndex": 215,
+      "filename": "S-Tank Barrage.webp",
+      "baseName": "S-Tank Barrage",
+      "matchedItemName": "Tesla Tank",
+      "itemId": "26f74812-ed59-4e94-82ff-f68778d5fbef",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_dc6bb52fe05c44cb915854f9dd71b985~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20012717.png",
+      "newThumbnail": "/images/vehicles/S-Tank Barrage.webp"
+    },
+    {
+      "uploadIndex": 216,
+      "filename": "Rg-1 Railgun Car.webp",
+      "baseName": "Rg-1 Railgun Car",
+      "matchedItemName": "Beam Tank",
+      "itemId": "3544223a-294a-4ecf-9816-7baf9d73634f",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_04430c9dbbce4492addc4e23107d1f2c~mv2.png/v1/fill/w_178,h_197,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_04430c9dbbce4492addc4e23107d1f2c~mv2.png",
+      "newThumbnail": "/images/vehicles/Rg-1 Railgun Car.webp"
+    },
+    {
+      "uploadIndex": 217,
+      "filename": "Pyro Tank.webp",
+      "baseName": "Pyro Tank",
+      "matchedItemName": "Haunted Tank",
+      "itemId": "0e24922d-e957-4451-ac99-7a8187e4efb9",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_3cc8d8c183644311930614360d7eeb2e~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20000900.png",
+      "newThumbnail": "/images/vehicles/Pyro Tank.webp"
+    },
+    {
+      "uploadIndex": 218,
+      "filename": "Minigun Edjer.webp",
+      "baseName": "Minigun Edjer",
+      "matchedItemName": "Driller",
+      "itemId": "90abf680-0098-415e-9f07-f593e31bb3f8",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_313bbf2c27e84f0d8d5cb97da9c0758b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-14%20150854.png",
+      "newThumbnail": "/images/vehicles/Minigun Edjer.webp"
+    },
+    {
+      "uploadIndex": 219,
+      "filename": "Motorbike.webp",
+      "baseName": "Motorbike",
+      "matchedItemName": "Super Hoverbike",
+      "itemId": "cb854d92-8c8f-4128-a12d-fe8eda1b040d",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_2e0aee66d9b7421e8476ac4bfcab0386~mv2.png/v1/fill/w_180,h_199,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_2e0aee66d9b7421e8476ac4bfcab0386~mv2.png",
+      "newThumbnail": "/images/vehicles/Motorbike.webp"
+    },
+    {
+      "uploadIndex": 220,
+      "filename": "PL-01.webp",
+      "baseName": "PL-01",
+      "matchedItemName": "PL-01 Liberty",
+      "itemId": "12decc47-e03e-4496-b718-cc82fd8443c3",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_c274a71f45be4fbc8c4a2c18cfc788f0~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20020519.png",
+      "newThumbnail": "/images/vehicles/PL-01.webp"
+    },
+    {
+      "uploadIndex": 221,
+      "filename": "M10 Booker.webp",
+      "baseName": "M10 Booker",
+      "matchedItemName": "M10 Booker",
+      "itemId": "2a8dd92a-2f9e-4b3b-b400-da0a8e1f6c75",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_71a038200d384371b6c6e84343b5f307~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-08-19%20145359.png",
+      "newThumbnail": "/images/vehicles/M10 Booker.webp"
+    },
+    {
+      "uploadIndex": 222,
+      "filename": "Maus Tank.webp",
+      "baseName": "Maus Tank",
+      "matchedItemName": "Imperial Tank",
+      "itemId": "8079115a-5261-49d3-bcd3-998c8422fbaf",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_3b8172fa01da4cb997ecbb456b341913~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20014339.png",
+      "newThumbnail": "/images/vehicles/Maus Tank.webp"
+    },
+    {
+      "uploadIndex": 223,
+      "filename": "Challenger.webp",
+      "baseName": "Challenger",
+      "matchedItemName": "Werewolf Tank",
+      "itemId": "fea9b8ec-9231-4ad0-930f-b5a9c4aa5ab9",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_cc873c3ab1214dd699f5c7b1344c45e2~mv2.png/v1/fill/w_154,h_171,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_cc873c3ab1214dd699f5c7b1344c45e2~mv2.png",
+      "newThumbnail": "/images/vehicles/Challenger.webp"
+    },
+    {
+      "uploadIndex": 225,
+      "filename": "Flak Halftrack.webp",
+      "baseName": "Flak Halftrack",
+      "matchedItemName": "Flak Halftrack",
+      "itemId": "9e4ffbba-1e61-40bd-8ad0-519fc9a5fd77",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_d7456e5ac70f4194a9d1d679000a9ba6~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-13_131953104.png",
+      "newThumbnail": "/images/vehicles/Flak Halftrack.webp"
+    },
+    {
+      "uploadIndex": 226,
+      "filename": "Super Volk.webp",
+      "baseName": "Super Volk",
+      "matchedItemName": "Super Speeder",
+      "itemId": "3a6f5f32-d009-4e2d-a1a1-92138e6a6232",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_d7af3dece4014c4e8b3e0ebbbe5f9105~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20001514.png",
+      "newThumbnail": "/images/vehicles/Super Volk.webp"
+    },
+    {
+      "uploadIndex": 227,
+      "filename": "Weiner Wagon.webp",
+      "baseName": "Weiner Wagon",
+      "matchedItemName": "Love Buggy",
+      "itemId": "a7b35dad-286f-4068-89eb-67932509c676",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_25b574c42d014bee8f3b010b6705b6ee~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-14%20204300.png",
+      "newThumbnail": "/images/vehicles/Weiner Wagon.webp"
+    },
+    {
+      "uploadIndex": 228,
+      "filename": "Vulcan.webp",
+      "baseName": "Vulcan",
+      "matchedItemName": "Vulcan",
+      "itemId": "60b97d60-0ba9-47e7-86fd-a4025a32b371",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_90ae9c8ee667435cb67342c4a64e6571~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-06-25%20031136.png",
+      "newThumbnail": "/images/vehicles/Vulcan.webp"
+    },
+    {
+      "uploadIndex": 229,
+      "filename": "Warmaul.webp",
+      "baseName": "Warmaul",
+      "matchedItemName": "Warmaul",
+      "itemId": "c8b1e456-6209-4912-96bf-3effc2e02092",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_82b4adb289284608b9722d51ce6603b0~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20021037.png",
+      "newThumbnail": "/images/vehicles/Warmaul.webp"
+    },
+    {
+      "uploadIndex": 230,
+      "filename": "Stomper.webp",
+      "baseName": "Stomper",
+      "matchedItemName": "Mech Walker",
+      "itemId": "b9a1cfcf-2a0e-4389-9393-1e6b97dc26a6",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_7606790589024f45a510a3a6bf4fe886~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-07%20204625.png",
+      "newThumbnail": "/images/vehicles/Stomper.webp"
+    },
+    {
+      "uploadIndex": 231,
+      "filename": "Vespa TAP.webp",
+      "baseName": "Vespa TAP",
+      "matchedItemName": "Vespa Tap",
+      "itemId": "5a8dc0fc-a73b-4f6e-ad92-51ba2e521b12",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_b4d87e74845a4346a08e68358687fa68~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-12-25%20205623.png",
+      "newThumbnail": "/images/vehicles/Vespa TAP.webp"
+    },
+    {
+      "uploadIndex": 232,
+      "filename": "The Annihilator.webp",
+      "baseName": "The Annihilator",
+      "matchedItemName": "The Annihilator",
+      "itemId": "64caabeb-4e04-4ba8-b39a-97737101481e",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_2ecc50cab4d34e1f9578ebfa89ce6635~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-04-26%20141937.png",
+      "newThumbnail": "/images/vehicles/The Annihilator.webp"
+    },
+    {
+      "uploadIndex": 233,
+      "filename": "Tank.webp",
+      "baseName": "Tank",
+      "matchedItemName": "Battle Tank",
+      "itemId": "f43634f9-fbae-461f-becf-6d5fcb9241c5",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_a88d117880874d45be6904efb309966d~mv2.png/v1/fill/w_145,h_161,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_a88d117880874d45be6904efb309966d~mv2.png",
+      "newThumbnail": "/images/vehicles/Tank.webp"
+    },
+    {
+      "uploadIndex": 234,
+      "filename": "Terminator.webp",
+      "baseName": "Terminator",
+      "matchedItemName": "Super Mech Walker",
+      "itemId": "2a37291f-da5e-4144-a27f-4a2794755a92",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6469042e90c14d9c800d5a7aea6d618b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-07%20210347.png",
+      "newThumbnail": "/images/vehicles/Terminator.webp"
+    },
+    {
+      "uploadIndex": 235,
+      "filename": "TV Tank.webp",
+      "baseName": "TV Tank",
+      "matchedItemName": "Master Warmaul",
+      "itemId": "5865cbe8-136f-4488-882e-84cf6f92db68",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6fcaf38a2da64c8ea41fa14f510ed865~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20021029.png",
+      "newThumbnail": "/images/vehicles/TV Tank.webp"
+    },
+    {
+      "uploadIndex": 237,
+      "filename": "T90-M.webp",
+      "baseName": "T90-M",
+      "matchedItemName": "Heavy T28",
+      "itemId": "cffbedb4-9e3b-442c-bb54-e840ad603706",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_68fb648c3b644d33856e7a6e115312c0~mv2.png/v1/fill/w_177,h_196,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_68fb648c3b644d33856e7a6e115312c0~mv2.png",
+      "newThumbnail": "/images/vehicles/T90-M.webp"
+    },
+    {
+      "uploadIndex": 238,
+      "filename": "Super Striker.webp",
+      "baseName": "Super Striker",
+      "matchedItemName": "Super Akrep",
+      "itemId": "22cf8b75-ef1e-486f-9b5d-f7a35c64c15b",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_b679f9d8b25b470887533c44e442c265~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20011234.png",
+      "newThumbnail": "/images/vehicles/Super Striker.webp"
+    },
+    {
+      "uploadIndex": 239,
+      "filename": "Super TOS1.webp",
+      "baseName": "Super TOS1",
+      "matchedItemName": "Super TOS1",
+      "itemId": "879252bc-7824-4d6d-b46f-e2cbd5f9d325",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_ab9e8d1506054f39af822e49cfeb0063~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-27%20165922.png",
+      "newThumbnail": "/images/vehicles/Super TOS1.webp"
+    },
+    {
+      "uploadIndex": 240,
+      "filename": "Super Speeder.webp",
+      "baseName": "Super Speeder",
+      "matchedItemName": "Super Speeder",
+      "itemId": "3a6f5f32-d009-4e2d-a1a1-92138e6a6232",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_d7af3dece4014c4e8b3e0ebbbe5f9105~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20001514.png",
+      "newThumbnail": "/images/vehicles/Super Speeder.webp"
+    },
+    {
+      "uploadIndex": 241,
+      "filename": "Super Halftrack.webp",
+      "baseName": "Super Halftrack",
+      "matchedItemName": "Super Halftrack",
+      "itemId": "eeb6c9ad-71ee-4faa-956a-548e2445e3cd",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/1abc74_a5b2998b44b84e9f82f023fde5207cfc~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/kuva_2025-04-13_132233431.png",
+      "newThumbnail": "/images/vehicles/Super Halftrack.webp"
+    },
+    {
+      "uploadIndex": 242,
+      "filename": "Super Phanter.webp",
+      "baseName": "Super Phanter",
+      "matchedItemName": "Nuke Chrysler",
+      "itemId": "7a65c6ee-e032-4662-acc3-db8fc86b96d6",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_465cb0a90a62401488b3da1b1dd2a6df~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-01-03%20132606.png",
+      "newThumbnail": "/images/vehicles/Super Phanter.webp"
+    },
+    {
+      "uploadIndex": 243,
+      "filename": "Super Akrep.webp",
+      "baseName": "Super Akrep",
+      "matchedItemName": "Super Akrep",
+      "itemId": "22cf8b75-ef1e-486f-9b5d-f7a35c64c15b",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_b679f9d8b25b470887533c44e442c265~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20011234.png",
+      "newThumbnail": "/images/vehicles/Super Akrep.webp"
+    },
+    {
+      "uploadIndex": 244,
+      "filename": "Sturmtank.webp",
+      "baseName": "Sturmtank",
+      "matchedItemName": "Driller",
+      "itemId": "90abf680-0098-415e-9f07-f593e31bb3f8",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_313bbf2c27e84f0d8d5cb97da9c0758b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-14%20150854.png",
+      "newThumbnail": "/images/vehicles/Sturmtank.webp"
+    },
+    {
+      "uploadIndex": 245,
+      "filename": "Super Edjer.webp",
+      "baseName": "Super Edjer",
+      "matchedItemName": "Driller",
+      "itemId": "90abf680-0098-415e-9f07-f593e31bb3f8",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_313bbf2c27e84f0d8d5cb97da9c0758b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-14%20150854.png",
+      "newThumbnail": "/images/vehicles/Super Edjer.webp"
+    },
+    {
+      "uploadIndex": 246,
+      "filename": "Shopping Cart.webp",
+      "baseName": "Shopping Cart",
+      "matchedItemName": "Shopping Cart",
+      "itemId": "17a5d3e1-44cd-45b1-bced-73e0d79b971d",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_c021f6fde6e24e8d90d5567961869a5d~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-04-01%20201340.png",
+      "newThumbnail": "/images/vehicles/Shopping Cart.webp"
+    },
+    {
+      "uploadIndex": 247,
+      "filename": "Skynex.webp",
+      "baseName": "Skynex",
+      "matchedItemName": "Skynex",
+      "itemId": "28fc0ef0-21e5-42c5-ad65-49ce49d64ebb",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_0df598d2b1f248e1b4fc5cae8681d405~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-04-27%20051051.png",
+      "newThumbnail": "/images/vehicles/Skynex.webp"
+    },
+    {
+      "uploadIndex": 248,
+      "filename": "Strela.webp",
+      "baseName": "Strela",
+      "matchedItemName": "Skynex",
+      "itemId": "28fc0ef0-21e5-42c5-ad65-49ce49d64ebb",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_0df598d2b1f248e1b4fc5cae8681d405~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-04-27%20051051.png",
+      "newThumbnail": "/images/vehicles/Strela.webp"
+    },
+    {
+      "uploadIndex": 249,
+      "filename": "Shocker.webp",
+      "baseName": "Shocker",
+      "matchedItemName": "Top5 MLRS",
+      "itemId": "44cc0bae-a6ca-4141-9665-bbed81bad322",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_a003c1a96c2a4754b20f72b7ed004888~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_a003c1a96c2a4754b20f72b7ed004888~mv2.png",
+      "newThumbnail": "/images/vehicles/Shocker.webp"
+    },
+    {
+      "uploadIndex": 250,
+      "filename": "Santa Maus.webp",
+      "baseName": "Santa Maus",
+      "matchedItemName": "Super Imperial Tank",
+      "itemId": "0521d559-d2b5-4aac-b97b-e79e66f309f0",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_a63154be13a646ceaeee78309bf10e19~mv2.png/v1/fill/w_153,h_169,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_a63154be13a646ceaeee78309bf10e19~mv2.png",
+      "newThumbnail": "/images/vehicles/Santa Maus.webp"
+    },
+    {
+      "uploadIndex": 251,
+      "filename": "S.A.M. Truck.webp",
+      "baseName": "S.A.M. Truck",
+      "matchedItemName": "S.A.M. Truck",
+      "itemId": "d997112e-3a30-4756-8dc4-8674886c17f4",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_19fc48a760e14c53a0eeb21ed823ed83~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20013257.png",
+      "newThumbnail": "/images/vehicles/S.A.M. Truck.webp"
+    },
+    {
+      "uploadIndex": 252,
+      "filename": "Rocket Truck.webp",
+      "baseName": "Rocket Truck",
+      "matchedItemName": "S.A.M. Truck",
+      "itemId": "d997112e-3a30-4756-8dc4-8674886c17f4",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_19fc48a760e14c53a0eeb21ed823ed83~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20013257.png",
+      "newThumbnail": "/images/vehicles/Rocket Truck.webp"
+    },
+    {
+      "uploadIndex": 253,
+      "filename": "Railgun Tank.webp",
+      "baseName": "Railgun Tank",
+      "matchedItemName": "Super Beam Tank",
+      "itemId": "b8f5267c-1d07-4557-8434-4a2e65394a4f",
+      "category": "Land",
+      "previousThumbnail": "https://i.imgur.com/OSeZmf7.png",
+      "newThumbnail": "/images/vehicles/Railgun Tank.webp"
+    },
+    {
+      "uploadIndex": 254,
+      "filename": "S-tank Gatling.webp",
+      "baseName": "S-tank Gatling",
+      "matchedItemName": "Super Tesla Tank",
+      "itemId": "369ea71d-fc22-4599-b43f-791c9417dcb5",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/f89faf_185000a8f2f9460291a9eb768faa8fa3~mv2.png/v1/fill/w_152,h_168,al_c,lg_1,q_85,enc_avif,quality_auto/f89faf_185000a8f2f9460291a9eb768faa8fa3~mv2.png",
+      "newThumbnail": "/images/vehicles/S-tank Gatling.webp"
+    },
+    {
+      "uploadIndex": 255,
+      "filename": "Police Jeep.webp",
+      "baseName": "Police Jeep",
+      "matchedItemName": "Police Jeep",
+      "itemId": "cb4b3f46-c609-4ed5-85aa-976967490585",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_b1de4d20995e4820b92588609a033eed~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-08-19%20145631.png",
+      "newThumbnail": "/images/vehicles/Police Jeep.webp"
+    },
+    {
+      "uploadIndex": 256,
+      "filename": "Puma Recon.webp",
+      "baseName": "Puma Recon",
+      "matchedItemName": "Top5 AN Jeep",
+      "itemId": "ebbc0537-b3b7-42f2-86cd-389069538564",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_67723fb87ec249e786259b53a7b8b0d5~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-21%20101727.png",
+      "newThumbnail": "/images/vehicles/Puma Recon.webp"
+    },
+    {
+      "uploadIndex": 257,
+      "filename": "RT01.webp",
+      "baseName": "RT01",
+      "matchedItemName": "Anti Nuke Jeep",
+      "itemId": "bb7737cb-e375-49cf-9b63-46c27d5650a4",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6a5e46a0cda543a1bd18b4445e6bc6c1~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-01-26%20224733.png",
+      "newThumbnail": "/images/vehicles/RT01.webp"
+    },
+    {
+      "uploadIndex": 258,
+      "filename": "Patriot truck.webp",
+      "baseName": "Patriot truck",
+      "matchedItemName": "Limited Patriot",
+      "itemId": "071e1910-d4b3-401b-866e-07d116e75015",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_ab4f412cf4c5429fbf50d0d2a963a0f0~mv2.png/v1/fill/w_180,h_199,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_ab4f412cf4c5429fbf50d0d2a963a0f0~mv2.png",
+      "newThumbnail": "/images/vehicles/Patriot truck.webp"
+    },
+    {
+      "uploadIndex": 259,
+      "filename": "Police APC.webp",
+      "baseName": "Police APC",
+      "matchedItemName": "Police APC",
+      "itemId": "a0ef6126-27e8-4a38-8c4a-cb1283d07311",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_cf0b1a523c65493098ddd4a69477f6e8~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20020819.png",
+      "newThumbnail": "/images/vehicles/Police APC.webp"
+    },
+    {
+      "uploadIndex": 260,
+      "filename": "PHL-03.webp",
+      "baseName": "PHL-03",
+      "matchedItemName": "BOSS MLRS",
+      "itemId": "46c75d56-87a6-4463-9337-07f7baf92b25",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_ea3c217e85db4a11a37e3c1909a4f94c~mv2.png/v1/fill/w_177,h_196,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_ea3c217e85db4a11a37e3c1909a4f94c~mv2.png",
+      "newThumbnail": "/images/vehicles/PHL-03.webp"
+    },
+    {
+      "uploadIndex": 261,
+      "filename": "Pantsir.webp",
+      "baseName": "Pantsir",
+      "matchedItemName": "Korkut",
+      "itemId": "6013b227-4c4f-4ac2-b971-3a517959d4b8",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_4afd7161074044d4b6f742a1edfd9529~mv2.png/v1/fill/w_164,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-29%20000210.png",
+      "newThumbnail": "/images/vehicles/Pantsir.webp"
+    },
+    {
+      "uploadIndex": 262,
+      "filename": "PL-01 Liberty.webp",
+      "baseName": "PL-01 Liberty",
+      "matchedItemName": "PL-01 Liberty",
+      "itemId": "12decc47-e03e-4496-b718-cc82fd8443c3",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_c274a71f45be4fbc8c4a2c18cfc788f0~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20020519.png",
+      "newThumbnail": "/images/vehicles/PL-01 Liberty.webp"
+    },
+    {
+      "uploadIndex": 263,
+      "filename": "Medic Truck.webp",
+      "baseName": "Medic Truck",
+      "matchedItemName": "Medic Helicopter",
+      "itemId": "805c0306-f833-427b-9d70-3ba2efa5e305",
+      "category": "Air",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6e91555b1afb43309b716838dbceddb5~mv2.png/v1/fill/w_186,h_206,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_6e91555b1afb43309b716838dbceddb5~mv2.png",
+      "newThumbnail": "/images/vehicles/Medic Truck.webp"
+    },
+    {
+      "uploadIndex": 264,
+      "filename": "Merkava.webp",
+      "baseName": "Merkava",
+      "matchedItemName": "Master Overlord",
+      "itemId": "bfe6e610-bddf-4ec0-831c-e26659493203",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_4c1166dbace741c2b81417baeda41f43~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-23%20211518.png",
+      "newThumbnail": "/images/vehicles/Merkava.webp"
+    },
+    {
+      "uploadIndex": 265,
+      "filename": "Overlord.webp",
+      "baseName": "Overlord",
+      "matchedItemName": "Overlord",
+      "itemId": "3070a440-b49f-4575-8a7d-d2ab71c1475a",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6182859408b9452e8b3425669e17f1fc~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-23%20211531.png",
+      "newThumbnail": "/images/vehicles/Overlord.webp"
+    },
+    {
+      "uploadIndex": 266,
+      "filename": "MZKT.webp",
+      "baseName": "MZKT",
+      "matchedItemName": "Top5 Overlord",
+      "itemId": "b3239d20-f0f4-4c4c-a57e-dcb48474cd7b",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_326af3e4d59c44bc8cfc54ecbd1b6b46~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_326af3e4d59c44bc8cfc54ecbd1b6b46~mv2.png",
+      "newThumbnail": "/images/vehicles/MZKT.webp"
+    },
+    {
+      "uploadIndex": 267,
+      "filename": "Manti Core.webp",
+      "baseName": "Manti Core",
+      "matchedItemName": "Overlord",
+      "itemId": "3070a440-b49f-4575-8a7d-d2ab71c1475a",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_6182859408b9452e8b3425669e17f1fc~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-23%20211531.png",
+      "newThumbnail": "/images/vehicles/Manti Core.webp"
+    },
+    {
+      "uploadIndex": 268,
+      "filename": "Liberty Foch.webp",
+      "baseName": "Liberty Foch",
+      "matchedItemName": "Liberty Foch",
+      "itemId": "ee378ceb-6b29-484c-b20b-ebdf12a221ce",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_a5eb83b0009742c685e47468f86a0007~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-20%20020043.png",
+      "newThumbnail": "/images/vehicles/Liberty Foch.webp"
+    },
+    {
+      "uploadIndex": 269,
+      "filename": "MLRS.webp",
+      "baseName": "MLRS",
+      "matchedItemName": "MLRS",
+      "itemId": "28e891de-8ab8-4bba-9b64-24023b6061f4",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_29f57f590f91446192f6be74710b3592~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_29f57f590f91446192f6be74710b3592~mv2.png",
+      "newThumbnail": "/images/vehicles/MLRS.webp"
+    },
+    {
+      "uploadIndex": 270,
+      "filename": "Love Buggy.webp",
+      "baseName": "Love Buggy",
+      "matchedItemName": "Love Buggy",
+      "itemId": "a7b35dad-286f-4068-89eb-67932509c676",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_25b574c42d014bee8f3b010b6705b6ee~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-14%20204300.png",
+      "newThumbnail": "/images/vehicles/Love Buggy.webp"
+    },
+    {
+      "uploadIndex": 271,
+      "filename": "Leopard 2A7.webp",
+      "baseName": "Leopard 2A7",
+      "matchedItemName": "Keiler",
+      "itemId": "b91a520b-48b3-4189-bb73-c30599527d8b",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_99f400eb37b7437aa2932fcbf4392689~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-14%20205934.png",
+      "newThumbnail": "/images/vehicles/Leopard 2A7.webp"
+    },
+    {
+      "uploadIndex": 272,
+      "filename": "Keiler.webp",
+      "baseName": "Keiler",
+      "matchedItemName": "Keiler",
+      "itemId": "b91a520b-48b3-4189-bb73-c30599527d8b",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_99f400eb37b7437aa2932fcbf4392689~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-02-14%20205934.png",
+      "newThumbnail": "/images/vehicles/Keiler.webp"
+    },
+    {
+      "uploadIndex": 273,
+      "filename": "King Tiger.webp",
+      "baseName": "King Tiger",
+      "matchedItemName": "King Tiger",
+      "itemId": "7e0b02ca-c206-4290-a382-3b67cbb24247",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_3ad74ac54c1146759051feff44737d6b~mv2.png/v1/fill/w_162,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202025-11-08%20232644.png",
+      "newThumbnail": "/images/vehicles/King Tiger.webp"
+    },
+    {
+      "uploadIndex": 274,
+      "filename": "Korkut.webp",
+      "baseName": "Korkut",
+      "matchedItemName": "Korkut",
+      "itemId": "6013b227-4c4f-4ac2-b971-3a517959d4b8",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_4afd7161074044d4b6f742a1edfd9529~mv2.png/v1/fill/w_164,h_86,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Screenshot%202026-03-29%20000210.png",
+      "newThumbnail": "/images/vehicles/Korkut.webp"
+    },
+    {
+      "uploadIndex": 275,
+      "filename": "Katyusha.webp",
+      "baseName": "Katyusha",
+      "matchedItemName": "MLRS",
+      "itemId": "28e891de-8ab8-4bba-9b64-24023b6061f4",
+      "category": "Land",
+      "previousThumbnail": "https://static.wixstatic.com/media/6511c0_29f57f590f91446192f6be74710b3592~mv2.png/v1/fill/w_181,h_200,al_c,lg_1,q_85,enc_avif,quality_auto/6511c0_29f57f590f91446192f6be74710b3592~mv2.png",
+      "newThumbnail": "/images/vehicles/Katyusha.webp"
+    }
+  ]
+}

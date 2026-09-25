@@ -1,0 +1,133 @@
+{
+  "entities": {
+    "MilitaryItem": {
+      "title": "Military Item",
+      "description": "A military vehicle, weapon, structure or accessory catalog entry in Military Tycoon Services",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique slug ID for the item" },
+        "name": { "type": "string", "description": "Display name of the military unit or equipment" },
+        "acronym": { "type": "string", "description": "Optional search acronym" },
+        "category": { "type": "string", "description": "Category: Air, Land, Sea, Guns, Armor, Forts, Gamepasses, Special" },
+        "rarity": { "type": "string", "description": "Rarity tier" },
+        "value": { "type": "number", "description": "Current in-game cash valuation" },
+        "demand": { "type": "number", "description": "Demand rating from 1 to 10" },
+        "trend": { "type": "string", "description": "Price trend direction" },
+        "thumbnail": { "type": "string", "description": "Image URL or data URI" },
+        "description": { "type": "string", "description": "Lore or tactical specifications" },
+        "notes": { "type": "string", "description": "Market commentary or trading tips" },
+        "obtainable": { "type": "boolean", "description": "Whether the unit is currently obtainable in-game" },
+        "lastUpdated": { "type": "string", "description": "ISO timestamp of last price review" },
+        "history": { "type": "array", "description": "Historical price tracking data points" },
+        "customStarValues": { "type": "object", "description": "Optional custom star tier value overrides" }
+      },
+      "required": ["id", "name", "category", "rarity", "value", "demand", "trend"]
+    },
+    "ReportedValue": {
+      "title": "Reported Value Suggestion",
+      "description": "A player price update report with market trade evidence",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique report ID" },
+        "itemId": { "type": "string", "description": "ID of the target item" },
+        "itemName": { "type": "string", "description": "Name of the target item" },
+        "suggestedValue": { "type": "number", "description": "Suggested new price value" },
+        "suggestedDemand": { "type": "number", "description": "Suggested new demand rating" },
+        "suggestedTrend": { "type": "string", "description": "Suggested trend direction" },
+        "playerUsername": { "type": "string", "description": "Submitter username or tag" },
+        "proofLink": { "type": "string", "description": "Link to trade screenshot proof" },
+        "notes": { "type": "string", "description": "Reasoning for the price revision" },
+        "status": { "type": "string", "description": "pending, accepted, edited_accepted, or declined" },
+        "staffComment": { "type": "string", "description": "Staff review notes" },
+        "moderator": { "type": "string", "description": "Moderator who resolved the report" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of report creation" },
+        "resolvedAt": { "type": "string", "description": "ISO timestamp of report resolution" }
+      },
+      "required": ["id", "itemId", "itemName", "suggestedValue", "suggestedDemand", "status", "createdAt"]
+    },
+    "AuditLog": {
+      "title": "Audit Log",
+      "description": "Historical log of staff administrative changes",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique log entry ID" },
+        "timestamp": { "type": "string", "description": "ISO timestamp of action" },
+        "action": { "type": "string", "description": "Action type" },
+        "itemId": { "type": "string", "description": "Affected item ID if applicable" },
+        "itemName": { "type": "string", "description": "Affected item name or subject" },
+        "details": { "type": "string", "description": "Action details" },
+        "moderator": { "type": "string", "description": "Staff username and role who performed action" },
+        "oldValue": { "type": "number", "description": "Previous price value" },
+        "newValue": { "type": "number", "description": "New price value" },
+        "oldDemand": { "type": "number", "description": "Previous demand" },
+        "newDemand": { "type": "number", "description": "New demand" }
+      },
+      "required": ["id", "timestamp", "action", "itemName", "details", "moderator"]
+    },
+    "SystemConfig": {
+      "title": "System Configuration",
+      "description": "Application settings, star tier configs, and staff roster data",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Configuration document ID" },
+        "data": { "type": "object", "description": "Dynamic configuration payload" }
+      },
+      "required": ["id"]
+    },
+    "StoredImage": {
+      "title": "Stored Image",
+      "description": "Permanently stored vehicle or unit catalog image",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Image identifier or clean filename" },
+        "name": { "type": "string", "description": "Original image filename or unit name" },
+        "dataUrl": { "type": "string", "description": "Optimized base64 WebP/JPEG image data URL" },
+        "mimeType": { "type": "string", "description": "MIME type (e.g. image/webp, image/png)" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp of image upload" }
+      },
+      "required": ["id", "dataUrl"]
+    },
+    "ConsultantProposal": {
+      "title": "Consultant Proposal",
+      "description": "A tracked item edit or new item proposal submitted by a Consultant in commentator mode for Admin review",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique proposal ID" },
+        "type": { "type": "string", "description": "ITEM_EDIT, QUICK_EDIT, NEW_ITEM, or TRADEABILITY_TOGGLE" },
+        "itemId": { "type": "string", "description": "Target item ID" },
+        "itemName": { "type": "string", "description": "Target item name" },
+        "consultantUsername": { "type": "string", "description": "Username of consultant" },
+        "commentary": { "type": "string", "description": "Rationale / Google Docs style commentary" },
+        "status": { "type": "string", "description": "pending, approved, or denied" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of submission" }
+      },
+      "required": ["id", "type", "itemId", "itemName", "consultantUsername", "commentary", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/items/{itemId}": {
+      "schema": "MilitaryItem",
+      "description": "MTS military units, weapons, gamepasses and equipment catalog"
+    },
+    "/storedImages/{imageId}": {
+      "schema": "StoredImage",
+      "description": "Permanent storage for vehicle images and custom thumbnails"
+    },
+    "/reports/{reportId}": {
+      "schema": "ReportedValue",
+      "description": "Player price adjustment suggestions and moderation status"
+    },
+    "/auditLogs/{logId}": {
+      "schema": "AuditLog",
+      "description": "Audit logs of price changes, reports review, and moderation"
+    },
+    "/consultantProposals/{proposalId}": {
+      "schema": "ConsultantProposal",
+      "description": "Consultant proposals, commentary, and admin approvals"
+    },
+    "/system/{docId}": {
+      "schema": "SystemConfig",
+      "description": "System configuration, vehicle star pricing presets, and staff roster"
+    }
+  }
+}

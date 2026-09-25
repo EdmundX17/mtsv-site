@@ -1,0 +1,6 @@
+Contact: mailto:edmund.xie2009@gmail.com
+Contact: https://discord.gg/yenZH7FaXU
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en
+Policy: https://mtsvalues.com/
+Canonical: https://mtsvalues.com/.well-known/security.txt
