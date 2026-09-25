@@ -246,26 +246,6 @@ export interface ConsultantProposal {
   diffs: ConsultantFieldDiff[];
 }
 
-export interface StaffSessionLog {
-  id: string;
-  loginAt: string; // ISO timestamp
-  logoutAt?: string; // ISO timestamp
-  durationMinutes: number;
-  deviceInfo?: string;
-  activePing?: string;
-}
-
-export interface WeeklyQuotaRecord {
-  weekKey: string; // e.g. '2026-W38'
-  weekStartDate: string; // ISO string of Monday
-  weekEndDate: string; // ISO string of Sunday
-  targetQuota: number;
-  completedCount: number;
-  status: 'met' | 'missed' | 'excused';
-  excuseReason?: string;
-  evaluatedAt: string;
-}
-
 export interface StaffMember {
   id: string;
   username: string;
@@ -275,13 +255,6 @@ export interface StaffMember {
   addedBy?: string;
   addedAt: string;
   lastLogin?: string;
-  lastLogout?: string;
-  lastActive?: string;
-  weeklyQuota?: number; // Target number of suggestions per week for Consultants (default: 5)
-  totalSessionMinutes?: number;
-  sessionLogs?: StaffSessionLog[];
-  weeklyQuotaHistory?: WeeklyQuotaRecord[];
-  acknowledgedUnmetWeeks?: string[]; // weekKeys acknowledged by admin
 }
 
 export interface ActiveStaffSession {

@@ -23,8 +23,6 @@ import {
   PriceHistoryPoint,
   StaffMember,
   StaffRole,
-  StaffSessionLog,
-  WeeklyQuotaRecord,
   ConsultantProposal,
   ConsultantProposedChanges,
   ConsultantFieldDiff,
@@ -46,7 +44,6 @@ import {
 } from '../types';
 import { INITIAL_ITEMS, INITIAL_REPORTS } from '../data/initialItems';
 import { DEFAULT_SITE_INFO } from '../data/initialSiteInfo';
-import { DEFAULT_CONSULTANT_WEEKLY_QUOTA, getWeekInfo } from '../utils/quotaHelper';
 import { getVehicleImageUrl } from '../data/vehicleImageMap';
 import {
   calculateItemStarValue,
@@ -175,14 +172,6 @@ interface ValueListContextType {
   updateStaffRole: (id: string, newRole: StaffRole) => { success: boolean; message: string };
   updateStaffPassword: (id: string, newPassword: string) => { success: boolean; message: string };
   removeStaffMember: (id: string) => { success: boolean; message: string };
-
-  // Quota & Performance Analytics (Admin & Staff)
-  updateStaffWeeklyQuota: (id: string, quota: number) => { success: boolean; message: string };
-  acknowledgeUnmetQuota: (staffId: string, weekKey: string) => { success: boolean; message: string };
-  excuseUnmetQuota: (staffId: string, weekKey: string, reason?: string) => { success: boolean; message: string };
-  simulatedDayOverride: 'none' | 'sunday' | 'monday';
-  setSimulatedDayOverride: (override: 'none' | 'sunday' | 'monday') => void;
-  effectiveDate: Date;
 
   searchQuery: string;
   setSearchQuery: (q: string) => void;
@@ -1197,43 +1186,19 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       };
     }
 
-    const nowIso = new Date().toISOString();
     const session: ActiveStaffSession = {
       id: matched.id,
       username: matched.username,
       displayName: matched.displayName || matched.username,
       role: matched.role,
-      loginTime: nowIso
+      loginTime: new Date().toISOString()
     };
 
     setActiveStaff(session);
 
-    // Create session log entry
-    const sessionLogId = `sess_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
-    const newSessionLog: StaffSessionLog = {
-      id: sessionLogId,
-      loginAt: nowIso,
-      durationMinutes: 0,
-      deviceInfo: typeof navigator !== 'undefined' ? `${navigator.platform || 'Desktop'} (${navigator.userAgent.slice(0, 35)}...)` : 'Web Browser',
-      activePing: nowIso
-    };
-
-    // Update last login timestamp and session logs in staff roster
-    const updatedRoster = staffMembers.map(s => {
-      if (s.id === matched.id) {
-        const existingLogs = Array.isArray(s.sessionLogs) ? s.sessionLogs : [];
-        return {
-          ...s,
-          lastLogin: nowIso,
-          lastActive: nowIso,
-          sessionLogs: [newSessionLog, ...existingLogs].slice(0, 50)
-        };
-      }
-      return s;
-    });
-
+    // Update last login timestamp in staff roster
+    const updatedRoster = staffMembers.map(s => s.id === matched.id ? { ...s, lastLogin: new Date().toISOString() } : s);
     setStaffMembers(updatedRoster);
-    safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updatedRoster));
     setDoc(doc(db, 'system', 'staffRoster'), cleanForFirestore({ members: updatedRoster })).catch(err => console.error('Staff login roster update error:', err));
 
     addAuditLog('MANUAL_EDIT', 'Staff Auth', `${session.displayName} logged in successfully as [${session.role}].`);
@@ -1246,36 +1211,7 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const logoutStaff = () => {
     if (activeStaff) {
-      const nowIso = new Date().toISOString();
-      const loginTime = activeStaff.loginTime ? new Date(activeStaff.loginTime).getTime() : Date.now();
-      const duration = Math.max(1, Math.round((Date.now() - loginTime) / 60000));
-
-      const updatedRoster = staffMembers.map(s => {
-        if (s.id === activeStaff.id) {
-          const logs = Array.isArray(s.sessionLogs) ? [...s.sessionLogs] : [];
-          if (logs.length > 0 && !logs[0].logoutAt) {
-            logs[0] = {
-              ...logs[0],
-              logoutAt: nowIso,
-              durationMinutes: duration
-            };
-          }
-          return {
-            ...s,
-            lastLogout: nowIso,
-            lastActive: nowIso,
-            totalSessionMinutes: (s.totalSessionMinutes || 0) + duration,
-            sessionLogs: logs
-          };
-        }
-        return s;
-      });
-
-      setStaffMembers(updatedRoster);
-      safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updatedRoster));
-      setDoc(doc(db, 'system', 'staffRoster'), cleanForFirestore({ members: updatedRoster })).catch(err => console.error('Staff logout roster update error:', err));
-
-      addAuditLog('MANUAL_EDIT', 'Staff Auth', `${activeStaff.displayName || activeStaff.username} logged out (session: ${duration} min${duration === 1 ? '' : 's'}).`);
+      addAuditLog('MANUAL_EDIT', 'Staff Auth', `${activeStaff.displayName || activeStaff.username} logged out.`);
     }
     setActiveStaff(null);
     safeLocalStorageRemove(STORAGE_KEYS.STAFF_SESSION);
@@ -1454,192 +1390,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     return { success: true, message: `Removed "${memberToRemove.username}" from staff roster.` };
   };
-
-  // Heartbeat tracking for active staff session
-  useEffect(() => {
-    if (!activeStaff) return;
-
-    const interval = setInterval(() => {
-      const nowIso = new Date().toISOString();
-      const loginTime = activeStaff.loginTime ? new Date(activeStaff.loginTime).getTime() : Date.now();
-      const duration = Math.max(1, Math.round((Date.now() - loginTime) / 60000));
-
-      setStaffMembers(prev => {
-        const updated = prev.map(s => {
-          if (s.id === activeStaff.id) {
-            const logs = Array.isArray(s.sessionLogs) ? [...s.sessionLogs] : [];
-            if (logs.length > 0 && !logs[0].logoutAt) {
-              logs[0] = {
-                ...logs[0],
-                durationMinutes: duration,
-                activePing: nowIso
-              };
-            }
-            return {
-              ...s,
-              lastActive: nowIso,
-              sessionLogs: logs
-            };
-          }
-          return s;
-        });
-        safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updated));
-        return updated;
-      });
-    }, 60000);
-
-    return () => clearInterval(interval);
-  }, [activeStaff]);
-
-  // Window unload listener to record session duration on page exit
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      if (activeStaff) {
-        const nowIso = new Date().toISOString();
-        const loginTime = activeStaff.loginTime ? new Date(activeStaff.loginTime).getTime() : Date.now();
-        const duration = Math.max(1, Math.round((Date.now() - loginTime) / 60000));
-
-        const updated = staffMembers.map(s => {
-          if (s.id === activeStaff.id) {
-            const logs = Array.isArray(s.sessionLogs) ? [...s.sessionLogs] : [];
-            if (logs.length > 0 && !logs[0].logoutAt) {
-              logs[0] = { ...logs[0], logoutAt: nowIso, durationMinutes: duration };
-            }
-            return {
-              ...s,
-              lastActive: nowIso,
-              totalSessionMinutes: (s.totalSessionMinutes || 0) + duration,
-              sessionLogs: logs
-            };
-          }
-          return s;
-        });
-        safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updated));
-      }
-    };
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [activeStaff, staffMembers]);
-
-  // Quota & Performance Analytics Management
-  const updateStaffWeeklyQuota = (id: string, quota: number): { success: boolean; message: string } => {
-    if (!isAdmin) {
-      return { success: false, message: 'Only Administrators can change weekly quotas.' };
-    }
-
-    const cleanQuota = Math.max(1, Math.min(100, Math.floor(quota)));
-    const targetMember = staffMembers.find(s => s.id === id);
-    if (!targetMember) {
-      return { success: false, message: 'Staff member not found.' };
-    }
-
-    const updated = staffMembers.map(s => {
-      if (s.id === id) {
-        return { ...s, weeklyQuota: cleanQuota };
-      }
-      return s;
-    });
-
-    setStaffMembers(updated);
-    safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updated));
-    setDoc(doc(db, 'system', 'staffRoster'), cleanForFirestore({ members: updated })).catch(err => console.error('Firestore staff sync error:', err));
-
-    addAuditLog(
-      'MANUAL_EDIT',
-      'Staff Management',
-      `Admin ${activeStaff?.displayName || 'Admin'} updated weekly suggestions quota for [${targetMember.username}] to ${cleanQuota} suggestions/week.`
-    );
-
-    return { success: true, message: `Weekly quota for ${targetMember.displayName || targetMember.username} set to ${cleanQuota} suggestions/week.` };
-  };
-
-  const acknowledgeUnmetQuota = (staffId: string, weekKey: string): { success: boolean; message: string } => {
-    if (!isAdmin) {
-      return { success: false, message: 'Only Administrators can acknowledge quota warnings.' };
-    }
-    const targetMember = staffMembers.find(s => s.id === staffId);
-    if (!targetMember) return { success: false, message: 'Staff member not found.' };
-
-    const currentAck = Array.isArray(targetMember.acknowledgedUnmetWeeks) ? targetMember.acknowledgedUnmetWeeks : [];
-    if (currentAck.includes(weekKey)) {
-      return { success: true, message: 'Warning already acknowledged.' };
-    }
-
-    const updated = staffMembers.map(s => {
-      if (s.id === staffId) {
-        return { ...s, acknowledgedUnmetWeeks: [...currentAck, weekKey] };
-      }
-      return s;
-    });
-
-    setStaffMembers(updated);
-    safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updated));
-    setDoc(doc(db, 'system', 'staffRoster'), cleanForFirestore({ members: updated })).catch(err => console.error('Firestore staff sync error:', err));
-
-    return { success: true, message: `Acknowledged unmet quota for ${targetMember.username} (${weekKey}).` };
-  };
-
-  const excuseUnmetQuota = (staffId: string, weekKey: string, reason: string = 'Excused by Administrator'): { success: boolean; message: string } => {
-    if (!isAdmin) {
-      return { success: false, message: 'Only Administrators can excuse quotas.' };
-    }
-    const targetMember = staffMembers.find(s => s.id === staffId);
-    if (!targetMember) return { success: false, message: 'Staff member not found.' };
-
-    const prevHistory = Array.isArray(targetMember.weeklyQuotaHistory) ? targetMember.weeklyQuotaHistory : [];
-    const filteredHistory = prevHistory.filter(h => h.weekKey !== weekKey);
-    const excuseRecord: WeeklyQuotaRecord = {
-      weekKey,
-      weekStartDate: new Date().toISOString(),
-      weekEndDate: new Date().toISOString(),
-      targetQuota: targetMember.weeklyQuota || DEFAULT_CONSULTANT_WEEKLY_QUOTA,
-      completedCount: 0,
-      status: 'excused',
-      excuseReason: reason,
-      evaluatedAt: new Date().toISOString()
-    };
-
-    const updated = staffMembers.map(s => {
-      if (s.id === staffId) {
-        return {
-          ...s,
-          weeklyQuotaHistory: [excuseRecord, ...filteredHistory]
-        };
-      }
-      return s;
-    });
-
-    setStaffMembers(updated);
-    safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updated));
-    setDoc(doc(db, 'system', 'staffRoster'), cleanForFirestore({ members: updated })).catch(err => console.error('Firestore staff sync error:', err));
-
-    addAuditLog(
-      'MANUAL_EDIT',
-      'Staff Management',
-      `Admin ${activeStaff?.displayName || 'Admin'} excused weekly quota for [${targetMember.username}] for week ${weekKey}. Reason: ${reason}`
-    );
-
-    return { success: true, message: `Excused quota for ${targetMember.username} for week ${weekKey}.` };
-  };
-
-  // Date Simulation & Testing Mode
-  const [simulatedDayOverride, setSimulatedDayOverride] = useState<'none' | 'sunday' | 'monday'>('none');
-
-  const effectiveDate = React.useMemo(() => {
-    const now = new Date();
-    if (simulatedDayOverride === 'none') {
-      return now;
-    }
-    if (simulatedDayOverride === 'sunday') {
-      const info = getWeekInfo(now);
-      return new Date(info.weekEnd.getTime() - 1000 * 60 * 60 * 2); // Sunday 10 PM
-    }
-    if (simulatedDayOverride === 'monday') {
-      const info = getWeekInfo(now);
-      return new Date(info.weekEnd.getTime() + 1000 * 60 * 60 * 9); // Next Monday 9 AM
-    }
-    return now;
-  }, [simulatedDayOverride]);
 
   // Filter States (with 0.45s debounce buffer on search to prevent client lag and excessive image requests)
   const [searchQuery, setSearchQuery] = useState('');
@@ -4834,12 +4584,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         updateStaffRole,
         updateStaffPassword,
         removeStaffMember,
-        updateStaffWeeklyQuota,
-        acknowledgeUnmetQuota,
-        excuseUnmetQuota,
-        simulatedDayOverride,
-        setSimulatedDayOverride,
-        effectiveDate,
         searchQuery,
         setSearchQuery,
         debouncedSearchQuery,

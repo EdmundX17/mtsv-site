@@ -259,37 +259,11 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
   const initialValue = historyValues[0] || starCalc.totalValue;
   const netChangePercent = initialValue > 0 ? ((starCalc.totalValue - initialValue) / initialValue) * 100 : 0;
 
-  // Toggle internal staff audit trail vs public changelog
-  const [showStaffAuditTrail, setShowStaffAuditTrail] = useState(false);
-
-  // Filter raw audit logs for this specific item (used when staff audit view is enabled)
+  // Filter audit logs for this specific item
   const itemAuditLogs = useMemo(() => {
     return auditLogs.filter(
       (log) => log.itemId === item.id || log.itemName.toLowerCase() === item.name.toLowerCase()
     );
-  }, [auditLogs, item.id, item.name]);
-
-  // Strict filter for PUBLIC market changelog (Only values, star tier values, demand, and trends - NO private staff data)
-  const publicItemChangelogs = useMemo(() => {
-    return auditLogs.filter((log) => {
-      const matchesItem = log.itemId === item.id || log.itemName.toLowerCase() === item.name.toLowerCase();
-      if (!matchesItem) return false;
-      if (log.skipWebhook) return false;
-
-      // Exclude administrative logs
-      if (log.action === 'SYSTEM_RESET' || log.action === 'DATA_EXPORT') return false;
-      const lowerDetails = (log.details || '').toLowerCase();
-      if (lowerDetails.includes('backup') || lowerDetails.includes('recovery') || lowerDetails.includes('auth')) return false;
-
-      // Check for public market shifts
-      const hasBaseVal = log.oldValue !== undefined && log.newValue !== undefined && Number(log.oldValue) !== Number(log.newValue);
-      const hasBaseDem = log.oldDemand !== undefined && log.newDemand !== undefined && Number(log.oldDemand) !== Number(log.newDemand);
-      const hasBaseTrend = Boolean(log.oldTrend && log.newTrend && log.oldTrend !== log.newTrend);
-      const hasStars = Boolean(log.starChanges && Array.isArray(log.starChanges) && log.starChanges.length > 0);
-      const isPriceUpdate = log.action === 'PRICE_UPDATE' || log.action === 'REPORT_ACCEPTED' || log.action === 'ITEM_ADDED';
-
-      return hasBaseVal || hasBaseDem || hasBaseTrend || hasStars || (isPriceUpdate && (log.newValue !== undefined || log.newDemand !== undefined));
-    });
   }, [auditLogs, item.id, item.name]);
 
   // Synchronize document title and OpenGraph / Twitter meta tags with current vehicle
@@ -1568,46 +1542,31 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
         )}
       </section>
 
-      {/* Public Market Changelog Section (Values, Star Tiers, Demand & Trends ONLY) */}
-      <section className="p-6 rounded-3xl bg-white/80 dark:bg-[#121520]/90 backdrop-blur-2xl border border-orange-200/80 dark:border-neutral-800 shadow-xl space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-orange-100 dark:border-neutral-800">
-          <div className="flex items-center gap-3">
+      {/* Market Audit Log for this Item (Staff Permission Gated) */}
+      {isStaffMode && (
+        <section className="p-6 rounded-3xl bg-white/80 dark:bg-[#121520]/90 backdrop-blur-2xl border border-orange-200/80 dark:border-neutral-800 shadow-xl space-y-4">
+          <div className="flex items-center gap-3 pb-3 border-b border-orange-100 dark:border-neutral-800">
             <div className="p-2 rounded-xl bg-orange-500 text-white shadow-sm shadow-orange-500/30">
               <History className="w-4 h-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-['Chakra_Petch'] text-lg font-bold text-neutral-900 dark:text-white uppercase tracking-tight">
-                  {showStaffAuditTrail ? 'Staff Internal Audit Trail' : 'Public Market Changelog'}
+                  {t('verifiedModificationAuditHistory')}
                 </h3>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                  {showStaffAuditTrail ? 'Staff Mode' : 'Live Verified Feed'}
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-600 dark:text-orange-400 border border-orange-500/30">
+                  {t('staffOnly')}
                 </span>
               </div>
               <p className="text-xs text-neutral-500 dark:text-neutral-400 font-sans">
-                {showStaffAuditTrail
-                  ? 'Internal staff moderation logs and raw transaction auditing.'
-                  : 'Chronological record of verified value adjustments, star tier valuations, demand shifts, and market trends.'}
+                {t('chronologicalLogAudits')}
               </p>
             </div>
           </div>
 
-          {isStaffMode && (
-            <button
-              onClick={() => setShowStaffAuditTrail(prev => !prev)}
-              className="self-start sm:self-auto px-3 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/80 text-neutral-700 dark:text-neutral-200 hover:border-orange-500 hover:text-orange-500 text-xs font-mono font-bold transition-all flex items-center gap-1.5"
-            >
-              <Zap className="w-3.5 h-3.5 text-orange-500" />
-              {showStaffAuditTrail ? 'Switch to Public Changelog' : 'Staff Audit Trail'}
-            </button>
-          )}
-        </div>
-
-        {showStaffAuditTrail && isStaffMode ? (
-          /* Internal Staff Audit View (Only when staff explicitly toggles it) */
-          itemAuditLogs.length === 0 ? (
+          {itemAuditLogs.length === 0 ? (
             <div className="py-6 text-center text-xs font-mono text-neutral-400 dark:text-neutral-500">
-              No staff audit logs recorded for this item.
+              {t('noRecentAuditLogs')}
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -1644,7 +1603,7 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
                       <td className="py-2.5 px-3 text-neutral-700 dark:text-neutral-300 font-sans max-w-xs truncate">
                         {log.details}
                       </td>
-                      <td className="py-2.5 px-3 text-neutral-500 dark:text-neutral-400 whitespace-nowrap font-mono text-[11px]">
+                      <td className="py-2.5 px-3 text-neutral-500 dark:text-neutral-400 whitespace-nowrap">
                         {log.moderator}
                       </td>
                     </tr>
@@ -1652,154 +1611,9 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
                 </tbody>
               </table>
             </div>
-          )
-        ) : (
-          /* Public Market Changelog View (Clean, No Private Auditor Data, Exact Star Tier & Base Value Shifts) */
-          publicItemChangelogs.length === 0 ? (
-            <div className="py-8 text-center text-xs font-mono text-neutral-400 dark:text-neutral-500 space-y-1">
-              <p className="font-semibold text-neutral-600 dark:text-neutral-300">No public valuation or demand changes recorded yet.</p>
-              <p className="text-[11px]">All values, star tiers, and trends are actively tracked and updated in real time.</p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead>
-                  <tr className="border-b border-neutral-200 dark:border-neutral-800 text-neutral-400 uppercase text-[10px] font-mono">
-                    <th className="py-2.5 px-3">{t('tableTimestamp')}</th>
-                    <th className="py-2.5 px-3">Adjustment Type</th>
-                    <th className="py-2.5 px-3">Valuation Shift</th>
-                    <th className="py-2.5 px-3">Demand & Trend Shift</th>
-                    <th className="py-2.5 px-3">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800/60 font-mono">
-                  {publicItemChangelogs.map((log) => {
-                    const hasBaseVal = log.oldValue !== undefined && log.newValue !== undefined && Number(log.oldValue) !== Number(log.newValue);
-                    const hasBaseDem = log.oldDemand !== undefined && log.newDemand !== undefined && Number(log.oldDemand) !== Number(log.newDemand);
-                    const hasBaseTrend = Boolean(log.oldTrend && log.newTrend && log.oldTrend !== log.newTrend);
-                    const starValChanges = (log.starChanges || []).filter(sc => sc.oldValue !== undefined && sc.newValue !== undefined && Number(sc.oldValue) !== Number(sc.newValue));
-                    const starDemChanges = (log.starChanges || []).filter(sc => sc.oldDemand !== undefined && sc.newDemand !== undefined && Number(sc.oldDemand) !== Number(sc.newDemand));
-                    const starTrendChanges = (log.starChanges || []).filter(sc => sc.oldTrend && sc.newTrend && sc.oldTrend !== sc.newTrend);
-
-                    // Badge label
-                    let badgeLabel = 'Market Update';
-                    let badgeColor = 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300';
-                    if (starValChanges.length > 0 && !hasBaseVal) {
-                      badgeLabel = starValChanges.length === 1 ? `⭐ ${starValChanges[0].tierLabel} Value` : '⭐ Star Tier Values';
-                      badgeColor = 'bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 border border-amber-300/40';
-                    } else if (hasBaseVal) {
-                      badgeLabel = '💎 Base Valuation';
-                      badgeColor = 'bg-orange-100 dark:bg-orange-950/70 text-orange-700 dark:text-orange-300 border border-orange-300/40';
-                    } else if (hasBaseDem || starDemChanges.length > 0) {
-                      badgeLabel = '🔥 Demand Rating';
-                      badgeColor = 'bg-red-100 dark:bg-red-950/70 text-red-700 dark:text-red-300 border border-red-300/40';
-                    } else if (hasBaseTrend || starTrendChanges.length > 0) {
-                      badgeLabel = '📈 Trend Shift';
-                      badgeColor = 'bg-blue-100 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-300/40';
-                    }
-
-                    return (
-                      <tr key={log.id} className="hover:bg-orange-50/40 dark:hover:bg-neutral-800/30 transition-colors">
-                        {/* Timestamp */}
-                        <td className="py-3 px-3 text-neutral-500 dark:text-neutral-400 whitespace-nowrap text-[11px]">
-                          <div>{new Date(log.timestamp).toLocaleDateString()}</div>
-                          <div className="text-[10px] text-neutral-400">{new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-                        </td>
-
-                        {/* Adjustment Type */}
-                        <td className="py-3 px-3 whitespace-nowrap">
-                          <span className={`px-2 py-0.5 rounded-md font-bold text-[10px] ${badgeColor}`}>
-                            {badgeLabel}
-                          </span>
-                        </td>
-
-                        {/* Valuation Shift (Base & Star Tiers) */}
-                        <td className="py-3 px-3">
-                          <div className="space-y-1">
-                            {hasBaseVal && (
-                              <div className="font-bold text-neutral-900 dark:text-white flex items-center gap-1.5 flex-wrap">
-                                <span className="text-neutral-400 text-[10px]">Base:</span>
-                                <span>{formatMilitaryValue(log.oldValue!)}</span>
-                                <span className="text-orange-500">➔</span>
-                                <span className="text-orange-500">{formatMilitaryValue(log.newValue!)}</span>
-                              </div>
-                            )}
-
-                            {starValChanges.map((sc, scIdx) => (
-                              <div key={scIdx} className="font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1.5 flex-wrap text-[11px]">
-                                <span className="px-1.5 py-0.2 rounded bg-amber-100 dark:bg-amber-900/40 text-[9px] font-extrabold">{sc.tierLabel}</span>
-                                <span>{formatMilitaryValue(sc.oldValue!)}</span>
-                                <span className="text-orange-500">➔</span>
-                                <span className="text-emerald-500 font-extrabold">{formatMilitaryValue(sc.newValue!)}</span>
-                              </div>
-                            ))}
-
-                            {!hasBaseVal && starValChanges.length === 0 && (
-                              <span className="text-neutral-400">—</span>
-                            )}
-                          </div>
-                        </td>
-
-                        {/* Demand & Trend Shift */}
-                        <td className="py-3 px-3 text-[11px]">
-                          <div className="space-y-1">
-                            {hasBaseDem && (
-                              <div className="text-neutral-700 dark:text-neutral-300 flex items-center gap-1">
-                                <span className="text-neutral-400 text-[10px]">Demand:</span>
-                                <span>{log.oldDemand}/10</span>
-                                <span className="text-orange-500">➔</span>
-                                <span className="font-bold text-orange-600 dark:text-orange-400">{log.newDemand}/10</span>
-                              </div>
-                            )}
-
-                            {starDemChanges.map((sc, scIdx) => (
-                              <div key={scIdx} className="text-neutral-700 dark:text-neutral-300 flex items-center gap-1">
-                                <span className="text-neutral-400 text-[10px]">{sc.tierLabel} Dem:</span>
-                                <span>{sc.oldDemand}/10</span>
-                                <span className="text-orange-500">➔</span>
-                                <span className="font-bold text-orange-600 dark:text-orange-400">{sc.newDemand}/10</span>
-                              </div>
-                            ))}
-
-                            {hasBaseTrend && (
-                              <div className="text-neutral-700 dark:text-neutral-300 flex items-center gap-1">
-                                <span className="text-neutral-400 text-[10px]">Trend:</span>
-                                <span>{log.oldTrend}</span>
-                                <span className="text-orange-500">➔</span>
-                                <span className="font-bold text-emerald-500">{log.newTrend}</span>
-                              </div>
-                            )}
-
-                            {starTrendChanges.map((sc, scIdx) => (
-                              <div key={scIdx} className="text-neutral-700 dark:text-neutral-300 flex items-center gap-1">
-                                <span className="text-neutral-400 text-[10px]">{sc.tierLabel} Trend:</span>
-                                <span>{sc.oldTrend}</span>
-                                <span className="text-orange-500">➔</span>
-                                <span className="font-bold text-emerald-500">{sc.newTrend}</span>
-                              </div>
-                            ))}
-
-                            {!hasBaseDem && !hasBaseTrend && starDemChanges.length === 0 && starTrendChanges.length === 0 && (
-                              <span className="text-neutral-400">—</span>
-                            )}
-                          </div>
-                        </td>
-
-                        {/* Status / Verification */}
-                        <td className="py-3 px-3 whitespace-nowrap">
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                            <CheckCircle2 className="w-3 h-3" /> Verified
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )
-        )}
-      </section>
+          )}
+        </section>
+      )}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 {
-  "name": "Military Tycoon Value List & Trading Calculator | MTS (Roblox)",
-  "description": "Official Military Tycoon Value List by MTS. Search live values, demand tiers, gem ranges, star multipliers, price history, and calculate fair trades for all Roblox Military Tycoon vehicles and weapons.",
-  "capabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "name": "Military Tycoon Services Value List",
+  "description": "Unofficial Value List by MTS, offering accurate values, price history and community reporting",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

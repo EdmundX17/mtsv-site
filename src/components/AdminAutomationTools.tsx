@@ -45,8 +45,6 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { db } from '../lib/firebase';
-import { doc, setDoc } from 'firebase/firestore';
 import { hasItemPriceChanges } from '../utils/historyHelper';
 
 const ALL_RARITIES: ItemRarity[] = [
@@ -191,17 +189,6 @@ export const AdminAutomationTools: React.FC = () => {
     setIsSavingWebhooks(true);
     setWebhookSaveStatus(null);
     try {
-      const payloadObj: Record<string, any> = { updatedAt: new Date().toISOString() };
-      if (suggestionWebhookInput.trim()) payloadObj.suggestionsWebhookUrl = suggestionWebhookInput.trim();
-      if (changelogWebhookInput.trim()) payloadObj.changelogWebhookUrl = changelogWebhookInput.trim();
-
-      // Dual persistence: Write directly to Firestore cloud document so it is never lost on redeploy
-      try {
-        await setDoc(doc(db, 'system', 'webhooks'), payloadObj, { merge: true });
-      } catch (fsErr) {
-        console.warn('Direct Firestore client webhook write warning:', fsErr);
-      }
-
       const res = await fetch('/api/webhooks/save-config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1157,7 +1144,7 @@ export const AdminAutomationTools: React.FC = () => {
                 <div className="relative">
                   <input
                     type={showSuggestionWebhook ? 'text' : 'password'}
-                    placeholder=""
+                    placeholder="https://discord.com/api/webhooks/..."
                     value={suggestionWebhookInput}
                     onChange={(e) => setSuggestionWebhookInput(e.target.value)}
                     className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 text-xs text-neutral-900 dark:text-white placeholder-neutral-400 font-mono focus:border-orange-500 focus:outline-none"
@@ -1184,7 +1171,7 @@ export const AdminAutomationTools: React.FC = () => {
                 <div className="relative">
                   <input
                     type={showChangelogWebhook ? 'text' : 'password'}
-                    placeholder=""
+                    placeholder="https://discord.com/api/webhooks/..."
                     value={changelogWebhookInput}
                     onChange={(e) => setChangelogWebhookInput(e.target.value)}
                     className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700 text-xs text-neutral-900 dark:text-white placeholder-neutral-400 font-mono focus:border-emerald-500 focus:outline-none"

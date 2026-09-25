@@ -3,11 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
 import { initializeApp, getApps, getApp } from 'firebase/app';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 import { getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc } from 'firebase/firestore';
 import { INITIAL_ITEMS } from './src/data/initialItems';
 import { getVehicleImageUrl } from './src/data/vehicleImageMap';
@@ -1246,9 +1242,6 @@ async function startServer() {
       PERMANENT_SUGGESTIONS_WEBHOOK_URL,
   };
 
-  let lastWebhookHydrationTime = 0;
-  let isHydratingWebhooks = false;
-
   // Helper to get active webhook URL
   const getChangelogWebhookUrl = () => 
     runtimeDiscordWebhooks.changelog || 
@@ -1266,39 +1259,25 @@ async function startServer() {
     process.env.DISCORD_WEBHOOK_URL || 
     PERMANENT_SUGGESTIONS_WEBHOOK_URL;
 
-  // Automatically hydrate webhook configuration from Firestore with retry and short TTL cache
-  async function hydrateWebhookConfig(force: boolean = false) {
-    const now = Date.now();
-    // Cache for 45 seconds unless forced
-    if (!force && lastWebhookHydrationTime > 0 && (now - lastWebhookHydrationTime < 45000)) {
-      return;
-    }
-    if (isHydratingWebhooks) return;
-    isHydratingWebhooks = true;
-
+  // Automatically hydrate webhook configuration from Firestore on startup
+  async function hydrateWebhookConfig() {
     try {
       const db = getServerDb();
-      if (!db) {
-        isHydratingWebhooks = false;
-        return;
-      }
+      if (!db) return;
       const docRef = doc(db, 'system', 'webhooks');
       const snap = await getDoc(docRef);
       if (snap.exists()) {
         const data = snap.data();
         if (data.changelogWebhookUrl && typeof data.changelogWebhookUrl === 'string' && data.changelogWebhookUrl.trim()) {
           runtimeDiscordWebhooks.changelog = data.changelogWebhookUrl.trim();
-        } else if (data.changelogWebhookUrl === '') {
-          // Explicitly cleared by admin
-          runtimeDiscordWebhooks.changelog = '';
+        } else {
+          runtimeDiscordWebhooks.changelog = PERMANENT_CHANGELOG_WEBHOOK_URL;
         }
         if (data.suggestionsWebhookUrl && typeof data.suggestionsWebhookUrl === 'string' && data.suggestionsWebhookUrl.trim()) {
           runtimeDiscordWebhooks.reports = data.suggestionsWebhookUrl.trim();
-        } else if (data.suggestionsWebhookUrl === '') {
-          // Explicitly cleared by admin
-          runtimeDiscordWebhooks.reports = '';
+        } else {
+          runtimeDiscordWebhooks.reports = PERMANENT_SUGGESTIONS_WEBHOOK_URL;
         }
-        lastWebhookHydrationTime = Date.now();
         console.log(`[Discord Webhooks Hydrated] Changelog configured: ${Boolean(getChangelogWebhookUrl())}, Suggestions configured: ${Boolean(getReportsWebhookUrl())}`);
       } else {
         // Seed Firestore system/webhooks with permanent webhooks so it is never empty on publish
@@ -1307,29 +1286,14 @@ async function startServer() {
           suggestionsWebhookUrl: runtimeDiscordWebhooks.reports,
           updatedAt: new Date().toISOString()
         }, { merge: true });
-        lastWebhookHydrationTime = Date.now();
-        console.log('[Discord Webhooks Seeded] Defaults saved to Firestore system/webhooks');
+        console.log('[Discord Webhooks Seeded] Permanent defaults saved to Firestore system/webhooks');
       }
     } catch (err) {
       console.warn('[Discord Webhook Hydration Warning]:', err);
-    } finally {
-      isHydratingWebhooks = false;
     }
   }
 
-  // Startup hydration retry sequence (0ms, 2000ms, 6000ms) to ensure connection to Firestore survives cold starts
-  hydrateWebhookConfig().catch(() => {});
-  setTimeout(() => hydrateWebhookConfig(true).catch(() => {}), 2000);
-  setTimeout(() => hydrateWebhookConfig(true).catch(() => {}), 6000);
-
-  // Middleware / helper to ensure webhooks are hydrated before endpoints execute
-  const ensureWebhooksHydrated = async () => {
-    try {
-      await hydrateWebhookConfig(false);
-    } catch (e) {
-      // non-blocking
-    }
-  };
+  hydrateWebhookConfig().catch(e => console.warn('[Webhook Hydration error]:', e));
 
   /**
    * Derives the public domain base URL for external services (Discord, Twitter, etc.)
@@ -1467,8 +1431,7 @@ async function startServer() {
    * GET /api/webhooks/status
    * Returns current webhook configuration status WITHOUT exposing the secret webhook URLs
    */
-  app.get('/api/webhooks/status', async (req, res) => {
-    await ensureWebhooksHydrated();
+  app.get('/api/webhooks/status', (req, res) => {
     const changelogUrl = getChangelogWebhookUrl();
     const reportsUrl = getReportsWebhookUrl();
 
@@ -1496,14 +1459,13 @@ async function startServer() {
    */
   app.post('/api/webhooks/save-config', webhookLimiter, async (req, res) => {
     try {
-      await ensureWebhooksHydrated();
       const { changelogWebhookUrl, suggestionsWebhookUrl } = req.body || {};
 
-      if (changelogWebhookUrl !== undefined && typeof changelogWebhookUrl === 'string') {
+      if (changelogWebhookUrl !== undefined && typeof changelogWebhookUrl === 'string' && changelogWebhookUrl.trim()) {
         runtimeDiscordWebhooks.changelog = changelogWebhookUrl.trim();
       }
 
-      if (suggestionsWebhookUrl !== undefined && typeof suggestionsWebhookUrl === 'string') {
+      if (suggestionsWebhookUrl !== undefined && typeof suggestionsWebhookUrl === 'string' && suggestionsWebhookUrl.trim()) {
         runtimeDiscordWebhooks.reports = suggestionsWebhookUrl.trim();
       }
 
@@ -1536,7 +1498,6 @@ async function startServer() {
         console.warn('[Webhook Firestore Save Warning]:', dbErr);
       }
 
-      lastWebhookHydrationTime = Date.now();
       console.log(`[Discord Webhooks Config Updated] Changelog: ${Boolean(activeChangelog)}, Suggestions: ${Boolean(activeReports)}`);
 
       return res.status(200).json({
@@ -1557,7 +1518,6 @@ async function startServer() {
    */
   app.post('/api/webhooks/test', webhookLimiter, async (req, res) => {
     try {
-      await ensureWebhooksHydrated();
       const { type = 'changelog', tester = 'Admin' } = req.body;
       const isChangelog = type === 'changelog';
       const webhookUrl = isChangelog ? getChangelogWebhookUrl() : getReportsWebhookUrl();
@@ -1625,7 +1585,6 @@ async function startServer() {
    */
   app.post('/api/webhooks/changelog', webhookLimiter, async (req, res) => {
     try {
-      await ensureWebhooksHydrated();
       const {
         action = 'MANUAL_EDIT',
         itemName = 'Market Item',
@@ -1893,7 +1852,6 @@ async function startServer() {
    */
   app.post('/api/webhooks/reports', webhookLimiter, async (req, res) => {
     try {
-      await ensureWebhooksHydrated();
       const {
         reportId,
         itemId,

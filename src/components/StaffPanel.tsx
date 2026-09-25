@@ -68,10 +68,6 @@ import { DataExportView } from './DataExportView';
 import { SiteBackupsManager } from './SiteBackupsManager';
 import { ConsultantReviewPanel } from './ConsultantReviewPanel';
 import { ErrorBoundary } from './ErrorBoundary';
-import { ConsultantQuotaBanner } from './ConsultantQuotaBanner';
-import { AdminQuotaAlerts } from './AdminQuotaAlerts';
-import { IndividualStaffModal } from './IndividualStaffModal';
-import { calculateConsultantQuotaStats, formatDurationMinutes, formatRelativeTime } from '../utils/quotaHelper';
 
 const CATEGORIES: ItemCategory[] = ['Air', 'Land', 'Naval', 'Soldier', 'Drone', 'Tags', 'Other'];
 const RARITIES: ItemRarity[] = ['Limited Edition', 'Exotic', 'Legendary', 'Epic', 'Rare', 'Uncommon', 'Common', 'Event'];
@@ -133,16 +129,8 @@ export const StaffPanel: React.FC = () => {
     getItemStarValue,
     isConsultant,
     consultantProposals,
-    submitConsultantProposal,
-    updateStaffWeeklyQuota,
-    acknowledgeUnmetQuota,
-    excuseUnmetQuota,
-    simulatedDayOverride,
-    setSimulatedDayOverride,
-    effectiveDate
+    submitConsultantProposal
   } = useValueList();
-
-  const [selectedStaffMemberForModal, setSelectedStaffMemberForModal] = useState<StaffMember | null>(null);
 
   const [activeTab, setActiveTab] = useState<'reports' | 'items_manager' | 'universal_stars' | 'add_item' | 'audit_logs' | 'admin_staff' | 'info_team' | 'bulk_images' | 'automations' | 'export_data' | 'backups' | 'consultant_proposals'>('items_manager');
   const [quickEditCommentary, setQuickEditCommentary] = useState('');
@@ -1171,10 +1159,6 @@ export const StaffPanel: React.FC = () => {
 
             {/* Tab Content */}
             <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-4">
-              {/* Consultant Quota Banner (Shown prominently to Consultants) */}
-              {isConsultant && (
-                <ConsultantQuotaBanner onOpenCatalog={() => setActiveTab('items_manager')} />
-              )}
               {/* TAB: INFO & TEAM EDITOR */}
               {activeTab === 'info_team' && (
                 <AdminInfoTeamEditor />
@@ -2739,85 +2723,6 @@ export const StaffPanel: React.FC = () => {
                     </form>
                   </div>
 
-                  {/* Unmet Quota Warnings for Admins */}
-                  <AdminQuotaAlerts onSelectStaffMember={(member) => setSelectedStaffMemberForModal(member)} />
-
-                  {/* Quota Cycle & Day Simulator (Admin Only) */}
-                  <div className="p-4 rounded-2xl bg-neutral-100/80 dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 space-y-2.5">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-orange-500" />
-                        <span className="font-['Chakra_Petch'] text-xs sm:text-sm font-bold text-neutral-900 dark:text-white uppercase tracking-wider">
-                          Weekly Quota Cycle & Day Simulation Tool
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1.5 font-mono text-[11px]">
-                        <span className="text-neutral-500">Effective Evaluation Date:</span>
-                        <span className="font-bold text-neutral-900 dark:text-white">
-                          {effectiveDate.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })} {effectiveDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-2 flex-wrap pt-0.5">
-                      <button
-                        type="button"
-                        onClick={() => setSimulatedDayOverride('none')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold cursor-pointer transition-all ${
-                          simulatedDayOverride === 'none'
-                            ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-xs'
-                            : 'bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 hover:border-neutral-400'
-                        }`}
-                      >
-                        Live Real-Time
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setSimulatedDayOverride('sunday')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold cursor-pointer transition-all flex items-center gap-1.5 ${
-                          simulatedDayOverride === 'sunday'
-                            ? 'bg-amber-500 text-neutral-950 font-black shadow-xs shadow-amber-500/20'
-                            : 'bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-300 hover:border-amber-500'
-                        }`}
-                        title="Simulate Sunday evening before Monday reset to test consultant deadline warnings"
-                      >
-                        <AlertTriangle className="w-3.5 h-3.5" />
-                        <span>Simulate Sunday (Deadline Warning ⚠️)</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setSimulatedDayOverride('monday')}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold cursor-pointer transition-all flex items-center gap-1.5 ${
-                          simulatedDayOverride === 'monday'
-                            ? 'bg-emerald-600 text-white font-black shadow-xs'
-                            : 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 hover:border-emerald-500'
-                        }`}
-                        title="Simulate Monday morning to test weekly reset and admin unmet quota alerts"
-                      >
-                        <RotateCcw className="w-3.5 h-3.5" />
-                        <span>Simulate Monday (Cycle Reset 🔄)</span>
-                      </button>
-                    </div>
-
-                    <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
-                      {simulatedDayOverride === 'sunday' && (
-                        <span className="text-amber-600 dark:text-amber-400 font-semibold">
-                          ⚠️ Simulating Sunday 10:00 PM: Consultants will see prominent alerts stating how many suggestions they are away from reaching their weekly quota before midnight.
-                        </span>
-                      )}
-                      {simulatedDayOverride === 'monday' && (
-                        <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
-                          🔄 Simulating Monday 09:00 AM: Weekly cycle has reset. Admins will see alerts for any consultants who did not meet quota during the past week.
-                        </span>
-                      )}
-                      {simulatedDayOverride === 'none' && (
-                        <span>System is evaluating quotas using your device's live clock. Use the simulator buttons to test Sunday warnings and Monday reset alerts.</span>
-                      )}
-                    </p>
-                  </div>
-
                   {/* Current Staff List */}
                   <div className="space-y-3">
                     <div className="flex items-center justify-between px-1">
@@ -2825,7 +2730,7 @@ export const StaffPanel: React.FC = () => {
                         <Users className="w-4 h-4 text-orange-500" />
                         <span>Active Staff Roster ({staffMembers.length})</span>
                       </h5>
-                      <span className="text-xs text-neutral-400">Click any user to inspect detailed stats & logs</span>
+                      <span className="text-xs text-neutral-400">Authenticated Staff Credentials & Permissions</span>
                     </div>
 
                     <div className="space-y-2.5">
@@ -2833,51 +2738,34 @@ export const StaffPanel: React.FC = () => {
                         const isCurrentUser = activeStaff?.id === member.id;
                         const adminCount = staffMembers.filter(s => s.role === 'Admin').length;
                         const isSoleAdmin = member.role === 'Admin' && adminCount <= 1;
-                        const isConsultantMember = member.role === 'Consultant';
-                        const consultantStats = isConsultantMember
-                          ? calculateConsultantQuotaStats(member, consultantProposals, effectiveDate)
-                          : null;
-
-                        const isMemberOnline = isCurrentUser || Boolean(
-                          member.lastActive && (Date.now() - new Date(member.lastActive).getTime() < 10 * 60 * 1000)
-                        );
 
                         return (
                           <div
                             key={member.id || `staff-${member.username}-${memIdx}`}
                             className="p-4 rounded-2xl bg-white dark:bg-[#181c2b] border border-neutral-200/80 dark:border-neutral-800 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 transition-all hover:border-orange-300 dark:hover:border-neutral-700"
                           >
-                            <div className="flex items-start sm:items-center gap-3 min-w-0 flex-1">
+                            <div className="flex items-center gap-3 min-w-0">
                               <div className={`w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-sm text-white shrink-0 ${
                                 member.role === 'Admin'
                                   ? 'bg-gradient-to-tr from-amber-500 to-orange-500 shadow-sm shadow-amber-500/30'
                                   : member.role === 'Analyst'
                                   ? 'bg-gradient-to-tr from-cyan-500 to-blue-600 shadow-sm shadow-cyan-500/30'
-                                  : member.role === 'Consultant'
-                                  ? 'bg-gradient-to-tr from-emerald-500 to-teal-600 shadow-sm shadow-emerald-500/30'
                                   : 'bg-gradient-to-tr from-blue-500 to-cyan-500 shadow-sm shadow-blue-500/30'
                               }`}>
                                 {member.role === 'Admin' ? (
                                   <Crown className="w-5 h-5" />
                                 ) : member.role === 'Analyst' ? (
                                   <BarChart3 className="w-5 h-5" />
-                                ) : member.role === 'Consultant' ? (
-                                  <MessageSquare className="w-5 h-5" />
                                 ) : (
                                   <ShieldCheck className="w-5 h-5" />
                                 )}
                               </div>
 
-                              <div className="min-w-0 flex-1">
+                              <div className="min-w-0">
                                 <div className="flex items-center gap-2 flex-wrap">
-                                  <button
-                                    type="button"
-                                    onClick={() => setSelectedStaffMemberForModal(member)}
-                                    className="font-bold text-xs sm:text-sm text-neutral-900 dark:text-white truncate hover:text-orange-600 dark:hover:text-orange-400 text-left cursor-pointer"
-                                    title="Open individual staff performance & quota view"
-                                  >
+                                  <span className="font-bold text-xs sm:text-sm text-neutral-900 dark:text-white truncate">
                                     {member.displayName || member.username}
-                                  </button>
+                                  </span>
 
                                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold font-mono border flex items-center gap-1 ${
                                     member.role === 'Admin'
@@ -2900,17 +2788,6 @@ export const StaffPanel: React.FC = () => {
                                     {member.role === 'Moderator' ? 'Staff' : member.role}
                                   </span>
 
-                                  {isMemberOnline ? (
-                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 text-[9px] font-bold font-mono">
-                                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                      ONLINE
-                                    </span>
-                                  ) : (
-                                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-500 text-[9px] font-mono">
-                                      OFFLINE
-                                    </span>
-                                  )}
-
                                   {isCurrentUser && (
                                     <span className="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-300 text-[10px] font-bold font-mono">
                                       YOU
@@ -2918,79 +2795,29 @@ export const StaffPanel: React.FC = () => {
                                   )}
                                 </div>
 
-                                <div className="text-xs text-neutral-500 dark:text-neutral-400 font-mono truncate flex items-center gap-2 mt-0.5 flex-wrap">
-                                  <span>User: <strong className="text-neutral-700 dark:text-neutral-300">@{member.username}</strong></span>
+                                <div className="text-xs text-neutral-500 dark:text-neutral-400 font-mono truncate flex items-center gap-2 mt-0.5">
+                                  <span>User: <strong className="text-neutral-700 dark:text-neutral-300">{member.username}</strong></span>
                                   <span>•</span>
                                   <span className="flex items-center gap-1">
                                     Pass: <strong className="text-neutral-700 dark:text-neutral-300">{revealedPasswords[member.id] ? member.password : '••••••••'}</strong>
                                     <button
                                       type="button"
                                       onClick={() => setRevealedPasswords(prev => ({ ...prev, [member.id]: !prev[member.id] }))}
-                                      className="p-0.5 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 cursor-pointer ml-0.5"
+                                      className="p-0.5 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 cursor-pointer ml-1"
                                       title={revealedPasswords[member.id] ? "Hide password" : "Show password"}
                                     >
                                       {revealedPasswords[member.id] ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
                                     </button>
                                   </span>
-                                  <span>•</span>
-                                  <span>Last login: <strong className="text-neutral-700 dark:text-neutral-300">{formatRelativeTime(member.lastLogin)}</strong></span>
-                                  <span>•</span>
-                                  <span>Total logged: <strong className="text-neutral-700 dark:text-neutral-300">{formatDurationMinutes(member.totalSessionMinutes || 0)}</strong></span>
                                 </div>
 
-                                {/* Consultant Weekly Quota Bar on Roster Card */}
-                                {consultantStats && (
-                                  <div className="mt-2 p-2.5 rounded-xl bg-neutral-50 dark:bg-[#121520] border border-neutral-200 dark:border-neutral-800 space-y-1.5 max-w-xl">
-                                    <div className="flex items-center justify-between text-xs font-mono">
-                                      <span className="text-neutral-700 dark:text-neutral-300 font-medium">
-                                        Weekly Quota: <strong className="font-bold text-neutral-900 dark:text-white font-sans">{consultantStats.currentWeekCount} / {consultantStats.targetQuota}</strong> suggestions
-                                      </span>
-                                      {consultantStats.isQuotaMet ? (
-                                        <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 text-[11px]">
-                                          <CheckCircle2 className="w-3 h-3" /> Quota Met
-                                        </span>
-                                      ) : consultantStats.isSunday ? (
-                                        <span className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1 text-[11px] animate-pulse">
-                                          <AlertTriangle className="w-3 h-3" /> {consultantStats.remainingNeeded} needed (Sunday Deadline!)
-                                        </span>
-                                      ) : (
-                                        <span className="text-neutral-500 dark:text-neutral-400 text-[11px]">
-                                          {consultantStats.remainingNeeded} more needed
-                                        </span>
-                                      )}
-                                    </div>
-                                    <div className="w-full h-1.5 bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden">
-                                      <div
-                                        className={`h-full rounded-full transition-all duration-300 ${
-                                          consultantStats.isQuotaMet
-                                            ? 'bg-emerald-500'
-                                            : consultantStats.isSunday
-                                            ? 'bg-amber-500'
-                                            : 'bg-teal-500'
-                                        }`}
-                                        style={{ width: `${Math.max(4, consultantStats.percentComplete)}%` }}
-                                      />
-                                    </div>
-                                    <div className="flex items-center justify-between text-[10px] text-neutral-400 font-mono">
-                                      <span>Lifetime: {consultantStats.lifetimeCount} suggestions ({consultantStats.lifetimeApproved} approved)</span>
-                                      <span>Week: {consultantStats.weekInfo.formattedRange}</span>
-                                    </div>
-                                  </div>
-                                )}
+                                <div className="text-[10px] text-neutral-400 mt-0.5">
+                                  Created {new Date(member.addedAt).toLocaleDateString()} {member.addedBy ? `by ${member.addedBy}` : ''}
+                                </div>
                               </div>
                             </div>
 
                             <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
-                              <button
-                                type="button"
-                                onClick={() => setSelectedStaffMemberForModal(member)}
-                                className="px-3 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 active:scale-[0.98] text-white text-xs font-bold cursor-pointer transition-all flex items-center gap-1.5 shadow-xs"
-                                title="View individual staff profile, activity history, and quota logs"
-                              >
-                                <User className="w-3.5 h-3.5" />
-                                <span>View Profile & Stats</span>
-                              </button>
-
                               <button
                                 type="button"
                                 onClick={() => {
@@ -3002,7 +2829,7 @@ export const StaffPanel: React.FC = () => {
                                 className="px-3 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:border-orange-400 dark:hover:border-orange-500 bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1"
                               >
                                 <Key className="w-3.5 h-3.5 text-amber-500" />
-                                <span>Pass</span>
+                                <span>Reset Pass</span>
                               </button>
 
                               {!isSoleAdmin && (
@@ -3016,7 +2843,7 @@ export const StaffPanel: React.FC = () => {
                                     className="px-2.5 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:border-orange-400 dark:hover:border-orange-500 bg-neutral-50 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-semibold cursor-pointer transition-colors focus:outline-none focus:border-orange-500"
                                     title="Assign role"
                                   >
-                                    <option value="Consultant">Role: Consultant</option>
+                                    <option value="Consultant">Role: Consultant (Commentator)</option>
                                     <option value="Staff">Role: Staff</option>
                                     <option value="Analyst">Role: Analyst</option>
                                     <option value="Admin">Role: Admin</option>
@@ -3800,23 +3627,6 @@ export const StaffPanel: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
-      {/* INDIVIDUAL STAFF PERFORMANCE & QUOTA MODAL */}
-      {selectedStaffMemberForModal && (
-        <IndividualStaffModal
-          member={selectedStaffMemberForModal}
-          onClose={() => setSelectedStaffMemberForModal(null)}
-          onResetPassword={(m) => {
-            setPasswordChangeMember(m);
-            setNewPasswordForMember('');
-            setShowResetPassword(false);
-            setPasswordChangeFeedback(null);
-          }}
-          onRemoveMember={(m) => {
-            setStaffMemberToRemove(m);
-            setSelectedStaffMemberForModal(null);
-          }}
-        />
       )}
     </div>
   );

@@ -2,8 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { useValueList } from '../context/ValueListContext';
 import { ConsultantProposal } from '../types';
 import { formatMilitaryValue } from '../utils/formatters';
-import { ConsultantQuotaBanner } from './ConsultantQuotaBanner';
-import { AdminQuotaAlerts } from './AdminQuotaAlerts';
 import {
   CheckCircle2,
   XCircle,
@@ -122,12 +120,6 @@ export const ConsultantReviewPanel: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Consultant Quota Warning / Progress Banner */}
-      <ConsultantQuotaBanner />
-
-      {/* Admin Unmet Quota Alerts */}
-      <AdminQuotaAlerts />
-
       {/* Top Banner / Explainer */}
       <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-emerald-500/5 dark:from-emerald-950/30 dark:via-teal-950/20 dark:to-transparent border border-emerald-300/60 dark:border-emerald-700/60 shadow-xs">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
