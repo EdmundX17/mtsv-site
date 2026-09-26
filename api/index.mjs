@@ -22307,7 +22307,11 @@ async function createApp() {
       console.warn("[Discord Webhook Hydration Warning]:", err);
     }
   }
-  hydrateWebhookConfig().catch((e) => console.warn("[Webhook Hydration error]:", e));
+  const webhookConfigReady = hydrateWebhookConfig();
+  app.use("/api/webhooks", async (_req, _res, next) => {
+    await webhookConfigReady;
+    next();
+  });
   const getPublicDomainBase = (req) => {
     const rawHost = req?.get("x-forwarded-host") || req?.get("host");
     if (rawHost && !rawHost.includes("localhost") && !rawHost.includes("127.0.0.1") && !rawHost.includes("0.0.0.0")) {

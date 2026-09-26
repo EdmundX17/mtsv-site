@@ -1303,7 +1303,11 @@ export async function createApp() {
     }
   }
 
-  hydrateWebhookConfig().catch(e => console.warn('[Webhook Hydration error]:', e));
+  const webhookConfigReady = hydrateWebhookConfig();
+  app.use('/api/webhooks', async (_req, _res, next) => {
+    await webhookConfigReady;
+    next();
+  });
 
   /**
    * Derives the public domain base URL for external services (Discord, Twitter, etc.)
