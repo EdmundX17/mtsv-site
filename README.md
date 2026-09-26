@@ -1,20 +1,19 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# MTSV site on Vercel
 
-# Run and deploy your AI Studio app
+This is a Vite frontend with an Express API exposed through `api/index.ts`. Set the Vercel project root to this directory (`mtsv-site`), install with `npm install`, and use the included `vercel.json` build and route settings.
 
-This contains everything you need to run your app locally.
+## Configuration
 
-View your app in AI Studio: https://ai.studio/apps/d16f20ea-1387-4fd1-8489-0514fef25c1d
+Set the existing Firebase project permissions and these Vercel environment variables as needed:
 
-## Run Locally
+- `DISCORD_CHANGELOG_WEBHOOK_URL` and `DISCORD_REPORTS_WEBHOOK_URL` for Discord notifications.
+- `CLOUDFLARE_TURNSTILE_SECRET_KEY` and `VITE_CLOUDFLARE_TURNSTILE_SITE_KEY` for Turnstile.
+- `GEMINI_API_KEY` if enabling any Gemini-backed feature.
 
-**Prerequisites:**  Node.js
+The client currently uses `firebase-applet-config.json` and the existing AI Studio Firebase project. Migrate that Firebase database and update the config if the AI Studio project will be removed. Firestore rules and authentication must allow the same operations as before.
 
+Run `npm run lint` and `npm run build` before deploying. Check `/api/health`, image upload and retrieval, translation, authentication, and the webhook test on the preview deployment.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Storage limits
+
+Vercel functions have ephemeral disk. Uploaded images are recovered from the existing Firestore `storedImages` collection; local disk is only a cache. Firestore documents and Vercel function request bodies have size limits, so large image uploads need a dedicated object storage migration before they can be considered supported on Vercel.

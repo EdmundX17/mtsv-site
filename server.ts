@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import os from 'os';
 import fs from 'fs';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
@@ -157,7 +158,7 @@ function sanitizeFileName(name: string, fallbackPrefix: string = 'img'): string 
   return `${safeName}${ext}`;
 }
 
-async function startServer() {
+export async function createApp() {
   const app = express();
   const PORT = 3000;
 
@@ -233,8 +234,9 @@ async function startServer() {
   app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
   // Static route for vehicle images and permanent cached images
-  const vehicleImagesDir = path.join(process.cwd(), 'public', 'images', 'vehicles');
-  const cachedImagesDir = path.join(process.cwd(), 'public', 'images', 'cache');
+  const vehicleImagesDir = path.join(process.env.VERCEL ? os.tmpdir() : path.join(process.cwd(), 'public'), 'images', 'vehicles');
+  const bundledVehicleImagesDir = path.join(process.cwd(), 'public', 'images', 'vehicles');
+  const cachedImagesDir = path.join(process.env.VERCEL ? os.tmpdir() : path.join(process.cwd(), 'public'), 'images', 'cache');
 
   if (!fs.existsSync(vehicleImagesDir)) {
     fs.mkdirSync(vehicleImagesDir, { recursive: true });
@@ -262,8 +264,6 @@ async function startServer() {
       let cfg: any = null;
       const configCandidates = [
         path.join(process.cwd(), 'firebase-applet-config.json'),
-        path.join(__dirname, 'firebase-applet-config.json'),
-        path.join(__dirname, '..', 'firebase-applet-config.json'),
         path.join(process.cwd(), 'dist', 'firebase-applet-config.json')
       ];
       for (const p of configCandidates) {
@@ -318,7 +318,7 @@ async function startServer() {
   }
 
   // Trigger background hydration non-blockingly
-  hydrateStoredImages().catch(e => console.warn('[ImagePersistence] Initial hydration error:', e));
+  if (!process.env.VERCEL) hydrateStoredImages().catch(e => console.warn('[ImagePersistence] Initial hydration error:', e));
 
   /**
    * GET /images/vehicles/:filename
@@ -359,7 +359,7 @@ async function startServer() {
         path.join(vehicleImagesDir, decodedName.replace(/_/g, ' ').replace(/\.[^.]+$/, '.png'))
       ];
 
-      for (const p of candidatePaths) {
+      for (const p of [...candidatePaths, ...candidatePaths.map(p => p.replace(vehicleImagesDir, bundledVehicleImagesDir))]) {
         if (fs.existsSync(p)) {
           const ext = path.extname(p).toLowerCase();
           res.setHeader('Content-Type', mimeMap[ext] || 'image/png');
@@ -846,6 +846,11 @@ async function startServer() {
       const safeName = sanitizeFileName(name || `img_${Date.now()}`);
       const filePath = path.join(vehicleImagesDir, safeName);
       fs.writeFileSync(filePath, buffer);
+      const db = getServerDb();
+      if (!db) return res.status(503).json({ success: false, error: 'Image storage unavailable' });
+      await setDoc(doc(db, 'storedImages', safeName.replace(/[^a-zA-Z0-9_-]/g, '_').toLowerCase()), {
+        filename: safeName, dataUrl, updatedAt: new Date().toISOString()
+      }, { merge: true });
 
       return res.json({
         success: true,
@@ -861,16 +866,21 @@ async function startServer() {
    * GET /api/vehicle-images
    * Returns a list of all vehicle images stored on disk
    */
-  app.get('/api/vehicle-images', (req, res) => {
+  app.get('/api/vehicle-images', async (req, res) => {
     try {
       if (!fs.existsSync(vehicleImagesDir)) {
         return res.json({ success: true, count: 0, files: [] });
       }
-      const files = fs.readdirSync(vehicleImagesDir);
+      const files = new Set([...fs.readdirSync(bundledVehicleImagesDir), ...fs.readdirSync(vehicleImagesDir)]);
+      const db = getServerDb();
+      if (db) {
+        const stored = await getDocs(collection(db, 'storedImages'));
+        stored.forEach(item => { if (item.data().filename) files.add(item.data().filename); });
+      }
       return res.json({
         success: true,
-        count: files.length,
-        files: files.map(filename => ({
+        count: files.size,
+        files: [...files].map(filename => ({
           filename,
           url: `/images/vehicles/${encodeURIComponent(filename)}`
         }))
@@ -2184,7 +2194,7 @@ async function startServer() {
   });
 
   // Vite middleware for development vs static build in production
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: {
@@ -2214,6 +2224,8 @@ async function startServer() {
     });
   }
 
+  if (process.env.VERCEL) return app;
+
   const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`MTS Server running on http://0.0.0.0:${PORT}`);
   });
@@ -2231,13 +2243,14 @@ async function startServer() {
 
   process.on('SIGTERM', shutdown);
   process.on('SIGINT', shutdown);
+  return app;
 }
 
 process.on('unhandledRejection', (reason, promise) => {
   console.warn('[Unhandled Rejection at]:', promise, 'reason:', reason);
 });
 
-startServer().catch((err) => {
+if (!process.env.VERCEL) createApp().catch((err) => {
   console.error('[MTS Server Fatal Error]:', err);
   process.exit(1);
 });
