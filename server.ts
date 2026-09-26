@@ -1275,8 +1275,18 @@ export async function createApp() {
       const db = getServerDb();
       if (!db) return;
       const docRef = doc(db, 'system', 'webhooks');
-      const snap = await getDocs(collection(db, 'system'));
-      const data = snap.docs.find(item => item.id === 'webhooks')?.data();
+      const cfg = EMBEDDED_FIREBASE_CONFIG;
+      const url = new URL(`https://firestore.googleapis.com/v1/projects/${cfg.projectId}/databases/${cfg.firestoreDatabaseId}/documents/system/webhooks`);
+      url.searchParams.set('key', cfg.apiKey);
+      const response = await fetch(url, { signal: AbortSignal.timeout(10000) });
+      if (!response.ok && response.status !== 404) {
+        throw new Error(`Firestore webhook read failed (${response.status})`);
+      }
+      const payload = response.ok ? await response.json() : null;
+      const data = payload ? {
+        changelogWebhookUrl: payload.fields?.changelogWebhookUrl?.stringValue,
+        suggestionsWebhookUrl: payload.fields?.suggestionsWebhookUrl?.stringValue
+      } : null;
       if (data) {
         if (data.changelogWebhookUrl && typeof data.changelogWebhookUrl === 'string' && data.changelogWebhookUrl.trim()) {
           runtimeDiscordWebhooks.changelog = data.changelogWebhookUrl.trim();
