@@ -22239,33 +22239,48 @@ async function createApp() {
     }
   });
   app.post("/api/verify-turnstile", createRateLimiter({ windowMs: 6e4, max: 60, name: "api-turnstile" }), async (req, res) => {
+    let timeout;
     try {
       const { token } = req.body;
-      if (!token) {
-        return res.status(400).json({ success: false, error: "Token is required" });
+      if (typeof token !== "string" || token.length === 0 || token.length > 2048) {
+        return res.status(400).json({ success: false, verified: false, error: "A valid Turnstile token is required." });
       }
-      if (token.startsWith("cf-turnstile-verified-") || token === "1x00000000000000000000AA") {
-        return res.json({ success: true, verified: true, simulated: true });
+      const secretKey = process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
+      if (!secretKey) {
+        console.error("[Turnstile] CLOUDFLARE_TURNSTILE_SECRET_KEY is not configured.");
+        return res.status(503).json({ success: false, verified: false, error: "Cloudflare verification is not configured." });
       }
-      const secretKey = process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY || "1x0000000000000000000000000000000AA";
       const formData = new URLSearchParams();
       formData.append("secret", secretKey);
       formData.append("response", token);
       if (req.ip) formData.append("remoteip", req.ip);
+      const controller = new AbortController();
+      timeout = setTimeout(() => controller.abort(), 8e3);
       const cfResponse = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formData.toString()
+        body: formData.toString(),
+        signal: controller.signal
       });
+      if (!cfResponse.ok) {
+        console.error(`[Turnstile] Siteverify returned HTTP ${cfResponse.status}.`);
+        return res.status(502).json({ success: false, verified: false, error: "Cloudflare verification is temporarily unavailable." });
+      }
       const outcome = await cfResponse.json();
-      return res.json({
-        success: outcome.success,
-        verified: outcome.success,
-        timestamp: outcome.challenge_ts,
-        hostname: outcome.hostname
-      });
+      const errorCodes = Array.isArray(outcome["error-codes"]) ? outcome["error-codes"] : [];
+      if (errorCodes.includes("invalid-input-secret") || errorCodes.includes("missing-input-secret")) {
+        console.error("[Turnstile] Cloudflare rejected the configured secret key.");
+        return res.status(503).json({ success: false, verified: false, error: "Cloudflare verification is misconfigured." });
+      }
+      if (outcome.success !== true) {
+        return res.status(400).json({ success: false, verified: false, error: "Cloudflare could not verify this check. Please try again." });
+      }
+      return res.json({ success: true, verified: true });
     } catch (err) {
-      return res.json({ success: true, verified: true, fallback: true });
+      console.error("[Turnstile] Siteverify request failed:", err?.name === "AbortError" ? "request timed out" : "network or response error");
+      return res.status(502).json({ success: false, verified: false, error: "Cloudflare verification is temporarily unavailable." });
+    } finally {
+      if (timeout) clearTimeout(timeout);
     }
   });
   const PERMANENT_CHANGELOG_WEBHOOK_URL = webhookConfig_default?.changelogWebhookUrl || "";

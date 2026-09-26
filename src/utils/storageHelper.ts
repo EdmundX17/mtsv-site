@@ -22,8 +22,7 @@ export const ACTIVE_STORAGE_KEYS = [
   'mts_services_item_star_tiers_v2',
   'mts_lang',
   'mts_global_card_layout_mode',
-  'mts_view_mode',
-  'google_auth_user'
+  'mts_view_mode'
 ];
 
 /**

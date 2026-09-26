@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   ShieldCheck, 
   Database, 
@@ -7,39 +7,16 @@ import {
   RefreshCw, 
   Trash2, 
   Clock, 
-  FileJson, 
   Plus, 
   AlertTriangle, 
   CheckCircle2, 
   Calendar,
-  Sparkles,
-  HelpCircle,
   Archive,
   ArrowDownToLine,
   Cloud,
-  CloudUpload,
-  ExternalLink,
-  Folder,
-  FolderCheck,
-  Check,
-  Layers,
-  HardDrive
 } from 'lucide-react';
 import { useValueList } from '../context/ValueListContext';
 import { SiteBackup, BackupType } from '../types';
-import {
-  requestGoogleDriveAuth,
-  uploadBackupToGoogleDrive,
-  listGoogleDriveBackups,
-  isGoogleDriveConnected,
-  getGoogleDriveConnectedEmail,
-  getGoogleDriveAutoSync,
-  setGoogleDriveAutoSync,
-  disconnectGoogleDrive,
-  getGoogleDriveLastSyncTime,
-  GoogleDriveFile,
-  DEFAULT_DRIVE_FOLDER_NAME
-} from '../lib/googleDrive';
 
 export const SiteBackupsManager: React.FC = () => {
   const {
@@ -52,8 +29,7 @@ export const SiteBackupsManager: React.FC = () => {
     deleteBackup,
     exportBackupJSON,
     importBackupJSON,
-    isAdmin,
-    activeStaff
+    isAdmin
   } = useValueList();
 
   const [filterType, setFilterType] = useState<BackupType | 'all'>('all');
@@ -63,182 +39,23 @@ export const SiteBackupsManager: React.FC = () => {
   const [actionFeedback, setActionFeedback] = useState<{ 
     type: 'success' | 'error' | 'info'; 
     message: string;
-    link?: { url: string; label: string };
   } | null>(null);
   
   // Restore confirmation modal state
   const [selectedBackupToRestore, setSelectedBackupToRestore] = useState<SiteBackup | null>(null);
   const [isRestoring, setIsRestoring] = useState(false);
 
-  // Google Drive state
-  const [isDriveConnected, setIsDriveConnected] = useState<boolean>(() => isGoogleDriveConnected());
-  const [driveEmail, setDriveEmail] = useState<string | null>(() => getGoogleDriveConnectedEmail());
-  const [isDriveAutoSync, setIsDriveAutoSync] = useState<boolean>(() => getGoogleDriveAutoSync());
-  const [isConnectingDrive, setIsConnectingDrive] = useState(false);
-  const [isSyncingToDrive, setIsSyncingToDrive] = useState(false);
-  const [uploadingBackupId, setUploadingBackupId] = useState<string | null>(null);
-  const [driveFolderLink, setDriveFolderLink] = useState<string | null>(null);
-  const [driveFiles, setDriveFiles] = useState<GoogleDriveFile[]>([]);
-  const [isLoadingDriveFiles, setIsLoadingDriveFiles] = useState(false);
-  const [isDriveFilesModalOpen, setIsDriveFilesModalOpen] = useState(false);
-  const [lastDriveSyncTime, setLastDriveSyncTime] = useState<string | null>(() => getGoogleDriveLastSyncTime());
-
   // File upload ref
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    setIsDriveConnected(isGoogleDriveConnected());
-    setDriveEmail(getGoogleDriveConnectedEmail());
-    setIsDriveAutoSync(getGoogleDriveAutoSync());
-    setLastDriveSyncTime(getGoogleDriveLastSyncTime());
-  }, []);
-
   const showFeedback = (
     type: 'success' | 'error' | 'info', 
-    message: string, 
-    link?: { url: string; label: string }
+    message: string
   ) => {
-    setActionFeedback({ type, message, link });
+    setActionFeedback({ type, message });
     setTimeout(() => {
       setActionFeedback(prev => (prev?.message === message ? null : prev));
     }, 7000);
-  };
-
-  const handleConnectDrive = async () => {
-    setIsConnectingDrive(true);
-    try {
-      const res = await requestGoogleDriveAuth(true);
-      if (res.success && res.accessToken) {
-        setIsDriveConnected(true);
-        setDriveEmail(res.email || null);
-        showFeedback('success', res.message || 'Connected to Google Drive successfully!');
-        // Refresh drive folder list in background
-        loadDriveFilesList();
-      } else {
-        showFeedback('error', res.message || 'Failed to connect to Google Drive.');
-      }
-    } catch (err: any) {
-      showFeedback('error', err?.message || 'Google Drive authentication failed.');
-    } finally {
-      setIsConnectingDrive(false);
-    }
-  };
-
-  const handleDisconnectDrive = () => {
-    if (confirm('Disconnect Google Drive? Automated uploads will be paused.')) {
-      disconnectGoogleDrive();
-      setIsDriveConnected(false);
-      setDriveEmail(null);
-      setIsDriveAutoSync(false);
-      setDriveFiles([]);
-      setDriveFolderLink(null);
-      showFeedback('info', 'Disconnected from Google Drive.');
-    }
-  };
-
-  const handleToggleAutoSync = (checked: boolean) => {
-    if (checked && !isDriveConnected) {
-      handleConnectDrive();
-      return;
-    }
-    setIsDriveAutoSync(checked);
-    setGoogleDriveAutoSync(checked);
-    showFeedback('success', checked 
-      ? 'Google Drive Auto-Sync enabled! Snapshots will be automatically uploaded.'
-      : 'Google Drive Auto-Sync disabled.'
-    );
-  };
-
-  const loadDriveFilesList = async () => {
-    if (!isGoogleDriveConnected()) return;
-    setIsLoadingDriveFiles(true);
-    try {
-      const res = await listGoogleDriveBackups();
-      if (res.success) {
-        setDriveFiles(res.files);
-        if (res.folderLink) setDriveFolderLink(res.folderLink);
-      }
-    } catch (err) {
-      console.warn('Could not load drive files list:', err);
-    } finally {
-      setIsLoadingDriveFiles(false);
-    }
-  };
-
-  const handleOpenDriveFilesModal = async () => {
-    setIsDriveFilesModalOpen(true);
-    await loadDriveFilesList();
-  };
-
-  const handleBackupLiveToDriveNow = async () => {
-    if (!isDriveConnected) {
-      const authRes = await requestGoogleDriveAuth(false);
-      if (!authRes.success) {
-        showFeedback('error', authRes.message);
-        return;
-      }
-      setIsDriveConnected(true);
-      setDriveEmail(authRes.email || null);
-    }
-
-    setIsSyncingToDrive(true);
-    try {
-      const liveExport = {
-        id: `live_export_${Date.now()}`,
-        name: `Live Catalog Snapshot (${items.length} items)`,
-        type: 'manual' as BackupType,
-        createdAt: new Date().toISOString(),
-        dateKey: new Date().toISOString().split('T')[0],
-        itemCount: items.length,
-        items,
-        notes: `Live catalog snapshot backed up to Google Drive by ${activeStaff?.displayName || activeStaff?.username || 'Admin'}`
-      };
-
-      const uploadRes = await uploadBackupToGoogleDrive(liveExport, {
-        customFileName: `mts_live_backup_${new Date().toISOString().split('T')[0]}_${items.length}items.json`
-      });
-
-      if (uploadRes.success) {
-        const now = new Date().toISOString();
-        setLastDriveSyncTime(now);
-        showFeedback(
-          'success', 
-          uploadRes.message, 
-          uploadRes.webViewLink ? { url: uploadRes.webViewLink, label: 'View file in Google Drive' } : undefined
-        );
-        loadDriveFilesList();
-      } else {
-        showFeedback('error', uploadRes.message);
-      }
-    } catch (err: any) {
-      showFeedback('error', err?.message || 'Failed to upload backup to Google Drive');
-    } finally {
-      setIsSyncingToDrive(false);
-    }
-  };
-
-  const handleUploadSingleBackupToDrive = async (backup: SiteBackup) => {
-    setUploadingBackupId(backup.id);
-    try {
-      const uploadRes = await uploadBackupToGoogleDrive(backup, { promptIfNoAuth: true });
-      if (uploadRes.success) {
-        setIsDriveConnected(true);
-        const now = new Date().toISOString();
-        setLastDriveSyncTime(now);
-        showFeedback(
-          'success', 
-          `Uploaded "${backup.name}" to Google Drive!`, 
-          uploadRes.webViewLink ? { url: uploadRes.webViewLink, label: 'View in Drive' } : undefined
-        );
-        loadDriveFilesList();
-      } else {
-        showFeedback('error', uploadRes.message);
-      }
-    } catch (err: any) {
-      showFeedback('error', err?.message || 'Google Drive upload error');
-    } finally {
-      setUploadingBackupId(null);
-    }
   };
 
   const handleCreateManualBackup = async (e: React.FormEvent) => {
@@ -250,9 +67,6 @@ export const SiteBackupsManager: React.FC = () => {
       setIsCreateModalOpen(false);
       setCustomBackupName('');
       setCustomBackupNotes('');
-      if (isDriveAutoSync && isDriveConnected) {
-        loadDriveFilesList();
-      }
     } else {
       showFeedback('error', res.message);
     }
@@ -381,7 +195,7 @@ export const SiteBackupsManager: React.FC = () => {
                   </span>
                 </h2>
                 <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
-                  Automated daily catalog snapshots and instant disaster recovery points with Google Drive synchronization.
+                  Automated daily catalog snapshots and instant disaster recovery points stored in the site database.
                 </p>
               </div>
             </div>
@@ -443,17 +257,6 @@ export const SiteBackupsManager: React.FC = () => {
               )}
               <span className="font-medium">{actionFeedback.message}</span>
             </div>
-            {actionFeedback.link && (
-              <a
-                href={actionFeedback.link.url}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-600 dark:bg-emerald-700 hover:bg-emerald-700 text-white transition-colors shrink-0"
-              >
-                <span>{actionFeedback.link.label}</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            )}
           </div>
         )}
 
@@ -512,111 +315,6 @@ export const SiteBackupsManager: React.FC = () => {
               {lastBackupDate ? `Last backup: ${new Date(lastBackupDate).toLocaleDateString()}` : 'No backups saved'}
             </p>
           </div>
-        </div>
-      </div>
-
-      {/* GOOGLE DRIVE AUTOMATIC BACKUP & SYNC CARD */}
-      <div className="bg-gradient-to-br from-blue-500/5 via-neutral-900/5 to-indigo-500/5 dark:from-blue-950/20 dark:via-neutral-900 dark:to-indigo-950/20 border border-blue-500/30 dark:border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-sm">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-start gap-3.5">
-            {/* Google Drive visual icon */}
-            <div className="w-11 h-11 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
-              <CloudUpload className="w-6 h-6" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2.5 flex-wrap">
-                <h3 className="text-lg font-bold font-['Chakra_Petch'] text-neutral-900 dark:text-white uppercase tracking-wide flex items-center gap-2">
-                  Google Drive Auto-Backup & Sync
-                </h3>
-                {isDriveConnected ? (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    Connected {driveEmail ? `(${driveEmail})` : ''}
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400">
-                    Not Connected
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 max-w-2xl leading-relaxed">
-                Automatically download and sync site backups directly to your Google Drive folder (<code className="text-blue-600 dark:text-blue-400 font-mono font-medium">{DEFAULT_DRIVE_FOLDER_NAME}</code>) so your data is permanently archived on your personal Drive.
-              </p>
-            </div>
-          </div>
-
-          {/* Drive Action Buttons */}
-          <div className="flex flex-wrap items-center gap-2.5 shrink-0 self-start md:self-center">
-            {isDriveConnected ? (
-              <>
-                <button
-                  onClick={handleBackupLiveToDriveNow}
-                  disabled={isSyncingToDrive}
-                  className="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-['Chakra_Petch'] font-bold uppercase tracking-wider bg-blue-600 hover:bg-blue-700 text-white shadow-sm flex items-center gap-2 transition-all cursor-pointer disabled:opacity-50"
-                  title="Upload live catalog snapshot to Google Drive immediately"
-                >
-                  {isSyncingToDrive ? (
-                    <RefreshCw className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <CloudUpload className="w-4 h-4" />
-                  )}
-                  <span>{isSyncingToDrive ? 'Uploading...' : 'Backup Live to Drive'}</span>
-                </button>
-
-                <button
-                  onClick={handleOpenDriveFilesModal}
-                  className="px-3 py-2 rounded-xl text-xs font-['Chakra_Petch'] font-bold uppercase tracking-wider bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-700 flex items-center gap-1.5 transition-all cursor-pointer"
-                  title="View all backups stored in Google Drive folder"
-                >
-                  <Folder className="w-3.5 h-3.5 text-blue-500" />
-                  <span>Drive Files {driveFiles.length > 0 ? `(${driveFiles.length})` : ''}</span>
-                </button>
-
-                <button
-                  onClick={handleDisconnectDrive}
-                  className="px-3 py-2 rounded-xl text-xs font-['Chakra_Petch'] font-medium text-neutral-500 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
-                  title="Disconnect Google Drive account"
-                >
-                  Disconnect
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={handleConnectDrive}
-                disabled={isConnectingDrive}
-                className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-['Chakra_Petch'] font-bold uppercase tracking-wider bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-600/20 flex items-center gap-2 transition-all cursor-pointer disabled:opacity-50"
-              >
-                {isConnectingDrive ? (
-                  <RefreshCw className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Cloud className="w-4 h-4" />
-                )}
-                <span>{isConnectingDrive ? 'Connecting Google...' : 'Connect Google Drive'}</span>
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Auto Sync Toggle & Status Row */}
-        <div className="mt-4 pt-3.5 border-t border-neutral-200/80 dark:border-neutral-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-          <label className="flex items-center gap-3 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              checked={isDriveAutoSync}
-              onChange={(e) => handleToggleAutoSync(e.target.checked)}
-              className="w-4 h-4 text-blue-600 rounded border-neutral-300 focus:ring-blue-500 cursor-pointer accent-blue-600"
-            />
-            <span className="font-semibold text-neutral-800 dark:text-neutral-200">
-              Automatically upload every daily catalog snapshot & new recovery point to Google Drive
-            </span>
-          </label>
-
-          {lastDriveSyncTime && (
-            <span className="text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5 shrink-0">
-              <Clock className="w-3.5 h-3.5 text-neutral-400" />
-              Last Drive Sync: {new Date(lastDriveSyncTime).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-            </span>
-          )}
         </div>
       </div>
 
@@ -690,7 +388,6 @@ export const SiteBackupsManager: React.FC = () => {
               hour: '2-digit',
               minute: '2-digit'
             });
-            const isUploadingThis = uploadingBackupId === backup.id;
 
             return (
               <div
@@ -747,20 +444,6 @@ export const SiteBackupsManager: React.FC = () => {
 
                 {/* Backup Actions */}
                 <div className="flex items-center gap-2 shrink-0 self-end sm:self-center flex-wrap">
-                  {/* Save to Google Drive Button */}
-                  <button
-                    onClick={() => handleUploadSingleBackupToDrive(backup)}
-                    disabled={isUploadingThis}
-                    className="p-2 rounded-xl text-blue-600 dark:text-blue-400 hover:text-blue-700 bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors cursor-pointer border border-blue-200 dark:border-blue-800/80 disabled:opacity-50"
-                    title="Upload snapshot directly to Google Drive"
-                  >
-                    {isUploadingThis ? (
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                    ) : (
-                      <CloudUpload className="w-4 h-4" />
-                    )}
-                  </button>
-
                   {/* Download JSON Button */}
                   <button
                     onClick={() => handleDownloadBackup(backup)}
@@ -799,113 +482,6 @@ export const SiteBackupsManager: React.FC = () => {
               </div>
             );
           })}
-        </div>
-      )}
-
-      {/* GOOGLE DRIVE FILES MODAL */}
-      {isDriveFilesModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 max-w-2xl w-full shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
-            <div className="flex items-center justify-between pb-2 border-b border-neutral-200 dark:border-neutral-800">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
-                  <Folder className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold font-['Chakra_Petch'] text-neutral-900 dark:text-white uppercase">
-                    Google Drive Backup Files
-                  </h3>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                    Folder: <span className="font-semibold text-neutral-700 dark:text-neutral-300">{DEFAULT_DRIVE_FOLDER_NAME}</span>
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                {driveFolderLink && (
-                  <a
-                    href={driveFolderLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-blue-600 dark:text-blue-300 flex items-center gap-1.5 transition-colors"
-                  >
-                    <span>Open in Drive</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                )}
-                <button
-                  onClick={() => setIsDriveFilesModalOpen(false)}
-                  className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 text-lg font-bold p-1 cursor-pointer"
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
-
-            {isLoadingDriveFiles ? (
-              <div className="p-10 text-center flex flex-col items-center justify-center gap-2">
-                <RefreshCw className="w-6 h-6 animate-spin text-blue-500" />
-                <p className="text-xs text-neutral-500">Loading files from Google Drive...</p>
-              </div>
-            ) : driveFiles.length === 0 ? (
-              <div className="p-8 text-center">
-                <Cloud className="w-10 h-10 text-neutral-400 mx-auto mb-2" />
-                <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">No backups in this Google Drive folder yet.</p>
-                <p className="text-xs text-neutral-500 mt-1">Click "Backup Live to Drive" or enable Auto-Sync to push daily backups to your Drive.</p>
-              </div>
-            ) : (
-              <div className="overflow-y-auto space-y-2 pr-1 max-h-[50vh]">
-                {driveFiles.map((file) => {
-                  const sizeKb = file.size ? (parseInt(file.size, 10) / 1024).toFixed(1) + ' KB' : 'JSON';
-                  const dateFormatted = new Date(file.createdTime).toLocaleString();
-
-                  return (
-                    <div
-                      key={file.id}
-                      className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-700/60 flex items-center justify-between gap-3 text-xs"
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        <FileJson className="w-4 h-4 text-blue-500 shrink-0" />
-                        <div className="min-w-0">
-                          <p className="font-semibold text-neutral-900 dark:text-white truncate" title={file.name}>
-                            {file.name}
-                          </p>
-                          <p className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-0.5">
-                            {dateFormatted} • {sizeKb}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2 shrink-0">
-                        {file.webViewLink && (
-                          <a
-                            href={file.webViewLink}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="px-2.5 py-1 rounded-lg bg-neutral-200 dark:bg-neutral-700 hover:bg-blue-600 hover:text-white text-neutral-700 dark:text-neutral-200 text-xs font-semibold flex items-center gap-1 transition-colors"
-                          >
-                            <span>Open</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            <div className="pt-2 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-xs text-neutral-500">
-              <span>{driveFiles.length} snapshot file(s) in Drive</span>
-              <button
-                onClick={loadDriveFilesList}
-                className="hover:text-blue-500 flex items-center gap-1 cursor-pointer"
-              >
-                <RefreshCw className="w-3 h-3" />
-                <span>Refresh list</span>
-              </button>
-            </div>
-          </div>
         </div>
       )}
 

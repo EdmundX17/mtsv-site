@@ -10,6 +10,8 @@ Set the existing Firebase project permissions and these Vercel environment varia
 - `CLOUDFLARE_TURNSTILE_SECRET_KEY` and `VITE_CLOUDFLARE_TURNSTILE_SITE_KEY` for Turnstile.
 - `GEMINI_API_KEY` if enabling any Gemini-backed feature.
 
+Both Turnstile keys must belong to the same Cloudflare widget. The site key is public and is embedded during the Vercel build; the secret key stays server-side. Add the site key to Vercel for every environment that should show Turnstile, then redeploy after changing it.
+
 The client currently uses `firebase-applet-config.json` and the existing AI Studio Firebase project. Migrate that Firebase database and update the config if the AI Studio project will be removed. Firestore rules and authentication must allow the same operations as before.
 
 Run `npm run lint` and `npm run build` before deploying. Check `/api/health`, image upload and retrieval, translation, authentication, and the webhook test on the preview deployment.

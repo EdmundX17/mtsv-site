@@ -76,11 +76,6 @@ import {
   getTranslatedTrend,
   getTranslatedDemandLabel
 } from '../i18n/translations';
-import {
-  uploadBackupToGoogleDrive,
-  getGoogleDriveAutoSync,
-  isGoogleDriveConnected
-} from '../lib/googleDrive';
 
 const STORAGE_KEYS = {
   ITEMS: 'mts_services_items_v12_clean',
@@ -4371,21 +4366,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         details: `${type === 'daily_auto' ? 'Automated Daily Backup created' : `Staff created manual backup "${backupTitle}"`} (${items.length} items preserved).`,
         skipWebhook: true
       });
-
-      // If Google Drive Auto-Sync is enabled, upload to Drive in background
-      if (getGoogleDriveAutoSync() && isGoogleDriveConnected()) {
-        uploadBackupToGoogleDrive(backupDoc)
-          .then(driveRes => {
-            if (driveRes.success) {
-              console.log('[Google Drive] Auto-uploaded backup to Drive:', driveRes.fileName);
-            } else {
-              console.warn('[Google Drive] Auto-upload warning:', driveRes.message);
-            }
-          })
-          .catch(err => {
-            console.error('[Google Drive] Auto-upload background error:', err);
-          });
-      }
 
       setIsBackingUp(false);
       return {

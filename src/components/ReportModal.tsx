@@ -13,6 +13,7 @@ import {
 } from '../utils/formatters';
 import { Flag, X, Send, CheckCircle2, AlertTriangle, Star, ArrowRight } from 'lucide-react';
 import { CloudflareTurnstile } from './CloudflareTurnstile';
+import { verifyTurnstileToken } from '../lib/turnstile';
 import confetti from 'canvas-confetti';
 import { VehicleImage } from './VehicleImage';
 
@@ -72,6 +73,8 @@ const ReportModalContent: React.FC<{
   const [reason, setReason] = useState('');
   const [captchaToken, setCaptchaToken] = useState<string>('');
   const [captchaError, setCaptchaError] = useState<string | null>(null);
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
+  const [isVerifyingCaptcha, setIsVerifyingCaptcha] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // When user switches star tier, synchronize suggested values
@@ -98,9 +101,10 @@ const ReportModalContent: React.FC<{
     setProofLink('');
     setCaptchaToken('');
     setCaptchaError(null);
+    setCaptchaResetKey((key) => key + 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!proofLink.trim()) {
@@ -116,6 +120,15 @@ const ReportModalContent: React.FC<{
       return;
     }
     setCaptchaError(null);
+    setIsVerifyingCaptcha(true);
+    const captchaCheck = await verifyTurnstileToken(captchaToken);
+    setIsVerifyingCaptcha(false);
+    setCaptchaToken('');
+    setCaptchaResetKey((key) => key + 1);
+    if (!captchaCheck.verified) {
+      setCaptchaError(captchaCheck.error || 'Cloudflare could not verify this check. Please try again.');
+      return;
+    }
 
     const reporterName = playerUsername.trim() || (language === 'es' ? 'Comerciante Anónimo' : 'Anonymous Trader');
 
@@ -454,6 +467,7 @@ const ReportModalContent: React.FC<{
                   onExpire={() => setCaptchaToken('')}
                   theme={theme === 'dark' ? 'dark' : 'light'}
                   isInvalid={Boolean(captchaError && !captchaToken)}
+                  resetKey={captchaResetKey}
                 />
                 {captchaError && !captchaToken && (
                   <p className="mt-2 text-xs text-rose-600 dark:text-rose-400 font-medium flex items-center gap-1.5 animate-in fade-in">
@@ -474,16 +488,16 @@ const ReportModalContent: React.FC<{
                 </button>
                 <button
                   type="submit"
-                  disabled={!captchaToken}
+                  disabled={!captchaToken || isVerifyingCaptcha}
                   className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm shadow-md transition-all ${
-                    captchaToken
+                    captchaToken && !isVerifyingCaptcha
                       ? 'bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-orange-500/25 cursor-pointer active:scale-[0.98]'
                       : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 cursor-not-allowed shadow-none border border-neutral-300 dark:border-neutral-700'
                   }`}
-                  title={!captchaToken ? t('captchaRequiredError') : t('submitSuggestion')}
+                  title={isVerifyingCaptcha ? 'Checking Cloudflare verification…' : !captchaToken ? t('captchaRequiredError') : t('submitSuggestion')}
                 >
                   <Send className="w-4 h-4" />
-                  <span>{captchaToken ? t('submitSuggestion') : t('verifyToSubmit')}</span>
+                  <span>{isVerifyingCaptcha ? 'Checking verification…' : captchaToken ? t('submitSuggestion') : t('verifyToSubmit')}</span>
                 </button>
               </div>
             </form>
@@ -507,4 +521,3 @@ export const ReportModal: React.FC = () => {
     />
   );
 };
-

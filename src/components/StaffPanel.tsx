@@ -4,6 +4,7 @@ import { ReportedValue, MilitaryItem, ItemCategory, ItemRarity, PriceTrend, Staf
 import { formatMilitaryValue, calculateItemStarValue, parseMilitaryValueInput, getRarityConfig, getTrendConfig, isVehicleCategory, isSoldierOrDroneCategory, shouldSortToTagsCategory, STAR_TIERS, SOLDIER_DRONE_STAR_TIERS, itemHasManualOverrides } from '../utils/formatters';
 import { optimizeImage, getSafeImageUrl, isDiscordCdnUrl } from '../utils/imageOptimizer';
 import { CloudflareTurnstile } from './CloudflareTurnstile';
+import { verifyTurnstileToken } from '../lib/turnstile';
 import { 
   ShieldAlert, 
   Check, 
@@ -261,6 +262,8 @@ export const StaffPanel: React.FC = () => {
   const [newItemInGameCost, setNewItemInGameCost] = useState('');
   const [loginCaptchaToken, setLoginCaptchaToken] = useState<string>('');
   const [showLoginCaptchaError, setShowLoginCaptchaError] = useState<boolean>(false);
+  const [loginCaptchaResetKey, setLoginCaptchaResetKey] = useState(0);
+  const [isVerifyingLoginCaptcha, setIsVerifyingLoginCaptcha] = useState(false);
 
   // Webhook Live Testing State
   const [testingWebhook, setTestingWebhook] = useState<'changelog' | 'reports' | null>(null);
@@ -317,7 +320,7 @@ export const StaffPanel: React.FC = () => {
     setShowNewStaffPassword(true);
   };
 
-  const handleStaffLogin = (e: React.FormEvent) => {
+  const handleStaffLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginFeedback(null);
     if (!loginCaptchaToken) {
@@ -332,10 +335,19 @@ export const StaffPanel: React.FC = () => {
       setLoginFeedback({ type: 'error', message: 'Please enter both username and password.' });
       return;
     }
+    setIsVerifyingLoginCaptcha(true);
+    const captchaCheck = await verifyTurnstileToken(loginCaptchaToken);
+    setIsVerifyingLoginCaptcha(false);
+    setLoginCaptchaToken('');
+    setLoginCaptchaResetKey((key) => key + 1);
+    if (!captchaCheck.verified) {
+      setShowLoginCaptchaError(true);
+      setLoginFeedback({ type: 'error', message: captchaCheck.error || 'Cloudflare could not verify this check. Please try again.' });
+      return;
+    }
     const result = loginStaff(loginUsername.trim(), loginPassword.trim());
     if (result.success) {
       setLoginFeedback({ type: 'success', message: result.message });
-      setLoginCaptchaToken('');
       setShowLoginCaptchaError(false);
       try {
         confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
@@ -936,6 +948,7 @@ export const StaffPanel: React.FC = () => {
                     onExpire={() => setLoginCaptchaToken('')}
                     theme="auto"
                     isInvalid={Boolean(showLoginCaptchaError && !loginCaptchaToken)}
+                    resetKey={loginCaptchaResetKey}
                   />
                   {showLoginCaptchaError && !loginCaptchaToken && (
                     <p className="mt-2 text-xs text-rose-600 dark:text-rose-400 font-medium flex items-center gap-1.5 animate-in fade-in">
@@ -947,16 +960,16 @@ export const StaffPanel: React.FC = () => {
 
                 <button
                   type="submit"
-                  disabled={!loginCaptchaToken}
+                  disabled={!loginCaptchaToken || isVerifyingLoginCaptcha}
                   className={`w-full py-2.5 px-4 rounded-xl font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 ${
-                    loginCaptchaToken
+                    loginCaptchaToken && !isVerifyingLoginCaptcha
                       ? 'bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-orange-500/20 cursor-pointer active:scale-[0.98]'
                       : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 cursor-not-allowed shadow-none border border-neutral-300 dark:border-neutral-700'
                   }`}
-                  title={!loginCaptchaToken ? 'Complete Cloudflare verification first' : 'Authenticate & Enter Portal'}
+                  title={isVerifyingLoginCaptcha ? 'Checking Cloudflare verification…' : !loginCaptchaToken ? 'Complete Cloudflare verification first' : 'Authenticate & Enter Portal'}
                 >
                   <Lock className="w-3.5 h-3.5" />
-                  <span>{loginCaptchaToken ? 'Authenticate & Enter Portal' : 'Verify Cloudflare to Enter'}</span>
+                  <span>{isVerifyingLoginCaptcha ? 'Checking verification…' : loginCaptchaToken ? 'Authenticate & Enter Portal' : 'Verify Cloudflare to Enter'}</span>
                 </button>
               </form>
             </div>

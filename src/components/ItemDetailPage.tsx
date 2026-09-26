@@ -53,6 +53,7 @@ import { AreaChart, Area, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveCont
 import confetti from 'canvas-confetti';
 import { VehicleImage } from './VehicleImage';
 import { CloudflareTurnstile } from './CloudflareTurnstile';
+import { verifyTurnstileToken } from '../lib/turnstile';
 import { MilitaryGemIcon } from './MilitaryGemIcon';
 import { useAutoTranslate } from '../hooks/useAutoTranslate';
 
@@ -154,6 +155,8 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
   const [reasonNotes, setReasonNotes] = useState('');
   const [suggestionCaptchaToken, setSuggestionCaptchaToken] = useState<string>('');
   const [suggestionCaptchaError, setSuggestionCaptchaError] = useState<string | null>(null);
+  const [suggestionCaptchaResetKey, setSuggestionCaptchaResetKey] = useState(0);
+  const [isVerifyingSuggestionCaptcha, setIsVerifyingSuggestionCaptcha] = useState(false);
   const [isReportSubmitted, setIsReportSubmitted] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
@@ -324,7 +327,7 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
     setSuggestedDemand(newTierData.demand);
   };
 
-  const handleSuggestionSubmit = (e: React.FormEvent) => {
+  const handleSuggestionSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!proofLink.trim()) {
       setSuggestionCaptchaError(language === 'es' ? 'Se requiere un enlace de evidencia.' : 'Evidence / Proof link is required.');
@@ -339,6 +342,15 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
       return;
     }
     setSuggestionCaptchaError(null);
+    setIsVerifyingSuggestionCaptcha(true);
+    const captchaCheck = await verifyTurnstileToken(suggestionCaptchaToken);
+    setIsVerifyingSuggestionCaptcha(false);
+    setSuggestionCaptchaToken('');
+    setSuggestionCaptchaResetKey((key) => key + 1);
+    if (!captchaCheck.verified) {
+      setSuggestionCaptchaError(captchaCheck.error || 'Cloudflare could not verify this check. Please try again.');
+      return;
+    }
 
     submitReport({
       itemId: item.id,
@@ -367,7 +379,6 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
     } catch (err) {}
 
     setIsReportSubmitted(true);
-    setSuggestionCaptchaToken('');
   };
 
   const handleAddPointSubmit = (e: React.FormEvent) => {
@@ -1512,6 +1523,7 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
                 onExpire={() => setSuggestionCaptchaToken('')}
                 theme={theme === 'dark' ? 'dark' : 'light'}
                 isInvalid={Boolean(suggestionCaptchaError && !suggestionCaptchaToken)}
+                resetKey={suggestionCaptchaResetKey}
               />
               {suggestionCaptchaError && !suggestionCaptchaToken && (
                 <p className="mt-2 text-xs text-rose-600 dark:text-rose-400 font-medium flex items-center gap-1.5 animate-in fade-in">
@@ -1526,16 +1538,16 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
                 whileHover={suggestionCaptchaToken ? { scale: 1.02 } : {}}
                 whileTap={suggestionCaptchaToken ? { scale: 0.98 } : {}}
                 type="submit"
-                disabled={!suggestionCaptchaToken}
+                disabled={!suggestionCaptchaToken || isVerifyingSuggestionCaptcha}
                 className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-xs font-mono transition-all ${
-                  suggestionCaptchaToken
+                  suggestionCaptchaToken && !isVerifyingSuggestionCaptcha
                     ? 'bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-md shadow-orange-500/25 cursor-pointer active:scale-[0.98]'
                     : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 cursor-not-allowed shadow-none border border-neutral-300 dark:border-neutral-700'
                 }`}
-                title={!suggestionCaptchaToken ? (language === 'es' ? 'Se requiere verificación Cloudflare antes de enviar' : 'Cloudflare verification required before submitting') : t('submitSuggestion')}
+                title={isVerifyingSuggestionCaptcha ? 'Checking Cloudflare verification…' : !suggestionCaptchaToken ? (language === 'es' ? 'Se requiere verificación Cloudflare antes de enviar' : 'Cloudflare verification required before submitting') : t('submitSuggestion')}
               >
                 <Send className="w-4 h-4" />
-                <span>{suggestionCaptchaToken ? t('submitSuggestion') : t('verifyToSubmit')}</span>
+                <span>{isVerifyingSuggestionCaptcha ? 'Checking verification…' : suggestionCaptchaToken ? t('submitSuggestion') : t('verifyToSubmit')}</span>
               </motion.button>
             </div>
           </form>
