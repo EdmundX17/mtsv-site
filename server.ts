@@ -559,9 +559,9 @@ export async function createApp() {
       try {
         const db = getServerDb();
         if (!db) return;
-        const snap = await getDoc(doc(db, 'system', 'translations'));
-        if (snap.exists()) {
-          const data = snap.data();
+        const snap = await getDocs(collection(db, 'system'));
+        const data = snap.docs.find(item => item.id === 'translations')?.data();
+        if (data) {
           const entries = data?.entries;
           if (entries && typeof entries === 'object') {
             let count = 0;
@@ -1275,9 +1275,9 @@ export async function createApp() {
       const db = getServerDb();
       if (!db) return;
       const docRef = doc(db, 'system', 'webhooks');
-      const snap = await getDoc(docRef);
-      if (snap.exists()) {
-        const data = snap.data();
+      const snap = await getDocs(collection(db, 'system'));
+      const data = snap.docs.find(item => item.id === 'webhooks')?.data();
+      if (data) {
         if (data.changelogWebhookUrl && typeof data.changelogWebhookUrl === 'string' && data.changelogWebhookUrl.trim()) {
           runtimeDiscordWebhooks.changelog = data.changelogWebhookUrl.trim();
         } else {
