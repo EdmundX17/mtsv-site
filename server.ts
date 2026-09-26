@@ -5,7 +5,7 @@ import fs from 'fs';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc } from 'firebase/firestore';
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc } from 'firebase/firestore/lite';
 import { INITIAL_ITEMS } from './src/data/initialItems';
 import { getVehicleImageUrl } from './src/data/vehicleImageMap';
 import defaultWebhookConfig from './src/data/webhookConfig.json';

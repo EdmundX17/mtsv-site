@@ -6,7 +6,7 @@ import fs from "fs";
 import crypto from "crypto";
 import dotenv from "dotenv";
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc } from "firebase/firestore/lite";
 
 // src/data/militaryItems.ts
 var INITIAL_MILITARY_ITEMS = [
