@@ -816,7 +816,8 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           });
           loadedLogs.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
           setAuditLogs(loadedLogs);
-          safeLocalStorageSet(STORAGE_KEYS.LOGS, JSON.stringify(loadedLogs));
+          // Firestore keeps the full audit trail; cache only recent entries for startup.
+          safeLocalStorageSet(STORAGE_KEYS.LOGS, JSON.stringify(loadedLogs.slice(0, 100)));
         }
       },
       (error) => handleSnapshotError('auditLogs', error)
@@ -1778,7 +1779,7 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     setAuditLogs(prev => {
       const updated = [newLog, ...prev];
-      safeLocalStorageSet(STORAGE_KEYS.LOGS, JSON.stringify(updated));
+      safeLocalStorageSet(STORAGE_KEYS.LOGS, JSON.stringify(updated.slice(0, 100)));
       return updated;
     });
 

@@ -468,7 +468,10 @@ export const ItemCard = React.memo<ItemCardProps>(({ item, rowItemIds }) => {
                 formatValueTooltip={(tierId) => {
                   const tierCalc = getItemStarValue(item, tierId);
                   const tObj = SOLDIER_DRONE_STAR_TIERS.find((t) => t.id === tierId);
-                  return `${tObj?.label || tierId} (${tierCalc.multiplier}x): ${formatMilitaryValue(tierCalc.totalValue)}`;
+                  const multiplierLabel = Number.isFinite(tierCalc.multiplier)
+                    ? ` (${tierCalc.multiplier}x)`
+                    : '';
+                  return `${tObj?.label || tierId}${multiplierLabel}: ${formatMilitaryValue(tierCalc.totalValue)}`;
                 }}
               />
             </div>
