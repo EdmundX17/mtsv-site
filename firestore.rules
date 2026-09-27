@@ -1,44 +1,93 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Users profile collection
-    match /users/{userId} {
-      allow read, write: if true;
+    function signedIn() {
+      return request.auth != null && request.auth.token.staffLogin == true;
     }
-    
-    // Items collection (MTS catalog)
+
+    function hasAnyRole(roles) {
+      return signedIn()
+        && exists(/databases/$(database)/documents/staffRoles/$(request.auth.uid))
+        && request.auth.token.sessionVersion == get(/databases/$(database)/documents/staffRoles/$(request.auth.uid)).data.sessionVersion
+        && get(/databases/$(database)/documents/staffRoles/$(request.auth.uid)).data.role in roles;
+    }
+
+    function isCatalogEditor() {
+      return hasAnyRole(['Admin', 'Staff', 'Moderator']);
+    }
+
+    function isReportReviewer() {
+      return hasAnyRole(['Admin', 'Staff', 'Analyst', 'Moderator']);
+    }
+
+    // Public catalog and public price history; only active catalog editors can write.
     match /items/{itemId} {
-      allow read, write: if true;
+      allow read: if true;
+      allow create, update, delete: if isCatalogEditor();
     }
-    
-    // Price history and audits
+
+    // Audit history is public on the site, and staff can append but never rewrite old entries.
     match /auditLogs/{logId} {
-      allow read, write: if true;
+      allow read: if true;
+      allow create: if hasAnyRole(['Admin', 'Staff', 'Analyst', 'Consultant', 'Moderator']);
+      allow update, delete: if false;
     }
-    
-    // Player price change reports
+
+    // Reports are created only through the server after Turnstile verification.
     match /reports/{reportId} {
-      allow read, write: if true;
+      allow read: if hasAnyRole(['Admin', 'Staff', 'Analyst', 'Consultant', 'Moderator']);
+      allow create: if false;
+      allow update, delete: if isReportReviewer();
     }
 
-    // Consultant proposals and commentator suggestions
+    // Consultants can submit proposals under their own Firebase UID. Only Admins resolve or remove them.
     match /consultantProposals/{proposalId} {
-      allow read, write: if true;
+      allow read: if hasAnyRole(['Admin', 'Consultant']);
+      allow create: if hasAnyRole(['Consultant'])
+        && request.resource.data.consultantId == request.auth.uid;
+      allow update, delete: if hasAnyRole(['Admin']);
     }
 
-    // Stored Images for permanent vehicle & unit thumbnails
-    match /storedImages/{imageId} {
-      allow read, write: if true;
-    }
-
-    // System configurations & star values & staff roster
+    // The website displays these values publicly. Site information is Admin-managed;
+    // catalog star values remain editable by Admins and catalog Staff.
     match /system/{docId} {
-      allow read, write: if true;
+      allow get: if docId in ['siteInfo', 'starConfig', 'soldierDroneStarConfig', 'connectionCheck'];
+      allow list: if false;
+      allow create, update, delete: if
+        (docId == 'siteInfo' && hasAnyRole(['Admin']))
+        || (docId in ['starConfig', 'soldierDroneStarConfig'] && isCatalogEditor());
     }
 
-    // Site Backups (Daily snapshots and disaster recovery records)
+    // Staff roles may read their own role to render the correct UI. The Admin API
+    // alone writes roles and lists the roster; Admin SDK writes bypass these rules.
+    match /staffRoles/{userId} {
+      allow get: if signedIn() && request.auth.uid == userId
+        && request.auth.token.sessionVersion == resource.data.sessionVersion;
+      allow list: if hasAnyRole(['Admin']);
+      allow create, update, delete: if false;
+    }
+
+    // Password hashes are readable only through the Admin SDK on the server.
+    match /staffCredentials/{username} {
+      allow read, write: if false;
+    }
+
+    // Backups and stored images are accessed through authenticated server endpoints.
     match /siteBackups/{backupId} {
-      allow read, write: if true;
+      allow read, write: if hasAnyRole(['Admin']);
+    }
+
+    match /storedImages/{imageId} {
+      allow read, write: if false;
+    }
+
+    match /users/{userId} {
+      allow read, write: if false;
+    }
+
+    // Deny every collection that is not explicitly opened above.
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

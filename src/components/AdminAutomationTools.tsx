@@ -11,6 +11,7 @@ import {
   SOLDIER_DRONE_STAR_TIERS
 } from '../utils/formatters';
 import { getSafeImageUrl } from '../utils/imageOptimizer';
+import { staffApiFetch } from '../lib/staffApi';
 import { 
   Zap, 
   Sliders, 
@@ -189,7 +190,7 @@ export const AdminAutomationTools: React.FC = () => {
     setIsSavingWebhooks(true);
     setWebhookSaveStatus(null);
     try {
-      const res = await fetch('/api/webhooks/save-config', {
+      const res = await staffApiFetch('/api/webhooks/save-config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -233,7 +234,7 @@ export const AdminAutomationTools: React.FC = () => {
     setIsTestingWebhook(type);
     setTestResult(null);
     try {
-      const res = await fetch('/api/webhooks/test', {
+      const res = await staffApiFetch('/api/webhooks/test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

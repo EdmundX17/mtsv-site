@@ -1,4 +1,5 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import {
   getFirestore,
   initializeFirestore,
@@ -19,6 +20,7 @@ const firebaseConfig = {
 
 // Initialize Firebase App instance safely
 export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+export const auth = getAuth(app);
 
 // Set Firestore log level to silent to suppress internal gRPC idle stream disconnects
 try {
@@ -69,4 +71,3 @@ export function cleanForFirestore<T>(data: T): T {
   }
   return result as T;
 }
-

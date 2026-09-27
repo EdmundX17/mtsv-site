@@ -46,13 +46,7 @@ export const StaffAuthMenu: React.FC = () => {
     return null;
   }
 
-  const roleText = activeStaff.role === 'Admin' 
-    ? 'ADMIN' 
-    : activeStaff.role === 'Analyst' 
-    ? 'ANALYST' 
-    : activeStaff.role === 'Consultant'
-    ? 'CONSULTANT'
-    : 'STAFF';
+  const roleText = activeStaff.role.toUpperCase();
 
   return (
     <div className="relative" ref={menuRef}>

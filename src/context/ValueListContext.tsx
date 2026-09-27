@@ -11,7 +11,9 @@ import {
   writeBatch,
   deleteField
 } from 'firebase/firestore';
-import { db, cleanForFirestore } from '../lib/firebase';
+import { onAuthStateChanged, signInWithCustomToken, signOut } from 'firebase/auth';
+import { auth, db, cleanForFirestore } from '../lib/firebase';
+import { staffApiFetch } from '../lib/staffApi';
 import {
   MilitaryItem,
   ReportedValue,
@@ -42,7 +44,7 @@ import {
   SiteBackup,
   BackupType
 } from '../types';
-import { INITIAL_ITEMS, INITIAL_REPORTS } from '../data/initialItems';
+import { INITIAL_ITEMS } from '../data/initialItems';
 import { DEFAULT_SITE_INFO } from '../data/initialSiteInfo';
 import { getVehicleImageUrl } from '../data/vehicleImageMap';
 import {
@@ -65,7 +67,9 @@ import {
   safeLocalStorageSet,
   safeLocalStorageGet,
   safeLocalStorageRemove,
-  cleanupLegacyStorage
+  cleanupLegacyStorage,
+  getPendingLegacyStaffProfiles,
+  clearPendingLegacyStaffProfiles
 } from '../utils/storageHelper';
 import {
   SupportedLanguage,
@@ -79,16 +83,11 @@ import {
 
 const STORAGE_KEYS = {
   ITEMS: 'mts_services_items_v12_clean',
-  REPORTS: 'mts_services_reports_v10_clean',
   LOGS: 'mts_services_logs_v10_clean',
-  STAFF_ROSTER: 'mts_services_custom_staff_roster_v3',
   STAR_CONFIG: 'mts_services_star_config_v2',
   SOLDIER_DRONE_STAR_CONFIG: 'mts_services_soldier_drone_star_config_v2',
-  STAFF_SESSION: 'mts_services_custom_staff_session_v3',
   SITE_INFO: 'mts_services_site_info_v1',
   TRADE_CALC: 'mts_services_trade_calculator_v2',
-  SITE_BACKUPS: 'mts_services_site_backups_v1',
-  CONSULTANT_PROPOSALS: 'mts_services_consultant_proposals_v1'
 };
 
 const DEFAULT_UNIVERSAL_STAR_CONFIG: UniversalStarConfig = {
@@ -101,17 +100,8 @@ const DEFAULT_UNIVERSAL_STAR_CONFIG: UniversalStarConfig = {
   '5': 60000
 };
 
-const INITIAL_STAFF_MEMBERS: StaffMember[] = [
-  {
-    id: 'staff-root-admin',
-    username: 'Admin',
-    password: 'AdminPassword2026!',
-    role: 'Admin',
-    displayName: 'Administrator',
-    addedBy: 'System',
-    addedAt: '2026-01-01T00:00:00.000Z'
-  }
-];
+const isStaffRole = (role: unknown): role is StaffRole =>
+  role === 'Admin' || role === 'Analyst' || role === 'Staff' || role === 'Moderator' || role === 'Consultant';
 
 interface ValueListContextType {
   items: MilitaryItem[];
@@ -157,16 +147,17 @@ interface ValueListContextType {
   isQuotaBannerDismissed: boolean;
   dismissQuotaBanner: () => void;
   
-  // Custom Staff Auth
-  loginStaff: (username: string, password: string) => { success: boolean; message: string };
+  // Server-verified username/password staff authentication
+  loginStaff: (username: string, password: string, turnstileToken: string) => Promise<{ success: boolean; message: string }>;
   logoutStaff: () => void;
 
   // Staff Management (Admin Only)
   staffMembers: StaffMember[];
-  addStaffMember: (username: string, password: string, role: StaffRole, displayName?: string) => { success: boolean; message: string };
-  updateStaffRole: (id: string, newRole: StaffRole) => { success: boolean; message: string };
-  updateStaffPassword: (id: string, newPassword: string) => { success: boolean; message: string };
-  removeStaffMember: (id: string) => { success: boolean; message: string };
+  addStaffMember: (username: string, role: StaffRole, displayName?: string, legacyMemberId?: string) => Promise<{ success: boolean; message: string; temporaryPassword?: string }>;
+  updateStaffRole: (id: string, newRole: StaffRole) => Promise<{ success: boolean; message: string }>;
+  sendStaffPasswordReset: (id: string) => Promise<{ success: boolean; message: string; temporaryPassword?: string }>;
+  changeStaffPassword: (currentPassword: string, newPassword: string) => Promise<{ success: boolean; message: string }>;
+  removeStaffMember: (id: string) => Promise<{ success: boolean; message: string }>;
 
   searchQuery: string;
   setSearchQuery: (q: string) => void;
@@ -274,7 +265,7 @@ interface ValueListContextType {
   resetSiteInfoToDefault: () => Promise<void>;
 
   // Actions
-  submitReport: (reportData: Omit<ReportedValue, 'id' | 'status' | 'createdAt'>) => string;
+  submitReport: (reportData: Omit<ReportedValue, 'id' | 'status' | 'createdAt'>, turnstileToken: string) => Promise<string>;
   acceptReport: (reportId: string, staffComment?: string) => void;
   editAndAcceptReport: (
     reportId: string, 
@@ -423,23 +414,7 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return INITIAL_ITEMS.filter(i => i.id !== 'item-super-hovercraft' && i.name !== 'Super HoverisOverflow').map(i => ({ ...i, history: [] }));
   });
 
-  const [reports, setReports] = useState<ReportedValue[]>(() => {
-    const saved = safeLocalStorageGet(STORAGE_KEYS.REPORTS);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) {
-          return parsed.map((rep: ReportedValue) => ({
-            ...rep,
-            itemCategory: rep.itemCategory === 'Sea' ? 'Naval' : rep.itemCategory
-          }));
-        }
-      } catch (e) {
-        console.error('Failed to parse cached reports', e);
-      }
-    }
-    return INITIAL_REPORTS;
-  });
+  const [reports, setReports] = useState<ReportedValue[]>([]);
 
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>(() => {
     const saved = safeLocalStorageGet(STORAGE_KEYS.LOGS);
@@ -456,101 +431,101 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return [];
   });
 
-  const [staffMembers, setStaffMembers] = useState<StaffMember[]>(() => {
-    const saved = safeLocalStorageGet(STORAGE_KEYS.STAFF_ROSTER);
-    let list: StaffMember[] = INITIAL_STAFF_MEMBERS;
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          // Filter out legacy hardcoded accounts if any
-          const filtered = parsed.filter(s => s.username?.toLowerCase() !== 'voiddarkreaper');
-          if (filtered.length > 0) {
-            list = filtered;
-          }
-        }
-      } catch (e) {
-        console.error('Failed to parse cached staff roster', e);
-      }
-    }
-
-    // Filter out any explicitly deleted usernames
-    const deletedList = safeLocalStorageGet('mt_deleted_staff_usernames');
-    if (deletedList) {
-      try {
-        const deletedArr: string[] = JSON.parse(deletedList);
-        if (Array.isArray(deletedArr) && deletedArr.length > 0) {
-          list = list.filter(s => !deletedArr.includes(s.username?.toLowerCase()?.trim() || ''));
-        }
-      } catch (e) {
-        console.error('Failed to parse deleted staff list', e);
-      }
-    }
-
-    // Normalize any legacy 'Moderator' role to 'Staff'
-    list = list.map(s => {
-      if ((s.role as any) === 'Moderator') {
-        return { ...s, role: 'Staff' as StaffRole };
-      }
-      return s;
-    });
-
-    // Ensure there is at least one admin account
-    const hasAdmin = list.some(s => s.role === 'Admin');
-    if (!hasAdmin) {
-      list = [...INITIAL_STAFF_MEMBERS.filter(init => init.role === 'Admin'), ...list];
-    }
-    // Deduplicate by username and id, ensuring valid unique ids
-    const seenStaff = new Set<string>();
-    list = list.filter((m, idx) => {
-      const userKey = (m.username || '').toLowerCase().trim();
-      const idKey = m.id || `staff-${userKey || idx}`;
-      m.id = idKey;
-      if (seenStaff.has(userKey) || seenStaff.has(idKey)) return false;
-      seenStaff.add(userKey);
-      seenStaff.add(idKey);
-      return true;
-    });
-    return list;
-  });
-
-  const [activeStaff, setActiveStaff] = useState<ActiveStaffSession | null>(() => {
-    const savedSession = safeLocalStorageGet(STORAGE_KEYS.STAFF_SESSION);
-    if (savedSession) {
-      try {
-        const session: ActiveStaffSession = JSON.parse(savedSession);
-        if (session && session.username) {
-          if ((session.role as any) === 'Moderator') {
-            session.role = 'Staff';
-          }
-          return session;
-        }
-      } catch (e) {
-        console.error('Failed to parse saved staff session', e);
-      }
-    }
-    return null;
-  });
+  const [staffMembers, setStaffMembers] = useState<StaffMember[]>([]);
+  const [activeStaff, setActiveStaff] = useState<ActiveStaffSession | null>(null);
 
   const isStaffMode = Boolean(activeStaff);
   const isAdmin = Boolean(activeStaff && activeStaff.role === 'Admin');
   const isAnalyst = Boolean(activeStaff && activeStaff.role === 'Analyst');
   const isConsultant = Boolean(activeStaff && activeStaff.role === 'Consultant');
   const canExport = Boolean(activeStaff && (activeStaff.role === 'Admin' || activeStaff.role === 'Analyst'));
+  const canEditCatalog = Boolean(activeStaff && (activeStaff.role === 'Admin' || activeStaff.role === 'Staff' || activeStaff.role === 'Moderator'));
+
+  useEffect(() => {
+    let unsubscribeRole: (() => void) | null = null;
+    const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+      unsubscribeRole?.();
+      unsubscribeRole = null;
+      if (!user) {
+        setActiveStaff(null);
+        return;
+      }
+      const claims = (await user.getIdTokenResult().catch(() => null))?.claims;
+      if (claims?.staffLogin !== true) {
+        setActiveStaff(null);
+        return;
+      }
+
+      unsubscribeRole = onSnapshot(
+        doc(db, 'staffRoles', user.uid),
+        (roleSnapshot) => {
+          const roleValue = roleSnapshot.exists() ? roleSnapshot.data()?.role : null;
+          if (!isStaffRole(roleValue) || !roleSnapshot.data()?.sessionVersion || claims.sessionVersion !== roleSnapshot.data()?.sessionVersion) {
+            setActiveStaff(null);
+            return;
+          }
+
+          const role = roleValue;
+          const username = roleSnapshot.data()!.username || user.uid;
+          setActiveStaff({
+            id: user.uid,
+            username,
+            displayName: roleSnapshot.data()!.displayName || username,
+            role,
+            loginTime: new Date().toISOString()
+          });
+        },
+        (error) => {
+          console.error('Unable to load the signed-in staff role:', error);
+          setActiveStaff(null);
+        }
+      );
+    });
+
+    return () => {
+      unsubscribeAuth();
+      unsubscribeRole?.();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isAdmin) {
+      setStaffMembers([]);
+      return;
+    }
+
+    let cancelled = false;
+    const loadStaffRoster = async () => {
+      try {
+        const legacyProfiles = getPendingLegacyStaffProfiles();
+        if (legacyProfiles.length > 0) {
+          const importResponse = await staffApiFetch('/api/staff/accounts', {
+            method: 'POST',
+            body: JSON.stringify({ action: 'import-legacy', members: legacyProfiles })
+          });
+          const importResult = await importResponse.json().catch(() => ({}));
+          if (!importResponse.ok) throw new Error(importResult.error || 'Could not migrate the old staff roles.');
+          clearPendingLegacyStaffProfiles();
+        }
+
+        const response = await staffApiFetch('/api/staff/accounts');
+        const result = await response.json();
+        if (!response.ok || !Array.isArray(result.members)) {
+          throw new Error(result.error || 'Could not load the staff roster.');
+        }
+        if (!cancelled) setStaffMembers(result.members);
+      } catch (error) {
+        console.error('Unable to load the staff roster:', error);
+        if (!cancelled) setStaffMembers([]);
+      }
+    };
+
+    void loadStaffRoster();
+    return () => { cancelled = true; };
+  }, [isAdmin, activeStaff?.id]);
 
   // Consultant Proposals State
-  const [consultantProposals, setConsultantProposals] = useState<ConsultantProposal[]>(() => {
-    const saved = safeLocalStorageGet(STORAGE_KEYS.CONSULTANT_PROPOSALS);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) return parsed;
-      } catch (e) {
-        console.error('Failed to parse cached consultant proposals', e);
-      }
-    }
-    return [];
-  });
+  const [consultantProposals, setConsultantProposals] = useState<ConsultantProposal[]>([]);
 
   // Universal Star Config state for Vehicles
   const [universalStarConfig, setUniversalStarConfig] = useState<UniversalStarConfig>(() => {
@@ -603,18 +578,7 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   });
 
   // Site Backups & Disaster Recovery state
-  const [siteBackups, setSiteBackups] = useState<SiteBackup[]>(() => {
-    const saved = safeLocalStorageGet(STORAGE_KEYS.SITE_BACKUPS);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) return parsed;
-      } catch (e) {
-        console.error('Failed to parse cached site backups', e);
-      }
-    }
-    return [];
-  });
+  const [siteBackups, setSiteBackups] = useState<SiteBackup[]>([]);
   const [isBackingUp, setIsBackingUp] = useState(false);
 
   // DB Sync status
@@ -707,7 +671,7 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
           // Purge corrupt / bogus items automatically
           if (docSnap.id === 'item-super-hovercraft' || data.name === 'Super HoverisOverflow' || (data.id === 'item-super-hovercraft')) {
-            deleteDoc(doc(db, 'items', docSnap.id)).catch(() => {});
+            if (canEditCatalog) deleteDoc(doc(db, 'items', docSnap.id)).catch(() => {});
             return;
           }
 
@@ -782,7 +746,7 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           });
 
           // Auto-migrate any existing Firestore items from 'Sea' to 'Naval'
-          if (itemsToMigrateToNaval.length > 0) {
+          if (canEditCatalog && itemsToMigrateToNaval.length > 0) {
             try {
               const batch = writeBatch(db);
               itemsToMigrateToNaval.forEach((itemId) => {
@@ -802,25 +766,12 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     );
 
     // 2. Subscribe to Reports collection
-    const unsubReports = onSnapshot(
+    const unsubReports = isStaffMode ? onSnapshot(
       collection(db, 'reports'),
       async (snapshot) => {
         if (!isMounted) return;
         if (snapshot.empty) {
-          // Seed initial reports if empty
-          try {
-            const batch = writeBatch(db);
-            INITIAL_REPORTS.forEach((rep) => {
-              const repRef = doc(db, 'reports', rep.id);
-              batch.set(repRef, {
-                ...rep,
-                itemCategory: rep.itemCategory === 'Sea' ? 'Naval' : rep.itemCategory
-              });
-            });
-            await batch.commit();
-          } catch (e) {
-            console.error('Failed to seed initial reports to Firestore:', e);
-          }
+          setReports([]);
         } else {
           const loadedReports: ReportedValue[] = [];
           const seenReportIds = new Set<string>();
@@ -839,11 +790,10 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           // Sort newest first
           loadedReports.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
           setReports(loadedReports);
-          safeLocalStorageSet(STORAGE_KEYS.REPORTS, JSON.stringify(loadedReports));
         }
       },
       (error) => handleSnapshotError('reports', error)
-    );
+    ) : (() => setReports([]));
 
     // 3. Subscribe to Audit Logs
     const unsubLogs = onSnapshot(
@@ -902,54 +852,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       (error) => handleSnapshotError('soldierDroneStarConfig', error)
     );
 
-    // 5. Subscribe to System Staff Roster
-    const unsubStaff = onSnapshot(
-      doc(db, 'system', 'staffRoster'),
-      (docSnap) => {
-        if (!isMounted) return;
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          if (Array.isArray(data?.members) && data.members.length > 0) {
-            let normalized: StaffMember[] = data.members.map((m: any) => ({
-              ...m,
-              role: (m.role === 'Moderator' ? 'Staff' : m.role) as StaffRole
-            }));
-
-            // Filter out any explicitly deleted usernames
-            const deletedList = safeLocalStorageGet('mt_deleted_staff_usernames');
-            if (deletedList) {
-              try {
-                const deletedArr: string[] = JSON.parse(deletedList);
-                if (Array.isArray(deletedArr) && deletedArr.length > 0) {
-                  normalized = normalized.filter(m => !deletedArr.includes((m.username || '').toLowerCase().trim()));
-                }
-              } catch {}
-            }
-
-            // Ensure there is at least one admin account
-            const hasAdmin = normalized.some(m => m.role === 'Admin');
-            if (!hasAdmin) {
-              normalized = [...INITIAL_STAFF_MEMBERS.filter(init => init.role === 'Admin'), ...normalized];
-            }
-
-            const seenSnapStaff = new Set<string>();
-            normalized = normalized.filter((m, idx) => {
-              const userKey = (m.username || '').toLowerCase().trim();
-              const idKey = m.id || `staff-${userKey || idx}`;
-              m.id = idKey;
-              if (seenSnapStaff.has(userKey) || seenSnapStaff.has(idKey)) return false;
-              seenSnapStaff.add(userKey);
-              seenSnapStaff.add(idKey);
-              return true;
-            });
-            setStaffMembers(normalized);
-            safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(normalized));
-          }
-        }
-      },
-      (error) => handleSnapshotError('staffRoster', error)
-    );
-
     // 6. Subscribe to Site Information & Our Team Config
     const unsubSiteInfo = onSnapshot(
       doc(db, 'system', 'siteInfo'),
@@ -976,7 +878,7 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     );
 
     // 7. Subscribe to Site Backups collection
-    const unsubSiteBackups = onSnapshot(
+    const unsubSiteBackups = isAdmin ? onSnapshot(
       collection(db, 'siteBackups'),
       (snapshot) => {
         if (!isMounted) return;
@@ -996,10 +898,10 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         }
       },
       (error) => handleSnapshotError('siteBackups', error)
-    );
+    ) : (() => setSiteBackups([]));
 
     // 8. Subscribe to Consultant Proposals collection
-    const unsubConsultantProposals = onSnapshot(
+    const unsubConsultantProposals = (isAdmin || isConsultant) ? onSnapshot(
       collection(db, 'consultantProposals'),
       (snapshot) => {
         if (!isMounted) return;
@@ -1015,10 +917,9 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         });
         loadedProposals.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         setConsultantProposals(loadedProposals);
-        safeLocalStorageSet(STORAGE_KEYS.CONSULTANT_PROPOSALS, JSON.stringify(loadedProposals));
       },
       (error) => handleSnapshotError('consultantProposals', error)
-    );
+    ) : (() => setConsultantProposals([]));
 
     return () => {
       isMounted = false;
@@ -1027,25 +928,15 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       unsubLogs();
       unsubStarConfig();
       unsubSoldierDroneStarConfig();
-      unsubStaff();
       unsubSiteInfo();
       unsubSiteBackups();
       unsubConsultantProposals();
     };
-  }, []);
-
-  // Sync active staff session to LocalStorage
-  useEffect(() => {
-    if (activeStaff) {
-      safeLocalStorageSet(STORAGE_KEYS.STAFF_SESSION, JSON.stringify(activeStaff));
-    } else {
-      safeLocalStorageRemove(STORAGE_KEYS.STAFF_SESSION);
-    }
-  }, [activeStaff]);
+  }, [isStaffMode, isAdmin, isConsultant, canEditCatalog]);
 
   // Daily Automated Backup Runner (Ensures full snapshot is taken every calendar day)
   useEffect(() => {
-    if (items.length === 0 || dbSyncStatus === 'syncing') return;
+    if (!isAdmin || items.length === 0 || dbSyncStatus === 'syncing') return;
     const todayKey = new Date().toISOString().split('T')[0];
     const hasTodayDaily = siteBackups.some(b => b.dateKey === todayKey && b.type === 'daily_auto');
     const lastDailyDone = safeLocalStorageGet('mts_daily_backup_completed_key');
@@ -1063,7 +954,7 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         `Automated daily snapshot of complete catalog (${items.length} items)`
       ).catch(err => console.error('[Site Backup] Daily auto backup error:', err));
     }
-  }, [items.length, dbSyncStatus, siteBackups]);
+  }, [isAdmin, items.length, dbSyncStatus, siteBackups]);
 
   const updateSiteInfo = async (newInfo: SiteInfoConfig) => {
     setSiteInfo(newInfo);
@@ -1154,54 +1045,49 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return calculateItemStarValue(item, tier, universalStarConfig, universalSoldierDroneStarConfig);
   };
 
-  // Custom Staff Login
-  const loginStaff = (username: string, pass: string): { success: boolean; message: string } => {
-    const cleanUser = username.trim();
-    const cleanPass = pass.trim();
+  const postStaffAccountAction = async (body: Record<string, unknown>) => {
+    const response = await staffApiFetch('/api/staff/accounts', {
+      method: 'POST',
+      body: JSON.stringify(body)
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || 'The staff account request failed.');
+    if (Array.isArray(result.members)) setStaffMembers(result.members);
+    return result;
+  };
 
-    if (!cleanUser || !cleanPass) {
-      return { success: false, message: 'Please enter both username and password.' };
-    }
+  const loginStaff = async (username: string, password: string, turnstileToken: string): Promise<{ success: boolean; message: string }> => {
+    const cleanUsername = username.trim().toLowerCase();
+    if (!cleanUsername || !password) return { success: false, message: 'Enter your staff username and password.' };
 
-    const matched = staffMembers.find(
-      s => s.username.toLowerCase() === cleanUser.toLowerCase()
-    );
-
-    if (!matched) {
-      return {
-        success: false,
-        message: 'Account not found. Please verify your username.'
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: cleanUsername, password, turnstileToken })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.customToken) return { success: false, message: result.error || 'Sign-in failed. Please try again.' };
+      const credential = await signInWithCustomToken(auth, result.customToken);
+      const roleSnapshot = await getDoc(doc(db, 'staffRoles', credential.user.uid));
+      const role = roleSnapshot.data()?.role;
+      if (!isStaffRole(role)) {
+        await signOut(auth);
+        return { success: false, message: 'This account does not have an active staff role.' };
+      }
+      const session: ActiveStaffSession = {
+        id: credential.user.uid,
+        username: cleanUsername,
+        displayName: roleSnapshot.data()?.displayName || cleanUsername,
+        role,
+        loginTime: new Date().toISOString()
       };
+      setActiveStaff(session);
+      addAuditLog('MANUAL_EDIT', 'Staff Auth', `${session.displayName} logged in successfully as [${session.role}].`);
+      return { success: true, message: `Welcome back, ${session.displayName} (${session.role})!` };
+    } catch (error: any) {
+      return { success: false, message: error?.message || 'Sign-in failed. Please try again.' };
     }
-
-    if (matched.password !== cleanPass) {
-      return {
-        success: false,
-        message: 'Incorrect password. Please try again.'
-      };
-    }
-
-    const session: ActiveStaffSession = {
-      id: matched.id,
-      username: matched.username,
-      displayName: matched.displayName || matched.username,
-      role: matched.role,
-      loginTime: new Date().toISOString()
-    };
-
-    setActiveStaff(session);
-
-    // Update last login timestamp in staff roster
-    const updatedRoster = staffMembers.map(s => s.id === matched.id ? { ...s, lastLogin: new Date().toISOString() } : s);
-    setStaffMembers(updatedRoster);
-    setDoc(doc(db, 'system', 'staffRoster'), cleanForFirestore({ members: updatedRoster })).catch(err => console.error('Staff login roster update error:', err));
-
-    addAuditLog('MANUAL_EDIT', 'Staff Auth', `${session.displayName} logged in successfully as [${session.role}].`);
-
-    return {
-      success: true,
-      message: `Welcome back, ${session.displayName} (${session.role})!`
-    };
   };
 
   const logoutStaff = () => {
@@ -1209,181 +1095,83 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       addAuditLog('MANUAL_EDIT', 'Staff Auth', `${activeStaff.displayName || activeStaff.username} logged out.`);
     }
     setActiveStaff(null);
-    safeLocalStorageRemove(STORAGE_KEYS.STAFF_SESSION);
+    void signOut(auth).catch(error => console.error('Staff sign-out failed:', error));
   };
 
-  // Staff Management Methods (Admin only)
-  const addStaffMember = (
+  const addStaffMember = async (
     username: string,
-    password: string,
     role: StaffRole,
-    displayName?: string
-  ): { success: boolean; message: string } => {
-    const cleanUser = username.trim();
-    const cleanPass = password.trim();
-
-    if (!cleanUser || cleanUser.length < 3) {
-      return { success: false, message: 'Username must be at least 3 characters long.' };
+    displayName?: string,
+    legacyMemberId?: string
+  ): Promise<{ success: boolean; message: string; temporaryPassword?: string }> => {
+    const cleanUsername = username.trim().toLowerCase();
+    if (!/^[a-z][a-z0-9._-]{2,39}$/.test(cleanUsername)) {
+      return { success: false, message: 'Use 3–40 characters, starting with a letter.' };
     }
-
-    if (!cleanPass || cleanPass.length < 4) {
-      return { success: false, message: 'Password must be at least 4 characters long.' };
+    try {
+      const result = await postStaffAccountAction({
+        action: 'create',
+        username: cleanUsername,
+        role: legacyMemberId ? undefined : role,
+        displayName: displayName?.trim() || undefined,
+        legacyMemberId: legacyMemberId || undefined
+      });
+      addAuditLog('MANUAL_EDIT', 'Staff Management', `Created or linked staff account [${cleanUsername}] with role [${result.role || role}] by Admin ${activeStaff?.displayName || 'Admin'}.`);
+      return { success: true, message: `Account ${cleanUsername} is ready. Copy the temporary password now; it is shown only once.`, temporaryPassword: result.temporaryPassword };
+    } catch (error: any) {
+      return { success: false, message: error?.message || 'Could not create the staff account.' };
     }
-
-    const exists = staffMembers.some(
-      s => s.username.toLowerCase() === cleanUser.toLowerCase()
-    );
-
-    if (exists) {
-      return { success: false, message: `Username "${cleanUser}" is already taken.` };
-    }
-
-    const newMember: StaffMember = {
-      id: `staff_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-      username: cleanUser,
-      password: cleanPass,
-      displayName: displayName?.trim() || cleanUser,
-      role,
-      addedBy: activeStaff?.displayName || activeStaff?.username || 'Admin',
-      addedAt: new Date().toISOString()
-    };
-
-    // Clear from deleted list if re-adding intentionally
-    const deletedList = safeLocalStorageGet('mt_deleted_staff_usernames');
-    if (deletedList) {
-      try {
-        let deletedArr: string[] = JSON.parse(deletedList);
-        deletedArr = deletedArr.filter(u => u !== cleanUser.toLowerCase());
-        safeLocalStorageSet('mt_deleted_staff_usernames', JSON.stringify(deletedArr));
-      } catch {}
-    }
-
-    const updated = [...staffMembers, newMember];
-    setStaffMembers(updated);
-    safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updated));
-    setDoc(doc(db, 'system', 'staffRoster'), cleanForFirestore({ members: updated })).catch(err => console.error('Firestore staff sync error:', err));
-
-    addAuditLog(
-      'MANUAL_EDIT',
-      'Staff Management',
-      `Created new staff account [${cleanUser}] with role [${role}] by Admin ${activeStaff?.displayName || 'Admin'}.`
-    );
-
-    return { success: true, message: `Staff member "${cleanUser}" created successfully as ${role}.` };
   };
 
-  const updateStaffRole = (id: string, newRole: StaffRole): { success: boolean; message: string } => {
+  const updateStaffRole = async (id: string, newRole: StaffRole): Promise<{ success: boolean; message: string }> => {
+    try {
+      const member = staffMembers.find(s => s.id === id);
+      if (!member) return { success: false, message: 'Staff member not found.' };
+      await postStaffAccountAction({ action: 'role', memberId: id, role: newRole });
+      addAuditLog('MANUAL_EDIT', 'Staff Management', `Changed role of [${member.username}] to [${newRole}] by Admin ${activeStaff?.displayName || 'Admin'}.`);
+      return { success: true, message: `Updated role for ${member.username} to ${newRole}.` };
+    } catch (error: any) {
+      return { success: false, message: error?.message || 'Could not update the staff role.' };
+    }
+  };
+
+  const sendStaffPasswordReset = async (id: string): Promise<{ success: boolean; message: string; temporaryPassword?: string }> => {
     const member = staffMembers.find(s => s.id === id);
-    if (!member) {
-      return { success: false, message: 'Staff member not found.' };
+    if (!member?.linked) return { success: false, message: 'Link this legacy staff profile to a username first.' };
+    try {
+      const result = await postStaffAccountAction({ action: 'reset-password', memberId: id });
+      addAuditLog('MANUAL_EDIT', 'Staff Management', `Reset password for [${member.username}] by Admin ${activeStaff?.displayName || 'Admin'}.`);
+      return { success: true, message: `Copy the new temporary password for ${member.username} now; it is shown only once.`, temporaryPassword: result.temporaryPassword };
+    } catch (error: any) {
+      return { success: false, message: error?.message || 'Could not reset the staff password.' };
     }
-
-    if (member.role === 'Admin' && newRole !== 'Admin') {
-      const adminCount = staffMembers.filter(s => s.role === 'Admin').length;
-      if (adminCount <= 1) {
-        return { success: false, message: 'Cannot demote the only remaining Administrator.' };
-      }
-    }
-
-    const updated = staffMembers.map(s => {
-      if (s.id === id) {
-        return { ...s, role: newRole };
-      }
-      return s;
-    });
-
-    setStaffMembers(updated);
-    safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updated));
-    setDoc(doc(db, 'system', 'staffRoster'), cleanForFirestore({ members: updated })).catch(err => console.error('Firestore staff sync error:', err));
-
-    if (activeStaff && activeStaff.id === id) {
-      setActiveStaff(prev => prev ? { ...prev, role: newRole } : null);
-    }
-
-    addAuditLog(
-      'MANUAL_EDIT',
-      'Staff Management',
-      `Changed role of [${member.username}] to [${newRole}] by Admin ${activeStaff?.displayName || 'Admin'}.`
-    );
-
-    return { success: true, message: `Updated role for ${member.username} to ${newRole}.` };
   };
 
-  const updateStaffPassword = (id: string, newPassword: string): { success: boolean; message: string } => {
-    const cleanPass = newPassword.trim();
-    if (!cleanPass || cleanPass.length < 4) {
-      return { success: false, message: 'New password must be at least 4 characters long.' };
-    }
-
-    const member = staffMembers.find(s => s.id === id);
-    if (!member) {
-      return { success: false, message: 'Staff member not found.' };
-    }
-
-    const updated = staffMembers.map(s => {
-      if (s.id === id) {
-        return { ...s, password: cleanPass };
-      }
-      return s;
-    });
-
-    setStaffMembers(updated);
-    safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updated));
-    setDoc(doc(db, 'system', 'staffRoster'), cleanForFirestore({ members: updated })).catch(err => console.error('Firestore staff sync error:', err));
-
-    addAuditLog(
-      'MANUAL_EDIT',
-      'Staff Management',
-      `Updated password for [${member.username}] by Admin ${activeStaff?.displayName || 'Admin'}.`
-    );
-
-    return { success: true, message: `Password for ${member.username} has been updated.` };
-  };
-
-  const removeStaffMember = (id: string): { success: boolean; message: string } => {
-    const memberToRemove = staffMembers.find(s => s.id === id || s.username?.toLowerCase() === id.toLowerCase());
-    if (!memberToRemove) {
-      return { success: false, message: 'Staff member not found.' };
-    }
-
-    if (memberToRemove.role === 'Admin') {
-      const adminCount = staffMembers.filter(s => s.role === 'Admin').length;
-      if (adminCount <= 1) {
-        return { success: false, message: 'Cannot remove the only remaining Administrator.' };
-      }
-    }
-
-    const targetUsername = (memberToRemove.username || '').toLowerCase().trim();
-    const updated = staffMembers.filter(s => s.id !== memberToRemove.id && (s.username || '').toLowerCase().trim() !== targetUsername);
-    setStaffMembers(updated);
-    safeLocalStorageSet(STORAGE_KEYS.STAFF_ROSTER, JSON.stringify(updated));
-
-    // Save to deleted staff list so it is never resurrected
-    const deletedList = safeLocalStorageGet('mt_deleted_staff_usernames');
-    let deletedArr: string[] = [];
-    if (deletedList) {
-      try {
-        deletedArr = JSON.parse(deletedList);
-      } catch {}
-    }
-    if (targetUsername && !deletedArr.includes(targetUsername)) {
-      deletedArr.push(targetUsername);
-    }
-    safeLocalStorageSet('mt_deleted_staff_usernames', JSON.stringify(deletedArr));
-
-    setDoc(doc(db, 'system', 'staffRoster'), cleanForFirestore({ members: updated })).catch(err => console.error('Firestore staff sync error:', err));
-
-    if (activeStaff && (activeStaff.id === memberToRemove.id || (activeStaff.username || '').toLowerCase().trim() === targetUsername)) {
+  const changeStaffPassword = async (currentPassword: string, newPassword: string): Promise<{ success: boolean; message: string }> => {
+    try {
+      const response = await staffApiFetch('/api/staff/change-password', {
+        method: 'POST', body: JSON.stringify({ currentPassword, newPassword })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) return { success: false, message: result.error || 'Could not change password.' };
       logoutStaff();
+      return { success: true, message: 'Password changed. Sign in again with your new password.' };
+    } catch (error: any) {
+      return { success: false, message: error?.message || 'Could not change password.' };
     }
+  };
 
-    addAuditLog(
-      'MANUAL_EDIT',
-      'Staff Management',
-      `Removed staff account [${memberToRemove.username}] by Admin ${activeStaff?.displayName || 'Admin'}.`
-    );
-
-    return { success: true, message: `Removed "${memberToRemove.username}" from staff roster.` };
+  const removeStaffMember = async (id: string): Promise<{ success: boolean; message: string }> => {
+    const member = staffMembers.find(s => s.id === id);
+    if (!member) return { success: false, message: 'Staff member not found.' };
+    try {
+      await postStaffAccountAction({ action: 'remove', memberId: id });
+      addAuditLog('MANUAL_EDIT', 'Staff Management', `Removed staff account [${member.username}] by Admin ${activeStaff?.displayName || 'Admin'}.`);
+      if (activeStaff?.id === id) logoutStaff();
+      return { success: true, message: `Removed ${member.username} from staff access.` };
+    } catch (error: any) {
+      return { success: false, message: error?.message || 'Could not remove the staff account.' };
+    }
   };
 
   // Filter States (with 0.45s debounce buffer on search to prevent client lag and excessive image requests)
@@ -2017,7 +1805,7 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     if (!shouldSkipWebhook && isPublicMarketChange) {
       try {
-        fetch('/api/webhooks/changelog', {
+        staffApiFetch('/api/webhooks/changelog', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -2050,59 +1838,28 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   };
 
-  const submitReport = (reportData: Omit<ReportedValue, 'id' | 'status' | 'createdAt'>): string => {
-    const reportId = `rep-${Date.now()}`;
-    const newReport: ReportedValue = {
-      ...reportData,
-      id: reportId,
-      status: 'pending',
-      createdAt: new Date().toISOString()
-    };
-
-    setReports(prev => {
-      const updated = [newReport, ...prev];
-      safeLocalStorageSet(STORAGE_KEYS.REPORTS, JSON.stringify(updated));
-      return updated;
+  const submitReport = async (
+    reportData: Omit<ReportedValue, 'id' | 'status' | 'createdAt'>,
+    turnstileToken: string
+  ): Promise<string> => {
+    const response = await fetch('/api/reports/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...reportData, turnstileToken })
     });
-
-    // Save to Firestore
-    setDoc(doc(db, 'reports', reportId), cleanForFirestore(newReport)).catch(err => {
-      console.error('Failed to submit report to Firestore:', err);
-    });
-
-    // Dispatch to Backend Discord Webhook API (/api/webhooks/reports)
-    try {
-      fetch('/api/webhooks/reports', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          reportId,
-          itemId: reportData.itemId,
-          itemName: reportData.itemName,
-          itemCategory: reportData.itemCategory,
-          itemThumbnail: reportData.itemThumbnail,
-          starTier: reportData.starTier,
-          starLabel: reportData.starLabel,
-          currentValue: reportData.currentValue,
-          suggestedValue: reportData.suggestedValue,
-          currentDemand: reportData.currentDemand,
-          suggestedDemand: reportData.suggestedDemand,
-          currentTrend: reportData.currentTrend,
-          suggestedTrend: reportData.suggestedTrend,
-          reason: reportData.reason,
-          proofLinks: reportData.proofLink ? [reportData.proofLink] : [],
-          username: reportData.playerUsername,
-          userContact: reportData.discordTag,
-          timestamp: newReport.createdAt,
-        }),
-      }).catch(e => {
-        console.log('Reports webhook endpoint dispatched (local):', e?.message || e);
-      });
-    } catch (e) {
-      // ignore
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.reportId) {
+      throw new Error(result.error || 'The report could not be submitted. Please try again.');
     }
 
-    return reportId;
+    const newReport: ReportedValue = {
+      ...reportData,
+      id: result.reportId,
+      status: 'pending',
+      createdAt: result.createdAt || new Date().toISOString()
+    };
+    setReports(prev => [newReport, ...prev]);
+    return newReport.id;
   };
 
   const acceptReport = async (reportId: string, staffComment?: string) => {
@@ -2224,7 +1981,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     setReports(prev => {
       const updated = prev.map(r => r.id === reportId ? { ...r, ...updatedReport } : r);
-      safeLocalStorageSet(STORAGE_KEYS.REPORTS, JSON.stringify(updated));
       return updated;
     });
     setDoc(doc(db, 'reports', reportId), cleanForFirestore(updatedReport), { merge: true }).catch(err => console.error('Failed to update report in Firestore:', err));
@@ -2357,7 +2113,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     setReports(prev => {
       const updated = prev.map(r => r.id === reportId ? { ...r, ...updatedReport } : r);
-      safeLocalStorageSet(STORAGE_KEYS.REPORTS, JSON.stringify(updated));
       return updated;
     });
     setDoc(doc(db, 'reports', reportId), cleanForFirestore(updatedReport), { merge: true }).catch(err => console.error('Failed to update report in Firestore:', err));
@@ -2376,7 +2131,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     setReports(prev => {
       const updated = prev.map(r => r.id === reportId ? { ...r, ...updatedReport } : r);
-      safeLocalStorageSet(STORAGE_KEYS.REPORTS, JSON.stringify(updated));
       return updated;
     });
     setDoc(doc(db, 'reports', reportId), cleanForFirestore(updatedReport), { merge: true }).catch(err => console.error('Failed to decline report in Firestore:', err));
@@ -2752,8 +2506,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     };
 
     setConsultantProposals(prev => [fullProposal, ...prev.filter(p => p.id !== newId)]);
-    const updated = [fullProposal, ...consultantProposals.filter(p => p.id !== newId)];
-    safeLocalStorageSet(STORAGE_KEYS.CONSULTANT_PROPOSALS, JSON.stringify(updated));
 
     try {
       await setDoc(doc(db, 'consultantProposals', newId), cleanForFirestore(fullProposal));
@@ -2830,7 +2582,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     });
 
     setConsultantProposals(updatedList);
-    safeLocalStorageSet(STORAGE_KEYS.CONSULTANT_PROPOSALS, JSON.stringify(updatedList));
 
     try {
       await updateDoc(doc(db, 'consultantProposals', proposalId), {
@@ -2891,7 +2642,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     });
 
     setConsultantProposals(updatedList);
-    safeLocalStorageSet(STORAGE_KEYS.CONSULTANT_PROPOSALS, JSON.stringify(updatedList));
 
     try {
       await updateDoc(doc(db, 'consultantProposals', proposalId), {
@@ -2921,7 +2671,6 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const deleteConsultantProposal = async (proposalId: string): Promise<{ success: boolean; message: string }> => {
     const updatedList = consultantProposals.filter(p => p.id !== proposalId);
     setConsultantProposals(updatedList);
-    safeLocalStorageSet(STORAGE_KEYS.CONSULTANT_PROPOSALS, JSON.stringify(updatedList));
 
     try {
       await deleteDoc(doc(db, 'consultantProposals', proposalId));
@@ -3405,9 +3154,8 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const resetToDefaults = async () => {
     setItems(INITIAL_ITEMS);
-    setReports(INITIAL_REPORTS);
+    setReports([]);
     safeLocalStorageRemove(STORAGE_KEYS.ITEMS);
-    safeLocalStorageRemove(STORAGE_KEYS.REPORTS);
     
     try {
       const batch = writeBatch(db);
@@ -4562,7 +4310,8 @@ export const ValueListProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         staffMembers,
         addStaffMember,
         updateStaffRole,
-        updateStaffPassword,
+        sendStaffPasswordReset,
+        changeStaffPassword,
         removeStaffMember,
         searchQuery,
         setSearchQuery,

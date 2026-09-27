@@ -249,7 +249,7 @@ export interface ConsultantProposal {
 export interface StaffMember {
   id: string;
   username: string;
-  password?: string;
+  linked?: boolean;
   displayName?: string;
   role: StaffRole;
   addedBy?: string;
@@ -330,4 +330,3 @@ export interface SiteBackup {
   createdBy?: string;
   notes?: string;
 }
-

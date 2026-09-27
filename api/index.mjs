@@ -4,9 +4,24 @@ import path from "path";
 import os from "os";
 import fs from "fs";
 import crypto from "crypto";
+import { promisify } from "util";
 import dotenv from "dotenv";
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc } from "firebase/firestore/lite";
+import { cert, getApps, initializeApp } from "firebase-admin/app";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+
+// firebase-applet-config.json
+var firebase_applet_config_default = {
+  projectId: "gen-lang-client-0834691577",
+  appId: "1:903099188173:web:4ebd4fc284365bc7c27a84",
+  apiKey: "AIzaSyBD41wFDkXOz2OcF3gKLBWq9vh8Ns5XtDg",
+  authDomain: "gen-lang-client-0834691577.firebaseapp.com",
+  firestoreDatabaseId: "ai-studio-militarytycoonva-d16f20ea-1387-4fd1-8489-0514fef25c1d",
+  storageBucket: "gen-lang-client-0834691577.firebasestorage.app",
+  messagingSenderId: "903099188173",
+  measurementId: "",
+  recaptchaSiteKey: ""
+};
 
 // src/data/militaryItems.ts
 var INITIAL_MILITARY_ITEMS = [
@@ -21337,6 +21352,26 @@ var webhookConfig_default = {
 
 // server.ts
 dotenv.config();
+var scryptAsync = promisify(crypto.scrypt);
+var STAFF_USERNAME_PATTERN = /^[a-z][a-z0-9._-]{2,39}$/;
+var normalizeStaffUsername = (value) => typeof value === "string" ? value.trim().toLowerCase() : "";
+var newStaffSessionVersion = () => crypto.randomBytes(24).toString("base64url");
+var newTemporaryPassword = () => crypto.randomBytes(24).toString("base64url");
+async function hashStaffPassword(password, salt = crypto.randomBytes(24).toString("base64url")) {
+  const hash = await scryptAsync(password, salt, 64);
+  return { salt, passwordHash: hash.toString("base64url") };
+}
+async function matchesStaffPassword(password, salt, storedHash) {
+  if (typeof salt !== "string" || typeof storedHash !== "string") return false;
+  try {
+    const expected = Buffer.from(storedHash, "base64url");
+    if (expected.length !== 64) return false;
+    const actual = await scryptAsync(password, salt, 64);
+    return crypto.timingSafeEqual(actual, expected);
+  } catch {
+    return false;
+  }
+}
 function escapeHtml(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
@@ -21434,8 +21469,19 @@ function sanitizeFileName(name, fallbackPrefix = "img") {
 async function createApp() {
   const app = express();
   const PORT = 3e3;
-  app.get("/api/health", (req, res) => {
-    res.json({ status: "ok", timestamp: (/* @__PURE__ */ new Date()).toISOString() });
+  app.get("/api/health", (_req, res) => {
+    const firebaseAdminConfigured = Boolean(getServerDb());
+    const turnstileSecretConfigured = Boolean(process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY);
+    const turnstileSiteKeyConfigured = Boolean(process.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY);
+    res.json({
+      status: firebaseAdminConfigured && turnstileSecretConfigured && turnstileSiteKeyConfigured ? "ok" : "degraded",
+      services: {
+        firebaseAdmin: firebaseAdminConfigured,
+        turnstileSecret: turnstileSecretConfigured,
+        turnstileSiteKey: turnstileSiteKeyConfigured
+      },
+      timestamp: (/* @__PURE__ */ new Date()).toISOString()
+    });
   });
   app.disable("x-powered-by");
   app.use((req, res, next) => {
@@ -21489,43 +21535,58 @@ async function createApp() {
     fs.mkdirSync(cachedImagesDir, { recursive: true });
   }
   const EMBEDDED_FIREBASE_CONFIG = {
-    projectId: "gen-lang-client-0834691577",
-    appId: "1:903099188173:web:4ebd4fc284365bc7c27a84",
-    apiKey: "AIzaSyBD41wFDkXOz2OcF3gKLBWq9vh8Ns5XtDg",
-    authDomain: "gen-lang-client-0834691577.firebaseapp.com",
-    firestoreDatabaseId: "ai-studio-militarytycoonva-d16f20ea-1387-4fd1-8489-0514fef25c1d",
-    storageBucket: "gen-lang-client-0834691577.firebasestorage.app",
-    messagingSenderId: "903099188173"
+    projectId: firebase_applet_config_default.projectId,
+    firestoreDatabaseId: firebase_applet_config_default.firestoreDatabaseId
   };
   let serverDbInstance = null;
+  let serverAdminApp = null;
+  function getFirebaseAdminApp() {
+    if (serverAdminApp) return serverAdminApp;
+    try {
+      const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+      if (!serviceAccountJson) return null;
+      const serviceAccount = JSON.parse(serviceAccountJson);
+      if (!serviceAccount.project_id || !serviceAccount.client_email || !serviceAccount.private_key) {
+        console.error("[Firebase Admin] Service account JSON is missing required fields.");
+        return null;
+      }
+      serviceAccount.private_key = String(serviceAccount.private_key).replace(/\\n/g, "\n");
+      const existing = getApps().find((app2) => app2.name === "mtsv-admin");
+      serverAdminApp = existing || initializeApp({
+        credential: cert(serviceAccount),
+        projectId: serviceAccount.project_id || EMBEDDED_FIREBASE_CONFIG.projectId
+      }, "mtsv-admin");
+      return serverAdminApp;
+    } catch (error) {
+      console.error("[Firebase Admin] Could not initialize the configured service account.");
+      return null;
+    }
+  }
   function getServerDb() {
     if (serverDbInstance) return serverDbInstance;
     try {
-      let cfg = null;
-      const configCandidates = [
-        path.join(process.cwd(), "firebase-applet-config.json"),
-        path.join(process.cwd(), "dist", "firebase-applet-config.json")
-      ];
-      for (const p of configCandidates) {
-        if (fs.existsSync(p)) {
-          try {
-            cfg = JSON.parse(fs.readFileSync(p, "utf8"));
-            if (cfg?.projectId) break;
-          } catch {
-          }
-        }
-      }
-      if (!cfg || !cfg.projectId) {
-        cfg = EMBEDDED_FIREBASE_CONFIG;
-      }
-      const firebaseApp = getApps().length === 0 ? initializeApp(cfg) : getApp();
-      serverDbInstance = getFirestore(firebaseApp, cfg.firestoreDatabaseId || void 0);
+      const firebaseApp = getFirebaseAdminApp();
+      if (!firebaseApp) return null;
+      serverDbInstance = getFirestore(firebaseApp, EMBEDDED_FIREBASE_CONFIG.firestoreDatabaseId);
       return serverDbInstance;
-    } catch (e) {
-      console.warn("[Firebase Server Init Warning]:", e);
+    } catch (error) {
+      console.error("[Firebase Admin] Firestore initialization failed.");
     }
     return null;
   }
+  const getServerAuth = () => {
+    const firebaseApp = getFirebaseAdminApp();
+    return firebaseApp ? getAuth(firebaseApp) : null;
+  };
+  const collection = (db, name) => db.collection(name);
+  const doc = (db, collectionName, documentId) => db.collection(collectionName).doc(documentId);
+  const getDoc = async (ref) => {
+    const snapshot = await ref.get();
+    return { id: snapshot.id, exists: () => snapshot.exists, data: () => snapshot.data() };
+  };
+  const getDocs = (ref) => ref.get();
+  const setDoc = (ref, data, options) => ref.set(data, options);
+  const deleteDoc = (ref) => ref.delete();
   async function hydrateStoredImages() {
     try {
       const db = getServerDb();
@@ -21727,7 +21788,351 @@ async function createApp() {
   const proxyLimiter = createRateLimiter({ windowMs: 6e4, max: 80, name: "api-proxy" });
   const uploadLimiter = createRateLimiter({ windowMs: 6e4, max: 40, name: "api-upload" });
   const webhookLimiter = createRateLimiter({ windowMs: 6e4, max: 50, name: "api-webhooks" });
+  const staffManagementLimiter = createRateLimiter({ windowMs: 6e4, max: 30, name: "api-staff-management" });
+  const staffLoginLimiter = createRateLimiter({ windowMs: 6e4, max: 8, name: "api-staff-login" });
   app.use("/api", apiLimiter);
+  const validStaffRoles = ["Admin", "Analyst", "Staff", "Moderator", "Consultant"];
+  const normalizeStaffRole = (value) => {
+    return validStaffRoles.includes(value) ? value : null;
+  };
+  const effectiveStaffRole = (role) => role === "Moderator" ? "Staff" : role;
+  const requireStaff = (allowedRoles) => async (req, res, next) => {
+    const adminAuth = getServerAuth();
+    const db = getServerDb();
+    if (!adminAuth || !db) {
+      return res.status(503).json({ success: false, error: "Staff authentication is not configured on the server." });
+    }
+    const authorization = req.header("authorization") || "";
+    const token = authorization.match(/^Bearer\s+(.+)$/i)?.[1];
+    if (!token) {
+      return res.status(401).json({ success: false, error: "Sign in with your staff username to continue." });
+    }
+    try {
+      const decoded = await adminAuth.verifyIdToken(token, true);
+      const roleSnapshot = await db.collection("staffRoles").doc(decoded.uid).get();
+      const storedRole = normalizeStaffRole(roleSnapshot.exists ? roleSnapshot.data()?.role : null);
+      if (!storedRole || decoded.staffLogin !== true || !roleSnapshot.data()?.sessionVersion || decoded.sessionVersion !== roleSnapshot.data()?.sessionVersion) {
+        return res.status(403).json({ success: false, error: "This account does not have an active staff role." });
+      }
+      const role = effectiveStaffRole(storedRole);
+      if (!allowedRoles.includes(role)) {
+        return res.status(403).json({ success: false, error: "Your staff role does not allow this action." });
+      }
+      req.staffUser = { uid: decoded.uid, username: roleSnapshot.data()?.username || "", role };
+      return next();
+    } catch (error) {
+      return res.status(401).json({ success: false, error: "Your staff session expired. Sign in again." });
+    }
+  };
+  const readSanitizedStaffRoster = async (db) => {
+    const rosterSnapshot = await getDoc(doc(db, "system", "staffRoster"));
+    const rawMembers = rosterSnapshot.exists() && Array.isArray(rosterSnapshot.data()?.members) ? rosterSnapshot.data().members : [];
+    const byId = /* @__PURE__ */ new Map();
+    for (const raw of rawMembers) {
+      if (!raw || typeof raw !== "object" || typeof raw.id !== "string" || typeof raw.username !== "string") continue;
+      const role = normalizeStaffRole(raw.role);
+      if (!role) continue;
+      byId.set(raw.id, {
+        id: raw.id,
+        username: raw.username.slice(0, 80),
+        linked: false,
+        ...typeof raw.displayName === "string" ? { displayName: raw.displayName.slice(0, 120) } : {},
+        role,
+        ...typeof raw.addedBy === "string" ? { addedBy: raw.addedBy.slice(0, 120) } : {},
+        addedAt: typeof raw.addedAt === "string" ? raw.addedAt : (/* @__PURE__ */ new Date(0)).toISOString(),
+        ...typeof raw.lastLogin === "string" ? { lastLogin: raw.lastLogin } : {}
+      });
+    }
+    const roleSnapshots = await db.collection("staffRoles").get();
+    await Promise.all(roleSnapshots.docs.map(async (roleSnapshot) => {
+      const roleData = roleSnapshot.data();
+      const role = normalizeStaffRole(roleData.role);
+      if (!role) return;
+      const existing = byId.get(roleSnapshot.id);
+      const username = roleData.username || existing?.username || roleSnapshot.id;
+      byId.set(roleSnapshot.id, {
+        ...existing || {},
+        id: roleSnapshot.id,
+        username,
+        linked: Boolean(roleData.sessionVersion),
+        ...roleData.displayName ? { displayName: roleData.displayName } : {},
+        role,
+        addedBy: existing?.addedBy || roleData.addedBy || "Administrator",
+        addedAt: existing?.addedAt || roleData.addedAt || (/* @__PURE__ */ new Date(0)).toISOString(),
+        ...existing?.lastLogin ? { lastLogin: existing.lastLogin } : {}
+      });
+    }));
+    const members = [...byId.values()];
+    await setDoc(doc(db, "system", "staffRoster"), { members, updatedAt: (/* @__PURE__ */ new Date()).toISOString() }, { merge: true });
+    return members;
+  };
+  app.post("/api/auth/login", staffLoginLimiter, async (req, res) => {
+    res.setHeader("Cache-Control", "no-store");
+    const db = getServerDb();
+    const adminAuth = getServerAuth();
+    if (!db || !adminAuth) return res.status(503).json({ success: false, error: "Staff authentication is not configured." });
+    const username = normalizeStaffUsername(req.body?.username);
+    const password = req.body?.password;
+    const turnstileToken = req.body?.turnstileToken;
+    if (!STAFF_USERNAME_PATTERN.test(username) || typeof password !== "string" || password.length < 1 || password.length > 256) {
+      return res.status(400).json({ success: false, error: "Enter a valid username and password." });
+    }
+    if (typeof turnstileToken !== "string" || !turnstileToken || turnstileToken.length > 2048) {
+      return res.status(400).json({ success: false, error: "Complete the security check." });
+    }
+    const turnstileSecret = process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
+    if (!turnstileSecret) return res.status(503).json({ success: false, error: "Security verification is not configured." });
+    try {
+      const verification = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ secret: turnstileSecret, response: turnstileToken, remoteip: req.ip || "" }).toString(),
+        signal: AbortSignal.timeout(8e3)
+      });
+      const outcome = verification.ok ? await verification.json() : null;
+      if (outcome?.success !== true) return res.status(400).json({ success: false, error: "Security check failed. Please try again." });
+      const credentialRef = db.collection("staffCredentials").doc(username);
+      let credential = await credentialRef.get();
+      if (!credential.exists) {
+        const bootstrapRef = db.collection("system").doc("staffAuthBootstrap");
+        const configuredUsername = normalizeStaffUsername(process.env.STAFF_BOOTSTRAP_USERNAME);
+        const configuredPassword = process.env.STAFF_BOOTSTRAP_PASSWORD || "";
+        if (username === configuredUsername && STAFF_USERNAME_PATTERN.test(configuredUsername) && configuredPassword.length >= 16) {
+          const bootstrap = await bootstrapRef.get();
+          if (!bootstrap.exists && await matchesStaffPassword(password, "bootstrap", (await hashStaffPassword(configuredPassword, "bootstrap")).passwordHash)) {
+            const uid = `staff_${crypto.randomBytes(18).toString("base64url")}`;
+            const sessionVersion = newStaffSessionVersion();
+            const passwordFields = await hashStaffPassword(password);
+            const addedAt = (/* @__PURE__ */ new Date()).toISOString();
+            await db.runTransaction(async (transaction) => {
+              const [existingBootstrap, existingCredential] = await Promise.all([transaction.get(bootstrapRef), transaction.get(credentialRef)]);
+              if (existingBootstrap.exists || existingCredential.exists) throw new Error("Bootstrap already completed.");
+              transaction.create(credentialRef, { uid, username, ...passwordFields, failedAttempts: 0, lockedUntil: 0 });
+              transaction.create(db.collection("staffRoles").doc(uid), { role: "Admin", username, displayName: username, sessionVersion, addedBy: "Initial owner setup", addedAt });
+              transaction.create(bootstrapRef, { uid, createdAt: addedAt });
+            });
+            credential = await credentialRef.get();
+          }
+        }
+      }
+      const data = credential.data();
+      if (!data || Date.now() < (Number(data.lockedUntil) || 0)) {
+        await hashStaffPassword(password, "unknown-user");
+        return res.status(401).json({ success: false, error: "Incorrect username or password, or this account is temporarily locked." });
+      }
+      const valid = await matchesStaffPassword(password, data.salt, data.passwordHash);
+      if (!valid) {
+        await db.runTransaction(async (transaction) => {
+          const latest = await transaction.get(credentialRef);
+          const attempts = (Number(latest.data()?.failedAttempts) || 0) + 1;
+          transaction.update(credentialRef, { failedAttempts: attempts >= 5 ? 0 : attempts, lockedUntil: attempts >= 5 ? Date.now() + 15 * 6e4 : 0 });
+        });
+        return res.status(401).json({ success: false, error: "Incorrect username or password, or this account is temporarily locked." });
+      }
+      const session = await db.runTransaction(async (transaction) => {
+        const currentCredential = await transaction.get(credentialRef);
+        if (currentCredential.data()?.passwordHash !== data.passwordHash || Date.now() < (Number(currentCredential.data()?.lockedUntil) || 0)) {
+          throw new Error("Credentials changed during sign-in.");
+        }
+        const role = await transaction.get(db.collection("staffRoles").doc(data.uid));
+        if (!normalizeStaffRole(role.data()?.role) || role.data()?.username !== username || !role.data()?.sessionVersion) {
+          throw new Error("Inactive staff role.");
+        }
+        transaction.update(credentialRef, { failedAttempts: 0, lockedUntil: 0 });
+        return { uid: data.uid, sessionVersion: role.data().sessionVersion };
+      });
+      const customToken = await adminAuth.createCustomToken(session.uid, { staffLogin: true, sessionVersion: session.sessionVersion });
+      return res.json({ success: true, customToken });
+    } catch (error) {
+      console.error("[Staff login] Request failed:", error?.code || error?.message || "unknown");
+      return res.status(503).json({ success: false, error: "Sign-in is unavailable. Please try again shortly." });
+    }
+  });
+  app.get("/api/staff/accounts", staffManagementLimiter, requireStaff(["Admin"]), async (_req, res) => {
+    try {
+      const db = getServerDb();
+      if (!db) return res.status(503).json({ success: false, error: "Staff storage is not configured." });
+      return res.json({ success: true, members: await readSanitizedStaffRoster(db) });
+    } catch (error) {
+      console.error("[Staff roster] Could not load the sanitized roster.");
+      return res.status(500).json({ success: false, error: "Could not load staff accounts." });
+    }
+  });
+  app.post("/api/staff/change-password", staffManagementLimiter, requireStaff(["Admin", "Analyst", "Staff", "Consultant"]), async (req, res) => {
+    res.setHeader("Cache-Control", "no-store");
+    const db = getServerDb();
+    const adminAuth = getServerAuth();
+    if (!db || !adminAuth) return res.status(503).json({ success: false, error: "Staff authentication is not configured." });
+    const currentPassword = req.body?.currentPassword;
+    const newPassword = req.body?.newPassword;
+    if (typeof currentPassword !== "string" || typeof newPassword !== "string" || newPassword.length < 12 || newPassword.length > 128) {
+      return res.status(400).json({ success: false, error: "The new password must be 12\u2013128 characters." });
+    }
+    const staff = req.staffUser;
+    const credentialRef = db.collection("staffCredentials").doc(normalizeStaffUsername(staff.username));
+    try {
+      const credential = await credentialRef.get();
+      if (credential.data()?.uid !== staff.uid || !await matchesStaffPassword(currentPassword, credential.data()?.salt, credential.data()?.passwordHash)) {
+        return res.status(401).json({ success: false, error: "Current password is incorrect." });
+      }
+      const passwordFields = await hashStaffPassword(newPassword);
+      await db.runTransaction(async (transaction) => {
+        const current = await transaction.get(credentialRef);
+        if (current.data()?.uid !== staff.uid || current.data()?.passwordHash !== credential.data()?.passwordHash) throw new Error("Password changed concurrently.");
+        transaction.update(credentialRef, { ...passwordFields, failedAttempts: 0, lockedUntil: 0 });
+        transaction.update(db.collection("staffRoles").doc(staff.uid), { sessionVersion: newStaffSessionVersion() });
+      });
+      await adminAuth.revokeRefreshTokens(staff.uid).catch(() => void 0);
+      return res.json({ success: true });
+    } catch {
+      return res.status(503).json({ success: false, error: "Password could not be changed. Please try again." });
+    }
+  });
+  app.post("/api/staff/accounts", staffManagementLimiter, requireStaff(["Admin"]), async (req, res) => {
+    const db = getServerDb();
+    const adminAuth = getServerAuth();
+    if (!db || !adminAuth) return res.status(503).json({ success: false, error: "Staff management is not configured." });
+    try {
+      const actingAdmin = req.staffUser;
+      const members = await readSanitizedStaffRoster(db);
+      const { action } = req.body || {};
+      if (action === "import-legacy") {
+        if (!Array.isArray(req.body.members)) {
+          return res.status(400).json({ success: false, error: "Legacy staff profiles must be a list." });
+        }
+        const nextMembers = [...members];
+        const existingIds = new Set(nextMembers.map((member) => member.id));
+        const existingUsernames = new Set(nextMembers.map((member) => String(member.username || "").toLowerCase()));
+        const roleValues = /* @__PURE__ */ new Set(["Admin", "Analyst", "Staff", "Moderator", "Consultant"]);
+        for (const raw of req.body.members.slice(0, 200)) {
+          if (!raw || typeof raw !== "object") continue;
+          const id = typeof raw.id === "string" ? raw.id.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 120) : "";
+          const username = typeof raw.username === "string" ? raw.username.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, 80) : "";
+          const role = roleValues.has(raw.role) ? normalizeStaffRole(raw.role) : null;
+          if (!id || !username || !role || existingIds.has(id) || existingUsernames.has(username.toLowerCase())) continue;
+          const addedAt = typeof raw.addedAt === "string" && !Number.isNaN(Date.parse(raw.addedAt)) ? new Date(raw.addedAt).toISOString() : (/* @__PURE__ */ new Date(0)).toISOString();
+          const member = {
+            id,
+            username,
+            ...typeof raw.displayName === "string" && raw.displayName.trim() ? { displayName: raw.displayName.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, 120) } : {},
+            role,
+            addedBy: "Legacy roster migration",
+            addedAt,
+            ...typeof raw.lastLogin === "string" && !Number.isNaN(Date.parse(raw.lastLogin)) ? { lastLogin: new Date(raw.lastLogin).toISOString() } : {}
+          };
+          nextMembers.push(member);
+          existingIds.add(id);
+          existingUsernames.add(username.toLowerCase());
+        }
+        await setDoc(doc(db, "system", "staffRoster"), { members: nextMembers, updatedAt: (/* @__PURE__ */ new Date()).toISOString() }, { merge: true });
+        return res.json({ success: true, imported: nextMembers.length - members.length, members: nextMembers });
+      }
+      if (action === "create") {
+        const username = normalizeStaffUsername(req.body.username);
+        if (!STAFF_USERNAME_PATTERN.test(username)) return res.status(400).json({ success: false, error: "Use 3\u201340 characters: letters, numbers, dots, dashes, or underscores; start with a letter." });
+        const legacyMemberId = typeof req.body.legacyMemberId === "string" ? req.body.legacyMemberId : "";
+        const legacyMember = legacyMemberId ? members.find((member) => member.id === legacyMemberId && !member.linked) : void 0;
+        if (legacyMemberId && !legacyMember) {
+          return res.status(400).json({ success: false, error: "The selected legacy staff profile is unavailable or already linked." });
+        }
+        const role = legacyMember ? normalizeStaffRole(legacyMember.role) : normalizeStaffRole(req.body.role);
+        if (!role) return res.status(400).json({ success: false, error: "Select a valid staff role." });
+        const displayName = typeof req.body.displayName === "string" && req.body.displayName.trim() || legacyMember?.displayName || legacyMember?.username || username;
+        const uid = legacyMember && (await db.collection("staffRoles").doc(legacyMember.id).get()).exists ? legacyMember.id : `staff_${crypto.randomBytes(18).toString("base64url")}`;
+        const temporaryPassword = newTemporaryPassword();
+        const passwordFields = await hashStaffPassword(temporaryPassword);
+        const sessionVersion = newStaffSessionVersion();
+        const addedAt = (/* @__PURE__ */ new Date()).toISOString();
+        const credentialRef = db.collection("staffCredentials").doc(username);
+        const roleRef = db.collection("staffRoles").doc(uid);
+        try {
+          await db.runTransaction(async (transaction) => {
+            const [existingCredential, existingRole] = await Promise.all([transaction.get(credentialRef), transaction.get(roleRef)]);
+            if (existingCredential.exists) throw new Error("Username already exists.");
+            if (existingRole.exists && existingRole.data()?.sessionVersion) throw new Error("Staff account is already linked.");
+            transaction.create(credentialRef, { uid, username, ...passwordFields, failedAttempts: 0, lockedUntil: 0 });
+            transaction.set(roleRef, { role, username, displayName, sessionVersion, addedBy: actingAdmin.username || actingAdmin.uid, addedAt });
+          });
+        } catch (error) {
+          if (error?.message === "Username already exists." || error?.message === "Staff account is already linked.") {
+            return res.status(409).json({ success: false, error: error.message });
+          }
+          throw error;
+        }
+        const nextMembers = members.filter((member) => member.id !== legacyMemberId && member.id !== uid).concat({
+          id: uid,
+          username,
+          linked: true,
+          displayName,
+          role,
+          addedBy: actingAdmin.username || actingAdmin.uid,
+          addedAt: legacyMember?.addedAt || addedAt
+        });
+        await setDoc(doc(db, "system", "staffRoster"), { members: nextMembers, updatedAt: addedAt }, { merge: true });
+        res.setHeader("Cache-Control", "no-store");
+        return res.status(201).json({ success: true, role, members: nextMembers, temporaryPassword });
+      }
+      if (action === "role") {
+        const memberId = typeof req.body.memberId === "string" ? req.body.memberId : "";
+        const newRole = normalizeStaffRole(req.body.role);
+        const member = members.find((entry) => entry.id === memberId);
+        if (!member || !newRole) return res.status(400).json({ success: false, error: "Select a staff member and a valid role." });
+        const roleRef = db.collection("staffRoles").doc(memberId);
+        const roleSnapshot = await roleRef.get();
+        if (roleSnapshot.exists) {
+          if (roleSnapshot.data()?.role === "Admin" && newRole !== "Admin") {
+            const admins = await db.collection("staffRoles").where("role", "==", "Admin").get();
+            if (admins.docs.filter((entry) => Boolean(entry.data().sessionVersion)).length <= 1) return res.status(409).json({ success: false, error: "The last Administrator cannot be demoted." });
+          }
+          await roleRef.set({ role: newRole }, { merge: true });
+        }
+        const nextMembers = members.map((entry) => entry.id === memberId ? { ...entry, role: newRole } : entry);
+        await setDoc(doc(db, "system", "staffRoster"), { members: nextMembers, updatedAt: (/* @__PURE__ */ new Date()).toISOString() }, { merge: true });
+        return res.json({ success: true, members: nextMembers });
+      }
+      if (action === "reset-password") {
+        const member = members.find((entry) => entry.id === req.body.memberId && entry.linked);
+        if (!member) return res.status(404).json({ success: false, error: "Linked staff account not found." });
+        const temporaryPassword = newTemporaryPassword();
+        const passwordFields = await hashStaffPassword(temporaryPassword);
+        const credentialRef = db.collection("staffCredentials").doc(normalizeStaffUsername(member.username));
+        const roleRef = db.collection("staffRoles").doc(member.id);
+        await db.runTransaction(async (transaction) => {
+          const [credential, role] = await Promise.all([transaction.get(credentialRef), transaction.get(roleRef)]);
+          if (credential.data()?.uid !== member.id || !role.exists) throw new Error("Staff account no longer exists.");
+          transaction.update(credentialRef, { ...passwordFields, failedAttempts: 0, lockedUntil: 0 });
+          transaction.update(roleRef, { sessionVersion: newStaffSessionVersion() });
+        });
+        await adminAuth.revokeRefreshTokens(member.id).catch(() => void 0);
+        res.setHeader("Cache-Control", "no-store");
+        return res.json({ success: true, temporaryPassword });
+      }
+      if (action === "remove") {
+        const memberId = typeof req.body.memberId === "string" ? req.body.memberId : "";
+        const member = members.find((entry) => entry.id === memberId);
+        if (!member) return res.status(404).json({ success: false, error: "Staff member not found." });
+        const roleRef = db.collection("staffRoles").doc(memberId);
+        const roleSnapshot = await roleRef.get();
+        if (roleSnapshot.exists && roleSnapshot.data()?.role === "Admin") {
+          const admins = await db.collection("staffRoles").where("role", "==", "Admin").get();
+          if (member.linked && admins.docs.filter((entry) => Boolean(entry.data().sessionVersion)).length <= 1) return res.status(409).json({ success: false, error: "The last Administrator cannot be removed." });
+        }
+        await db.runTransaction(async (transaction) => {
+          if (member.linked) transaction.delete(db.collection("staffCredentials").doc(normalizeStaffUsername(member.username)));
+          if (roleSnapshot.exists) transaction.delete(roleRef);
+        });
+        await adminAuth.revokeRefreshTokens(memberId).catch(() => void 0);
+        const nextMembers = members.filter((entry) => entry.id !== memberId);
+        await setDoc(doc(db, "system", "staffRoster"), { members: nextMembers, updatedAt: (/* @__PURE__ */ new Date()).toISOString() }, { merge: true });
+        return res.json({ success: true, members: nextMembers });
+      }
+      return res.status(400).json({ success: false, error: "Unknown staff account action." });
+    } catch (error) {
+      const message = "Could not update staff accounts. Please try again.";
+      console.error("[Staff account management] Request failed:", error?.code || "unknown error");
+      return res.status(500).json({ success: false, error: message });
+    }
+  });
   const translateLimiter = createRateLimiter({ windowMs: 6e4, max: 120, name: "api-translate" });
   const translationMemoryCache = /* @__PURE__ */ new Map();
   function getTranslationHash(key) {
@@ -21934,7 +22339,7 @@ async function createApp() {
       return res.status(500).send("Image proxy error");
     }
   });
-  app.post("/api/cache-image", uploadLimiter, async (req, res) => {
+  app.post("/api/cache-image", uploadLimiter, requireStaff(["Admin", "Staff"]), async (req, res) => {
     try {
       const { url, name } = req.body;
       if (!url || typeof url !== "string") {
@@ -22092,9 +22497,9 @@ async function createApp() {
       return res.status(500).json({ success: false, error: err?.message || "Failed to delete image" });
     }
   };
-  app.post("/api/delete-vehicle-image", handleDeleteVehicleImage);
-  app.delete("/api/delete-vehicle-image", handleDeleteVehicleImage);
-  app.post("/api/upload-vehicle-images", uploadLimiter, async (req, res) => {
+  app.post("/api/delete-vehicle-image", requireStaff(["Admin", "Staff"]), handleDeleteVehicleImage);
+  app.delete("/api/delete-vehicle-image", requireStaff(["Admin", "Staff"]), handleDeleteVehicleImage);
+  app.post("/api/upload-vehicle-images", uploadLimiter, requireStaff(["Admin", "Staff"]), async (req, res) => {
     try {
       const { files } = req.body;
       if (!Array.isArray(files) || files.length === 0) {
@@ -22133,11 +22538,14 @@ async function createApp() {
           const { name, dataUrl } = item;
           if (!name || !dataUrl || typeof dataUrl !== "string") continue;
           const safeName = sanitizeFileName(name);
+          if (!savedFiles.some((saved) => saved.filename === safeName)) continue;
           const safeDocId = safeName.replace(/[^a-zA-Z0-9_-]/g, "_").toLowerCase();
           try {
             await setDoc(doc(db, "storedImages", safeDocId), {
               filename: safeName,
               dataUrl,
+              ...typeof item.targetItemId === "string" ? { targetItemId: item.targetItemId.slice(0, 120) } : {},
+              ...typeof item.targetItemName === "string" ? { targetItemName: item.targetItemName.slice(0, 160) } : {},
               updatedAt: (/* @__PURE__ */ new Date()).toISOString()
             }, { merge: true });
           } catch (backupErr) {
@@ -22296,18 +22704,8 @@ async function createApp() {
       const db = getServerDb();
       if (!db) return;
       const docRef = doc(db, "system", "webhooks");
-      const cfg = EMBEDDED_FIREBASE_CONFIG;
-      const url = new URL(`https://firestore.googleapis.com/v1/projects/${cfg.projectId}/databases/${cfg.firestoreDatabaseId}/documents/system/webhooks`);
-      url.searchParams.set("key", cfg.apiKey);
-      const response = await fetch(url, { signal: AbortSignal.timeout(1e4) });
-      if (!response.ok && response.status !== 404) {
-        throw new Error(`Firestore webhook read failed (${response.status})`);
-      }
-      const payload = response.ok ? await response.json() : null;
-      const data = payload ? {
-        changelogWebhookUrl: payload.fields?.changelogWebhookUrl?.stringValue,
-        suggestionsWebhookUrl: payload.fields?.suggestionsWebhookUrl?.stringValue
-      } : null;
+      const snapshot = await getDoc(docRef);
+      const data = snapshot.exists() ? snapshot.data() : null;
       if (data) {
         if (data.changelogWebhookUrl && typeof data.changelogWebhookUrl === "string" && data.changelogWebhookUrl.trim()) {
           runtimeDiscordWebhooks.changelog = data.changelogWebhookUrl.trim();
@@ -22417,6 +22815,125 @@ async function createApp() {
       return { sent: false, latencyMs, error: err?.message || "Network error" };
     }
   };
+  app.post("/api/reports/create", createRateLimiter({ windowMs: 3e5, max: 8, name: "api-report-create" }), async (req, res) => {
+    const db = getServerDb();
+    if (!db) return res.status(503).json({ success: false, error: "Report storage is not configured. Please try again later." });
+    const token = typeof req.body?.turnstileToken === "string" ? req.body.turnstileToken : "";
+    const secretKey = process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
+    if (!token || token.length > 2048) {
+      return res.status(400).json({ success: false, error: "Complete the security check and try again." });
+    }
+    if (!secretKey) {
+      console.error("[Turnstile] CLOUDFLARE_TURNSTILE_SECRET_KEY is not configured.");
+      return res.status(503).json({ success: false, error: "The security check is not configured. Please try again later." });
+    }
+    try {
+      const formData = new URLSearchParams({ secret: secretKey, response: token });
+      if (req.ip) formData.set("remoteip", req.ip);
+      const verifyResponse = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString(),
+        signal: AbortSignal.timeout(8e3)
+      });
+      if (!verifyResponse.ok) return res.status(502).json({ success: false, error: "The security check is temporarily unavailable." });
+      const verification = await verifyResponse.json();
+      if (verification.success !== true) return res.status(400).json({ success: false, error: "The security check expired. Complete it again and retry." });
+      const cleanText = (value, maxLength) => typeof value === "string" ? value.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, maxLength) : "";
+      const itemId = cleanText(req.body.itemId, 120);
+      const itemName = cleanText(req.body.itemName, 160);
+      const reason = cleanText(req.body.reason, 2e3);
+      const proofLink = cleanText(req.body.proofLink, 1024);
+      const suggestedValue = Number(req.body.suggestedValue);
+      const currentValue = Number(req.body.currentValue);
+      const numericDemand = (value) => value === void 0 || value === null || value === "" ? void 0 : Number(value);
+      const suggestedDemand = numericDemand(req.body.suggestedDemand);
+      const currentDemand = numericDemand(req.body.currentDemand);
+      if (!itemId || !itemName || !reason || !proofLink || !Number.isFinite(suggestedValue) || suggestedValue < 0 || suggestedValue > 1e15) {
+        return res.status(400).json({ success: false, error: "Check the item, suggested value, reason, and evidence link." });
+      }
+      try {
+        const proofUrl = new URL(proofLink);
+        if (!["http:", "https:"].includes(proofUrl.protocol)) throw new Error("Invalid protocol");
+      } catch {
+        return res.status(400).json({ success: false, error: "Enter a valid HTTP or HTTPS evidence link." });
+      }
+      if ([currentDemand, suggestedDemand].some((value) => value !== void 0 && (!Number.isInteger(value) || value < 1 || value > 10))) {
+        return res.status(400).json({ success: false, error: "Demand values must be between 1 and 10." });
+      }
+      const reportId = `report_${crypto.randomUUID()}`;
+      const createdAt = (/* @__PURE__ */ new Date()).toISOString();
+      const report = {
+        id: reportId,
+        status: "pending",
+        createdAt,
+        itemId,
+        itemName,
+        itemCategory: cleanText(req.body.itemCategory, 40),
+        itemThumbnail: cleanText(req.body.itemThumbnail, 2048).startsWith("data:") ? "" : cleanText(req.body.itemThumbnail, 2048),
+        ...cleanText(req.body.starTier, 12) ? { starTier: cleanText(req.body.starTier, 12) } : {},
+        ...cleanText(req.body.starLabel, 40) ? { starLabel: cleanText(req.body.starLabel, 40) } : {},
+        ...Number.isFinite(currentValue) && currentValue >= 0 ? { currentValue } : {},
+        suggestedValue,
+        ...currentDemand !== void 0 ? { currentDemand } : {},
+        ...suggestedDemand !== void 0 ? { suggestedDemand } : {},
+        ...cleanText(req.body.currentTrend, 40) ? { currentTrend: cleanText(req.body.currentTrend, 40) } : {},
+        ...cleanText(req.body.suggestedTrend, 40) ? { suggestedTrend: cleanText(req.body.suggestedTrend, 40) } : {},
+        playerUsername: cleanText(req.body.playerUsername, 80) || "Anonymous Trader",
+        ...cleanText(req.body.discordTag, 80) ? { discordTag: cleanText(req.body.discordTag, 80) } : {},
+        reason,
+        proofLink
+      };
+      await setDoc(doc(db, "reports", reportId), report);
+      const webhookUrl = getReportsWebhookUrl();
+      const fields = [];
+      if (report.starLabel || report.starTier) {
+        fields.push({ name: "\u2B50 Star Tier", value: `**${report.starLabel || `${report.starTier}\u2605`}**`, inline: true });
+      }
+      if (report.currentValue !== void 0) {
+        fields.push({
+          name: "\u{1F4B0} Valuation",
+          value: `$${Number(report.currentValue).toLocaleString()} \u2794 **$${suggestedValue.toLocaleString()}**`,
+          inline: true
+        });
+      } else {
+        fields.push({ name: "\u{1F4B0} Suggested Valuation", value: `**$${suggestedValue.toLocaleString()}**`, inline: true });
+      }
+      if (report.currentDemand !== void 0 && report.suggestedDemand !== void 0 && report.currentDemand !== report.suggestedDemand) {
+        fields.push({ name: "\u{1F525} Demand", value: `${report.currentDemand}/10 \u2794 **${report.suggestedDemand}/10**`, inline: true });
+      } else if (report.suggestedDemand !== void 0) {
+        fields.push({ name: "\u{1F525} Suggested Demand", value: `**${report.suggestedDemand}/10**`, inline: true });
+      }
+      if (report.currentTrend && report.suggestedTrend && report.currentTrend !== report.suggestedTrend) {
+        fields.push({ name: "\u{1F4C8} Market Trend", value: `${report.currentTrend} \u2794 **${report.suggestedTrend}**`, inline: true });
+      } else if (report.suggestedTrend) {
+        fields.push({ name: "\u{1F4C8} Suggested Trend", value: `**${report.suggestedTrend}**`, inline: true });
+      }
+      fields.push({ name: "\u{1F464} Submitted By", value: `\`${report.playerUsername}\``, inline: true });
+      fields.push({ name: "\u{1F4DD} Reason / Market Justification", value: `>>> ${reason.slice(0, 1e3)}`, inline: false });
+      fields.push({ name: "\u{1F517} Evidence / Proof", value: proofLink.slice(0, 500), inline: false });
+      const reportThumbnail = resolveDiscordEmbedThumbnail(req, {
+        thumbnail: report.itemThumbnail,
+        itemId,
+        itemName
+      });
+      await sendDiscordWebhook(webhookUrl, {
+        username: "MTS Community Suggestions",
+        embeds: [{
+          title: `\u{1F4A1} Value Suggestion: ${itemName}${report.starLabel ? ` (${report.starLabel})` : ""}`.slice(0, 256),
+          color: 16347926,
+          fields,
+          ...reportThumbnail ? { thumbnail: { url: reportThumbnail } } : {},
+          timestamp: createdAt,
+          footer: { text: "Military Tycoon Services \u2022 Community Suggestions Queue" }
+        }]
+      });
+      return res.status(201).json({ success: true, reportId, createdAt });
+    } catch (error) {
+      console.error("[Report submission] Turnstile, Firestore, or notification step failed.");
+      return res.status(500).json({ success: false, error: "Could not submit the report. Please try again." });
+    }
+  });
   app.get("/api/webhooks/status", (req, res) => {
     const changelogUrl = getChangelogWebhookUrl();
     const reportsUrl = getReportsWebhookUrl();
@@ -22437,7 +22954,7 @@ async function createApp() {
       serverTime: (/* @__PURE__ */ new Date()).toISOString()
     });
   });
-  app.post("/api/webhooks/save-config", webhookLimiter, async (req, res) => {
+  app.post("/api/webhooks/save-config", webhookLimiter, requireStaff(["Admin"]), async (req, res) => {
     try {
       const { changelogWebhookUrl, suggestionsWebhookUrl } = req.body || {};
       if (changelogWebhookUrl !== void 0 && typeof changelogWebhookUrl === "string" && changelogWebhookUrl.trim()) {
@@ -22481,7 +22998,7 @@ async function createApp() {
       return res.status(500).json({ success: false, error: "Failed to update webhook configuration" });
     }
   });
-  app.post("/api/webhooks/test", webhookLimiter, async (req, res) => {
+  app.post("/api/webhooks/test", webhookLimiter, requireStaff(["Admin"]), async (req, res) => {
     try {
       const { type = "changelog", tester = "Admin" } = req.body;
       const isChangelog = type === "changelog";
@@ -22536,7 +23053,7 @@ async function createApp() {
       return res.status(500).json({ success: false, error: err?.message || "Server error" });
     }
   });
-  app.post("/api/webhooks/changelog", webhookLimiter, async (req, res) => {
+  app.post("/api/webhooks/changelog", webhookLimiter, requireStaff(["Admin", "Staff", "Analyst", "Consultant"]), async (req, res) => {
     try {
       const {
         action = "MANUAL_EDIT",
@@ -22745,7 +23262,7 @@ async function createApp() {
       return res.status(500).json({ success: false, error: err?.message || "Server error" });
     }
   });
-  app.post("/api/webhooks/reports", webhookLimiter, async (req, res) => {
+  app.post("/api/webhooks/reports", webhookLimiter, requireStaff(["Admin", "Staff"]), async (req, res) => {
     try {
       const {
         reportId,

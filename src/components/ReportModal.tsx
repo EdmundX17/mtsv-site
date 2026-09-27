@@ -13,7 +13,6 @@ import {
 } from '../utils/formatters';
 import { Flag, X, Send, CheckCircle2, AlertTriangle, Star, ArrowRight } from 'lucide-react';
 import { CloudflareTurnstile } from './CloudflareTurnstile';
-import { verifyTurnstileToken } from '../lib/turnstile';
 import confetti from 'canvas-confetti';
 import { VehicleImage } from './VehicleImage';
 
@@ -121,46 +120,43 @@ const ReportModalContent: React.FC<{
     }
     setCaptchaError(null);
     setIsVerifyingCaptcha(true);
-    const captchaCheck = await verifyTurnstileToken(captchaToken);
-    setIsVerifyingCaptcha(false);
-    setCaptchaToken('');
-    setCaptchaResetKey((key) => key + 1);
-    if (!captchaCheck.verified) {
-      setCaptchaError(captchaCheck.error || 'Cloudflare could not verify this check. Please try again.');
-      return;
-    }
-
     const reporterName = playerUsername.trim() || (language === 'es' ? 'Comerciante Anónimo' : 'Anonymous Trader');
-
-    submitReport({
-      itemId: item.id,
-      itemName: item.name,
-      itemCategory: item.category,
-      itemThumbnail: item.thumbnail,
-      starTier: hasStarTiers ? selectedStarTier : undefined,
-      starLabel: hasStarTiers ? selectedStarLabel : undefined,
-      currentValue: currentTierData.value,
-      suggestedValue,
-      currentDemand: currentTierData.demand,
-      suggestedDemand,
-      currentTrend: normalizeTrend(currentTierData.trend),
-      suggestedTrend,
-      playerUsername: reporterName,
-      discordTag: discordTag.trim() || undefined,
-      reason: reason.trim(),
-      proofLink: proofLink.trim()
-    });
-
     try {
-      confetti({
-        particleCount: 50,
-        spread: 60,
-        origin: { y: 0.6 },
-        colors: ['#f97316', '#fb923c', '#fdba74', '#ea580c']
-      });
-    } catch (e) {}
+      await submitReport({
+        itemId: item.id,
+        itemName: item.name,
+        itemCategory: item.category,
+        itemThumbnail: item.thumbnail,
+        starTier: hasStarTiers ? selectedStarTier : undefined,
+        starLabel: hasStarTiers ? selectedStarLabel : undefined,
+        currentValue: currentTierData.value,
+        suggestedValue,
+        currentDemand: currentTierData.demand,
+        suggestedDemand,
+        currentTrend: normalizeTrend(currentTierData.trend),
+        suggestedTrend,
+        playerUsername: reporterName,
+        discordTag: discordTag.trim() || undefined,
+        reason: reason.trim(),
+        proofLink: proofLink.trim()
+      }, captchaToken);
 
-    setIsSubmitted(true);
+      try {
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.6 },
+          colors: ['#f97316', '#fb923c', '#fdba74', '#ea580c']
+        });
+      } catch (e) {}
+      setIsSubmitted(true);
+    } catch (error: any) {
+      setCaptchaError(error?.message || 'Could not submit the report. Please try again.');
+    } finally {
+      setIsVerifyingCaptcha(false);
+      setCaptchaToken('');
+      setCaptchaResetKey((key) => key + 1);
+    }
   };
 
   return (

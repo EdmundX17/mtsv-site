@@ -53,7 +53,6 @@ import { AreaChart, Area, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveCont
 import confetti from 'canvas-confetti';
 import { VehicleImage } from './VehicleImage';
 import { CloudflareTurnstile } from './CloudflareTurnstile';
-import { verifyTurnstileToken } from '../lib/turnstile';
 import { MilitaryGemIcon } from './MilitaryGemIcon';
 import { useAutoTranslate } from '../hooks/useAutoTranslate';
 
@@ -343,42 +342,39 @@ export const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ item, onBack }) 
     }
     setSuggestionCaptchaError(null);
     setIsVerifyingSuggestionCaptcha(true);
-    const captchaCheck = await verifyTurnstileToken(suggestionCaptchaToken);
-    setIsVerifyingSuggestionCaptcha(false);
-    setSuggestionCaptchaToken('');
-    setSuggestionCaptchaResetKey((key) => key + 1);
-    if (!captchaCheck.verified) {
-      setSuggestionCaptchaError(captchaCheck.error || 'Cloudflare could not verify this check. Please try again.');
-      return;
-    }
-
-    submitReport({
-      itemId: item.id,
-      itemName: item.name,
-      itemCategory: item.category,
-      itemThumbnail: item.thumbnail,
-      currentValue: starCalc.totalValue,
-      suggestedValue,
-      currentDemand: tierData.demand,
-      suggestedDemand,
-      currentTrend: normalizeTrend(item.trend),
-      suggestedTrend,
-      playerUsername: playerUsername.trim() || 'Anonymous Trader',
-      discordTag: discordTag.trim() || undefined,
-      reason: reasonNotes.trim(),
-      proofLink: proofLink.trim()
-    });
-
     try {
-      confetti({
-        particleCount: 60,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#f97316', '#fb923c', '#fdba74', '#ea580c']
-      });
-    } catch (err) {}
-
-    setIsReportSubmitted(true);
+      await submitReport({
+        itemId: item.id,
+        itemName: item.name,
+        itemCategory: item.category,
+        itemThumbnail: item.thumbnail,
+        currentValue: starCalc.totalValue,
+        suggestedValue,
+        currentDemand: tierData.demand,
+        suggestedDemand,
+        currentTrend: normalizeTrend(item.trend),
+        suggestedTrend,
+        playerUsername: playerUsername.trim() || 'Anonymous Trader',
+        discordTag: discordTag.trim() || undefined,
+        reason: reasonNotes.trim(),
+        proofLink: proofLink.trim()
+      }, suggestionCaptchaToken);
+      try {
+        confetti({
+          particleCount: 60,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#f97316', '#fb923c', '#fdba74', '#ea580c']
+        });
+      } catch {}
+      setIsReportSubmitted(true);
+    } catch (error: any) {
+      setSuggestionCaptchaError(error?.message || 'Could not submit the report. Please try again.');
+    } finally {
+      setIsVerifyingSuggestionCaptcha(false);
+      setSuggestionCaptchaToken('');
+      setSuggestionCaptchaResetKey((key) => key + 1);
+    }
   };
 
   const handleAddPointSubmit = (e: React.FormEvent) => {

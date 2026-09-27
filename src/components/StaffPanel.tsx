@@ -4,7 +4,7 @@ import { ReportedValue, MilitaryItem, ItemCategory, ItemRarity, PriceTrend, Staf
 import { formatMilitaryValue, calculateItemStarValue, parseMilitaryValueInput, getRarityConfig, getTrendConfig, isVehicleCategory, isSoldierOrDroneCategory, shouldSortToTagsCategory, STAR_TIERS, SOLDIER_DRONE_STAR_TIERS, itemHasManualOverrides } from '../utils/formatters';
 import { optimizeImage, getSafeImageUrl, isDiscordCdnUrl } from '../utils/imageOptimizer';
 import { CloudflareTurnstile } from './CloudflareTurnstile';
-import { verifyTurnstileToken } from '../lib/turnstile';
+import { staffApiFetch } from '../lib/staffApi';
 import { 
   ShieldAlert, 
   Check, 
@@ -112,7 +112,8 @@ export const StaffPanel: React.FC = () => {
     staffMembers,
     addStaffMember,
     updateStaffRole,
-    updateStaffPassword,
+    sendStaffPasswordReset,
+    changeStaffPassword,
     removeStaffMember,
     reports,
     items,
@@ -176,7 +177,7 @@ export const StaffPanel: React.FC = () => {
     setTempSoldierDroneStarConfig(universalSoldierDroneStarConfig);
   }, [universalSoldierDroneStarConfig]);
 
-  // Custom Staff Login state - clean initial inputs with no hardcoded prefilled credentials
+  // Staff username/password login
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [showLoginPassword, setShowLoginPassword] = useState(false);
@@ -184,19 +185,21 @@ export const StaffPanel: React.FC = () => {
 
   // Admin Staff Management state
   const [newStaffUsername, setNewStaffUsername] = useState('');
-  const [newStaffPassword, setNewStaffPassword] = useState('');
+  const [newStaffLegacyId, setNewStaffLegacyId] = useState('');
   const [newStaffDisplayName, setNewStaffDisplayName] = useState('');
   const [newStaffRole, setNewStaffRole] = useState<StaffRole>('Staff');
-  const [showNewStaffPassword, setShowNewStaffPassword] = useState(false);
   const [staffFeedback, setStaffFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [oneTimePassword, setOneTimePassword] = useState('');
   const [staffMemberToRemove, setStaffMemberToRemove] = useState<StaffMember | null>(null);
-  const [revealedPasswords, setRevealedPasswords] = useState<{ [id: string]: boolean }>({});
 
-  // Change password for existing staff member state
+  // Password reset and self-service password change
   const [passwordChangeMember, setPasswordChangeMember] = useState<StaffMember | null>(null);
-  const [newPasswordForMember, setNewPasswordForMember] = useState('');
-  const [showResetPassword, setShowResetPassword] = useState(false);
   const [passwordChangeFeedback, setPasswordChangeFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [resetTemporaryPassword, setResetTemporaryPassword] = useState('');
+  const [showOwnPasswordChange, setShowOwnPasswordChange] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [ownPasswordFeedback, setOwnPasswordFeedback] = useState('');
 
   // Editing Report Modal state
   const [editingReport, setEditingReport] = useState<ReportedValue | null>(null);
@@ -273,7 +276,7 @@ export const StaffPanel: React.FC = () => {
     setTestingWebhook(type);
     setWebhookTestFeedback(null);
     try {
-      const res = await fetch('/api/webhooks/test', {
+      const res = await staffApiFetch('/api/webhooks/test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -310,16 +313,6 @@ export const StaffPanel: React.FC = () => {
   const pendingCount = reports.filter(r => r.status === 'pending').length;
   const pendingProposalsCount = (consultantProposals || []).filter(p => p && p.status === 'pending').length;
 
-  const handleGeneratePassword = () => {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%';
-    let pass = '';
-    for (let i = 0; i < 10; i++) {
-      pass += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setNewStaffPassword(pass);
-    setShowNewStaffPassword(true);
-  };
-
   const handleStaffLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginFeedback(null);
@@ -331,21 +324,15 @@ export const StaffPanel: React.FC = () => {
       });
       return;
     }
-    if (!loginUsername.trim() || !loginPassword.trim()) {
+    if (!loginUsername.trim() || !loginPassword) {
       setLoginFeedback({ type: 'error', message: 'Please enter both username and password.' });
       return;
     }
     setIsVerifyingLoginCaptcha(true);
-    const captchaCheck = await verifyTurnstileToken(loginCaptchaToken);
+    const result = await loginStaff(loginUsername.trim(), loginPassword, loginCaptchaToken);
     setIsVerifyingLoginCaptcha(false);
     setLoginCaptchaToken('');
     setLoginCaptchaResetKey((key) => key + 1);
-    if (!captchaCheck.verified) {
-      setShowLoginCaptchaError(true);
-      setLoginFeedback({ type: 'error', message: captchaCheck.error || 'Cloudflare could not verify this check. Please try again.' });
-      return;
-    }
-    const result = loginStaff(loginUsername.trim(), loginPassword.trim());
     if (result.success) {
       setLoginFeedback({ type: 'success', message: result.message });
       setShowLoginCaptchaError(false);
@@ -357,28 +344,27 @@ export const StaffPanel: React.FC = () => {
     }
   };
 
-  const handleAddStaffSubmit = (e: React.FormEvent) => {
+  const handleAddStaffSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStaffFeedback(null);
+    setOneTimePassword('');
     if (!newStaffUsername.trim()) {
       setStaffFeedback({ type: 'error', message: 'Please enter a staff username.' });
       return;
     }
-    if (!newStaffPassword.trim()) {
-      setStaffFeedback({ type: 'error', message: 'Please enter or generate a staff password.' });
-      return;
-    }
-    const result = addStaffMember(
+    const result = await addStaffMember(
       newStaffUsername.trim(),
-      newStaffPassword.trim(),
       newStaffRole,
-      newStaffDisplayName.trim() || undefined
+      newStaffDisplayName.trim() || undefined,
+      newStaffLegacyId || undefined
     );
     if (result.success) {
       setStaffFeedback({ type: 'success', message: result.message });
+      setOneTimePassword(result.temporaryPassword || '');
       setNewStaffUsername('');
-      setNewStaffPassword('');
+      setNewStaffLegacyId('');
       setNewStaffDisplayName('');
+      setNewStaffRole('Staff');
       try {
         confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
       } catch (e) {}
@@ -387,25 +373,26 @@ export const StaffPanel: React.FC = () => {
     }
   };
 
-  const handlePasswordChangeSubmit = (e: React.FormEvent) => {
+  const handlePasswordChangeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!passwordChangeMember) return;
     setPasswordChangeFeedback(null);
-    if (!newPasswordForMember.trim()) {
-      setPasswordChangeFeedback({ type: 'error', message: 'Please enter a new password.' });
-      return;
-    }
-    const result = updateStaffPassword(passwordChangeMember.id, newPasswordForMember.trim());
+    const result = await sendStaffPasswordReset(passwordChangeMember.id);
     if (result.success) {
       setPasswordChangeFeedback({ type: 'success', message: result.message });
-      setTimeout(() => {
-        setPasswordChangeMember(null);
-        setNewPasswordForMember('');
-        setPasswordChangeFeedback(null);
-      }, 1500);
+      setResetTemporaryPassword(result.temporaryPassword || '');
     } else {
       setPasswordChangeFeedback({ type: 'error', message: result.message });
     }
+  };
+
+  const handleOwnPasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = await changeStaffPassword(currentPassword, newPassword);
+    setCurrentPassword('');
+    setNewPassword('');
+    setOwnPasswordFeedback(result.message);
+    if (result.success) setShowOwnPasswordChange(false);
   };
 
   const filteredReports = reports.filter(r => {
@@ -834,7 +821,7 @@ export const StaffPanel: React.FC = () => {
                     ) : (
                       <ShieldCheck className="w-3 h-3 text-blue-500" />
                     )}
-                    {activeStaff?.role === 'Moderator' ? 'STAFF' : (activeStaff?.role?.toUpperCase() || 'STAFF')}
+                    {activeStaff?.role?.toUpperCase() || 'STAFF'}
                   </span>
                 )}
               </div>
@@ -847,6 +834,14 @@ export const StaffPanel: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
+            {isStaffMode && (
+              <button
+                onClick={() => { setShowOwnPasswordChange(true); setOwnPasswordFeedback(''); }}
+                className="px-3.5 py-1.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-200 text-xs font-semibold cursor-pointer transition-colors"
+              >
+                Change Password
+              </button>
+            )}
             {isStaffMode && (
               <button
                 onClick={logoutStaff}
@@ -864,7 +859,7 @@ export const StaffPanel: React.FC = () => {
           </div>
         </div>
 
-        {/* If not logged in: Custom Staff Authentication Form */}
+        {/* Staff username/password authentication */}
         {!isStaffMode ? (
           <div className="p-6 sm:p-10 flex items-center justify-center flex-1 overflow-y-auto">
             <div className="w-full max-w-md bg-white dark:bg-[#181c2b] border border-orange-200 dark:border-neutral-800 rounded-3xl p-6 sm:p-8 shadow-xl space-y-5">
@@ -876,7 +871,7 @@ export const StaffPanel: React.FC = () => {
                   Staff Portal Login
                 </h4>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                  Enter your assigned staff username and password to access editing controls.
+                  Enter your staff username and password.
                 </p>
               </div>
 
@@ -890,9 +885,10 @@ export const StaffPanel: React.FC = () => {
                     <input
                       type="text"
                       required
+                      autoComplete="username"
                       value={loginUsername}
                       onChange={(e) => setLoginUsername(e.target.value)}
-                      placeholder="e.g. Admin or Staff Username"
+                      placeholder="staffname"
                       className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-900 dark:text-white text-xs font-mono focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
                     />
                   </div>
@@ -2583,21 +2579,21 @@ export const StaffPanel: React.FC = () => {
                           Create New Staff Account
                         </h5>
                       </div>
-                      <span className="text-[11px] text-neutral-400 font-mono">Instant Credentials Activation</span>
+                      <span className="text-[11px] text-neutral-400 font-mono">One-time temporary password</span>
                     </div>
 
                     <form onSubmit={handleAddStaffSubmit} className="space-y-4">
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         <div>
                           <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase mb-1 font-mono">
-                            Username <span className="text-orange-500">*</span>
+                            Staff Username <span className="text-orange-500">*</span>
                           </label>
                           <div className="relative">
                             <User className="w-4 h-4 absolute left-3 top-2.5 text-neutral-400" />
                             <input
                               type="text"
                               required
-                              placeholder="e.g. StaffAlex"
+                              placeholder="staffname"
                               value={newStaffUsername}
                               onChange={(e) => setNewStaffUsername(e.target.value)}
                               className="w-full pl-9 pr-3.5 py-2 bg-neutral-50 dark:bg-[#0f111a] border border-neutral-200 dark:border-neutral-700 rounded-xl text-xs text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 focus:border-orange-500 focus:outline-none font-mono"
@@ -2606,37 +2602,25 @@ export const StaffPanel: React.FC = () => {
                         </div>
 
                         <div>
-                          <div className="flex items-center justify-between mb-1">
-                            <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase font-mono">
-                              Password <span className="text-orange-500">*</span>
-                            </label>
-                            <button
-                              type="button"
-                              onClick={handleGeneratePassword}
-                              className="text-[10px] text-orange-500 hover:text-orange-600 font-mono font-bold flex items-center gap-0.5 cursor-pointer"
-                            >
-                              <Sparkles className="w-2.5 h-2.5" />
-                              <span>Generate</span>
-                            </button>
-                          </div>
-                          <div className="relative">
-                            <Lock className="w-4 h-4 absolute left-3 top-2.5 text-neutral-400" />
-                            <input
-                              type={showNewStaffPassword ? 'text' : 'password'}
-                              required
-                              placeholder="Staff password"
-                              value={newStaffPassword}
-                              onChange={(e) => setNewStaffPassword(e.target.value)}
-                              className="w-full pl-9 pr-8 py-2 bg-neutral-50 dark:bg-[#0f111a] border border-neutral-200 dark:border-neutral-700 rounded-xl text-xs text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 focus:border-orange-500 focus:outline-none font-mono"
-                            />
-                            <button
-                              type="button"
-                              onClick={() => setShowNewStaffPassword(!showNewStaffPassword)}
-                              className="absolute right-2.5 top-2.5 text-neutral-400 hover:text-neutral-600 cursor-pointer"
-                            >
-                              {showNewStaffPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                            </button>
-                          </div>
+                          <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase mb-1 font-mono">
+                            Preserve Existing Role
+                          </label>
+                          <select
+                            value={newStaffLegacyId}
+                            onChange={(e) => {
+                              const legacy = staffMembers.find(member => member.id === e.target.value);
+                              setNewStaffLegacyId(e.target.value);
+                              if (legacy) setNewStaffRole(legacy.role);
+                            }}
+                            className="w-full px-3.5 py-2 bg-neutral-50 dark:bg-[#0f111a] border border-neutral-200 dark:border-neutral-700 rounded-xl text-xs text-neutral-900 dark:text-white focus:border-orange-500 focus:outline-none"
+                          >
+                            <option value="">New staff account</option>
+                            {staffMembers.filter(member => !member.linked).map(member => (
+                              <option key={member.id} value={member.id}>
+                                {member.displayName || member.username} — {member.role}
+                              </option>
+                            ))}
+                          </select>
                         </div>
 
                         <div>
@@ -2654,12 +2638,13 @@ export const StaffPanel: React.FC = () => {
 
                         <div>
                           <label className="block text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase mb-1 font-mono">
-                            Assigned Role
+                            {newStaffLegacyId ? 'Preserved Role' : 'Assigned Role'}
                           </label>
                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                             <button
                               type="button"
                               onClick={() => setNewStaffRole('Consultant')}
+                              disabled={Boolean(newStaffLegacyId)}
                               className={`py-2 px-1.5 rounded-xl border text-[10px] sm:text-[11px] font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
                                 newStaffRole === 'Consultant'
                                   ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
@@ -2674,6 +2659,7 @@ export const StaffPanel: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => setNewStaffRole('Staff')}
+                              disabled={Boolean(newStaffLegacyId)}
                               className={`py-2 px-1.5 rounded-xl border text-[10px] sm:text-[11px] font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
                                 newStaffRole === 'Staff' || (newStaffRole as any) === 'Moderator'
                                   ? 'bg-blue-500 text-white border-blue-500 shadow-sm'
@@ -2687,6 +2673,7 @@ export const StaffPanel: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => setNewStaffRole('Analyst')}
+                              disabled={Boolean(newStaffLegacyId)}
                               className={`py-2 px-1.5 rounded-xl border text-[10px] sm:text-[11px] font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
                                 newStaffRole === 'Analyst'
                                   ? 'bg-cyan-600 text-white border-cyan-600 shadow-sm'
@@ -2700,6 +2687,7 @@ export const StaffPanel: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => setNewStaffRole('Admin')}
+                              disabled={Boolean(newStaffLegacyId)}
                               className={`py-2 px-1.5 rounded-xl border text-[10px] sm:text-[11px] font-bold flex items-center justify-center gap-1 transition-all cursor-pointer ${
                                 newStaffRole === 'Admin'
                                   ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-500 shadow-sm'
@@ -2724,13 +2712,21 @@ export const StaffPanel: React.FC = () => {
                         </div>
                       )}
 
+                      {oneTimePassword && (
+                        <div className="rounded-xl border border-amber-400 bg-amber-50 dark:bg-amber-950/40 p-3 text-xs text-amber-950 dark:text-amber-100">
+                          <div className="font-bold">Temporary password — shown only once</div>
+                          <code className="block break-all select-all mt-1">{oneTimePassword}</code>
+                          <button type="button" onClick={() => setOneTimePassword('')} className="mt-2 underline">I saved it</button>
+                        </div>
+                      )}
+
                       <div className="flex justify-end">
                         <button
                           type="submit"
                           className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-xs shadow-md shadow-orange-500/20 cursor-pointer flex items-center gap-2 transition-all active:scale-[0.98]"
                         >
                           <UserPlus className="w-4 h-4" />
-                          <span>Create Staff Account</span>
+                          <span>Create Account</span>
                         </button>
                       </div>
                     </form>
@@ -2743,14 +2739,14 @@ export const StaffPanel: React.FC = () => {
                         <Users className="w-4 h-4 text-orange-500" />
                         <span>Active Staff Roster ({staffMembers.length})</span>
                       </h5>
-                      <span className="text-xs text-neutral-400">Authenticated Staff Credentials & Permissions</span>
+                      <span className="text-xs text-neutral-400">Usernames and role access</span>
                     </div>
 
                     <div className="space-y-2.5">
                       {staffMembers.map((member, memIdx) => {
                         const isCurrentUser = activeStaff?.id === member.id;
-                        const adminCount = staffMembers.filter(s => s.role === 'Admin').length;
-                        const isSoleAdmin = member.role === 'Admin' && adminCount <= 1;
+                        const adminCount = staffMembers.filter(s => s.linked && s.role === 'Admin').length;
+                        const isSoleAdmin = Boolean(member.linked) && member.role === 'Admin' && adminCount <= 1;
 
                         return (
                           <div
@@ -2808,20 +2804,8 @@ export const StaffPanel: React.FC = () => {
                                   )}
                                 </div>
 
-                                <div className="text-xs text-neutral-500 dark:text-neutral-400 font-mono truncate flex items-center gap-2 mt-0.5">
-                                  <span>User: <strong className="text-neutral-700 dark:text-neutral-300">{member.username}</strong></span>
-                                  <span>•</span>
-                                  <span className="flex items-center gap-1">
-                                    Pass: <strong className="text-neutral-700 dark:text-neutral-300">{revealedPasswords[member.id] ? member.password : '••••••••'}</strong>
-                                    <button
-                                      type="button"
-                                      onClick={() => setRevealedPasswords(prev => ({ ...prev, [member.id]: !prev[member.id] }))}
-                                      className="p-0.5 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 cursor-pointer ml-1"
-                                      title={revealedPasswords[member.id] ? "Hide password" : "Show password"}
-                                    >
-                                      {revealedPasswords[member.id] ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
-                                    </button>
-                                  </span>
+                                <div className="text-xs text-neutral-500 dark:text-neutral-400 font-mono truncate mt-0.5">
+                                  <span>Username: <strong className="text-neutral-700 dark:text-neutral-300">{member.linked ? member.username : 'Not linked — select this profile above to set up sign-in'}</strong></span>
                                 </div>
 
                                 <div className="text-[10px] text-neutral-400 mt-0.5">
@@ -2835,29 +2819,30 @@ export const StaffPanel: React.FC = () => {
                                 type="button"
                                 onClick={() => {
                                   setPasswordChangeMember(member);
-                                  setNewPasswordForMember('');
-                                  setShowResetPassword(false);
                                   setPasswordChangeFeedback(null);
                                 }}
+                                disabled={!member.linked || isCurrentUser}
                                 className="px-3 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:border-orange-400 dark:hover:border-orange-500 bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1"
                               >
                                 <Key className="w-3.5 h-3.5 text-amber-500" />
-                                <span>Reset Pass</span>
+                                <span>Reset Password</span>
                               </button>
 
                               {!isSoleAdmin && (
                                 <div className="flex items-center gap-2">
                                   <select
                                     value={member.role === 'Moderator' ? 'Staff' : member.role}
-                                    onChange={(e) => {
+                                    onChange={async (e) => {
                                       const newRole = e.target.value as StaffRole;
-                                      updateStaffRole(member.id, newRole);
+                                      const result = await updateStaffRole(member.id, newRole);
+                                      setStaffFeedback({ type: result.success ? 'success' : 'error', message: result.message });
                                     }}
                                     className="px-2.5 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:border-orange-400 dark:hover:border-orange-500 bg-neutral-50 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-semibold cursor-pointer transition-colors focus:outline-none focus:border-orange-500"
                                     title="Assign role"
                                   >
                                     <option value="Consultant">Role: Consultant (Commentator)</option>
                                     <option value="Staff">Role: Staff</option>
+                                    <option value="Moderator">Role: Moderator</option>
                                     <option value="Analyst">Role: Analyst</option>
                                     <option value="Admin">Role: Admin</option>
                                   </select>
@@ -2964,6 +2949,21 @@ export const StaffPanel: React.FC = () => {
         )}
       </div>
 
+      {showOwnPasswordChange && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+          <form onSubmit={handleOwnPasswordChange} className="w-full max-w-sm bg-white dark:bg-[#181c2b] rounded-3xl p-6 shadow-xl space-y-4">
+            <h4 className="font-bold text-neutral-900 dark:text-white">Change Your Password</h4>
+            <input type="password" autoComplete="current-password" required placeholder="Current password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} className="w-full p-3 rounded-xl border dark:bg-neutral-900 dark:text-white" />
+            <input type="password" autoComplete="new-password" required minLength={12} maxLength={128} placeholder="New password (at least 12 characters)" value={newPassword} onChange={e => setNewPassword(e.target.value)} className="w-full p-3 rounded-xl border dark:bg-neutral-900 dark:text-white" />
+            {ownPasswordFeedback && <p className="text-sm text-rose-600">{ownPasswordFeedback}</p>}
+            <div className="flex gap-2">
+              <button type="button" onClick={() => setShowOwnPasswordChange(false)} className="flex-1 rounded-xl border p-2 dark:text-white">Cancel</button>
+              <button type="submit" className="flex-1 rounded-xl bg-orange-500 p-2 text-white">Change Password</button>
+            </div>
+          </form>
+        </div>
+      )}
+
       {/* PASSWORD RESET MODAL */}
       {passwordChangeMember && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
@@ -2973,35 +2973,16 @@ export const StaffPanel: React.FC = () => {
             </div>
             <div className="text-center space-y-1">
               <h4 className="font-['Chakra_Petch'] text-lg font-bold text-neutral-900 dark:text-white">
-                Change Staff Password
+                Reset Staff Password
               </h4>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                Update credentials for <strong className="text-neutral-900 dark:text-white font-mono">{passwordChangeMember.username}</strong>
+                Generate a new temporary password for <strong className="text-neutral-900 dark:text-white font-mono">{passwordChangeMember.username}</strong>.
               </p>
             </div>
 
             <form onSubmit={handlePasswordChangeSubmit} className="space-y-3">
-              <div className="space-y-1">
-                <label className="text-[11px] font-bold font-mono uppercase text-neutral-700 dark:text-neutral-300">
-                  New Password
-                </label>
-                <div className="relative">
-                  <input
-                    type={showResetPassword ? "text" : "password"}
-                    required
-                    value={newPasswordForMember}
-                    onChange={(e) => setNewPasswordForMember(e.target.value)}
-                    placeholder="Enter new password"
-                    className="w-full pl-3.5 pr-9 py-2 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-900 dark:text-white rounded-xl text-xs font-mono focus:border-orange-500 focus:outline-none"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowResetPassword(!showResetPassword)}
-                    className="absolute right-2.5 top-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 cursor-pointer"
-                  >
-                    {showResetPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
+              <div className="rounded-xl bg-neutral-50 dark:bg-neutral-900 p-3 text-xs text-neutral-600 dark:text-neutral-300">
+                Their current sessions will be signed out. Share the new password privately and ask them to change it after signing in.
               </div>
 
               {passwordChangeFeedback && (
@@ -3014,20 +2995,26 @@ export const StaffPanel: React.FC = () => {
                   <span>{passwordChangeFeedback.message}</span>
                 </div>
               )}
+              {resetTemporaryPassword && (
+                <div className="rounded-xl border border-amber-400 bg-amber-50 dark:bg-amber-950/40 p-3 text-xs text-amber-950 dark:text-amber-100">
+                  <div className="font-bold">New temporary password — shown only once</div>
+                  <code className="block break-all select-all mt-1">{resetTemporaryPassword}</code>
+                </div>
+              )}
 
               <div className="flex gap-2 pt-1">
                 <button
                   type="button"
-                  onClick={() => setPasswordChangeMember(null)}
+                  onClick={() => { setPasswordChangeMember(null); setResetTemporaryPassword(''); }}
                   className="flex-1 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-xs font-bold cursor-pointer"
                 >
-                  Cancel
+                  Close
                 </button>
                 <button
                   type="submit"
                   className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white text-xs font-bold cursor-pointer transition-colors shadow-md shadow-orange-500/20"
                 >
-                  Save Password
+                  Reset Password
                 </button>
               </div>
             </form>

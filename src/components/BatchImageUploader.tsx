@@ -8,8 +8,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { optimizeImage } from '../utils/imageOptimizer';
-import { db, cleanForFirestore } from '../lib/firebase';
-import { doc, writeBatch } from 'firebase/firestore';
+import { staffApiFetch } from '../lib/staffApi';
 
 export interface FileMatchPreview {
   id: string; // unique ID for React list keys
@@ -591,10 +590,12 @@ export const BatchImageUploader: React.FC = () => {
 
         const payload = chunk.map(p => ({
           name: p.name,
-          dataUrl: p.dataUrl
+          dataUrl: p.dataUrl,
+          targetItemId: p.matchedItem?.id,
+          targetItemName: p.matchedItem?.name
         }));
 
-        const response = await fetch('/api/upload-vehicle-images', {
+        const response = await staffApiFetch('/api/upload-vehicle-images', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ files: payload })
@@ -612,25 +613,6 @@ export const BatchImageUploader: React.FC = () => {
             if (sf.originalName) savedFileUrlMap.set(sf.originalName, sf.url);
             if (sf.filename) savedFileUrlMap.set(sf.filename, sf.url);
           });
-        }
-
-        // Also persist images into Firestore storedImages collection for cross-device backup
-        try {
-          const fsBatch = writeBatch(db);
-          chunk.forEach(p => {
-            const safeDocId = p.name.replace(/[^a-zA-Z0-9_-]/g, '_').toLowerCase();
-            const imgRef = doc(db, 'storedImages', safeDocId);
-            fsBatch.set(imgRef, cleanForFirestore({
-              filename: p.name,
-              dataUrl: p.dataUrl,
-              updatedAt: new Date().toISOString(),
-              targetItemId: p.matchedItem?.id,
-              targetItemName: p.matchedItem?.name
-            }), { merge: true });
-          });
-          await fsBatch.commit();
-        } catch (fsErr) {
-          console.warn('Firestore storedImages sync warning:', fsErr);
         }
 
         totalSaved += (data.savedCount || chunk.length);
