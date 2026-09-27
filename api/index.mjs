@@ -21796,6 +21796,147 @@ async function createApp() {
     return validStaffRoles.includes(value) ? value : null;
   };
   const effectiveStaffRole = (role) => role === "Moderator" ? "Staff" : role;
+  const legacyCredentialMatches = (submitted, stored) => {
+    const submittedDigest = crypto.createHash("sha256").update(submitted).digest();
+    const storedDigest = crypto.createHash("sha256").update(stored).digest();
+    return crypto.timingSafeEqual(submittedDigest, storedDigest);
+  };
+  const legacyRosterFingerprint = (members) => crypto.createHash("sha256").update(
+    members.map((raw) => JSON.stringify([
+      normalizeStaffUsername(raw?.username),
+      normalizeStaffRole(raw?.role) || "",
+      typeof raw?.id === "string" ? raw.id : "",
+      typeof raw?.password === "string" ? crypto.createHash("sha256").update(raw.password).digest("hex") : "",
+      typeof raw?.displayName === "string" ? raw.displayName : "",
+      typeof raw?.addedBy === "string" ? raw.addedBy : "",
+      typeof raw?.addedAt === "string" ? raw.addedAt : "",
+      typeof raw?.lastLogin === "string" ? raw.lastLogin : ""
+    ])).sort().join("\n")
+  ).digest("hex");
+  const migrateLegacyStaffCredentials = async (db, verifiedLogin) => {
+    const rosterRef = db.collection("system").doc("staffRoster");
+    const rosterSnapshot = await rosterRef.get();
+    const rawMembers = Array.isArray(rosterSnapshot.data()?.members) ? rosterSnapshot.data().members : [];
+    const matchingLegacyMember = verifiedLogin && rawMembers.find(
+      (raw) => raw && typeof raw === "object" && normalizeStaffUsername(raw.username) === verifiedLogin.username && typeof raw.password === "string" && raw.password.length > 0 && raw.password.length <= 256 && normalizeStaffRole(raw.role) !== null && legacyCredentialMatches(verifiedLogin.password, raw.password)
+    );
+    if (verifiedLogin && !matchingLegacyMember) return { matched: false, imported: 0, tooMany: false };
+    const prepared = [];
+    const seenUsernames = /* @__PURE__ */ new Set();
+    for (const raw of rawMembers) {
+      if (!raw || typeof raw !== "object") continue;
+      const username = normalizeStaffUsername(raw.username);
+      const role = normalizeStaffRole(raw.role);
+      const oldPassword = raw.password;
+      if (!STAFF_USERNAME_PATTERN.test(username) || !role || typeof oldPassword !== "string" || oldPassword.length < 1 || oldPassword.length > 256 || seenUsernames.has(username)) continue;
+      seenUsernames.add(username);
+      const passwordFields = await hashStaffPassword(oldPassword);
+      const uid = `staff_${crypto.randomBytes(18).toString("base64url")}`;
+      const addedAt = typeof raw.addedAt === "string" && !Number.isNaN(Date.parse(raw.addedAt)) ? new Date(raw.addedAt).toISOString() : (/* @__PURE__ */ new Date(0)).toISOString();
+      prepared.push({
+        username,
+        password: oldPassword,
+        role,
+        uid,
+        displayName: typeof raw.displayName === "string" && raw.displayName.trim() ? raw.displayName.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, 120) : username,
+        addedBy: typeof raw.addedBy === "string" ? raw.addedBy.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, 120) : "Legacy staff migration",
+        addedAt,
+        credentialRef: db.collection("staffCredentials").doc(username),
+        roleRef: db.collection("staffRoles").doc(uid),
+        passwordFields
+      });
+    }
+    if (prepared.length > 240) return { matched: Boolean(matchingLegacyMember), imported: 0, tooMany: true };
+    if (verifiedLogin && !prepared.some((member) => member.username === verifiedLogin.username)) {
+      return { matched: false, imported: 0, tooMany: false };
+    }
+    const bootstrapRef = db.collection("system").doc("staffAuthBootstrap");
+    const migratedAt = (/* @__PURE__ */ new Date()).toISOString();
+    const expectedRosterFingerprint = legacyRosterFingerprint(rawMembers);
+    const activeUidByUsername = /* @__PURE__ */ new Map();
+    let importedCount = 0;
+    await db.runTransaction(async (transaction) => {
+      importedCount = 0;
+      activeUidByUsername.clear();
+      const currentRosterSnapshot = await transaction.get(rosterRef);
+      const currentRawMembers = Array.isArray(currentRosterSnapshot.data()?.members) ? currentRosterSnapshot.data().members : [];
+      if (legacyRosterFingerprint(currentRawMembers) !== expectedRosterFingerprint) {
+        throw new Error("Legacy staff roster changed during migration.");
+      }
+      if (verifiedLogin) {
+        const stillMatches = currentRawMembers.some(
+          (raw) => raw && typeof raw === "object" && normalizeStaffUsername(raw.username) === verifiedLogin.username && typeof raw.password === "string" && legacyCredentialMatches(verifiedLogin.password, raw.password)
+        );
+        if (!stillMatches) throw new Error("Legacy staff roster changed during migration.");
+      }
+      const credentialSnapshots = await Promise.all(prepared.map((member) => transaction.get(member.credentialRef)));
+      const bootstrapSnapshot = await transaction.get(bootstrapRef);
+      for (let index = 0; index < prepared.length; index += 1) {
+        const member = prepared[index];
+        const existingCredential = credentialSnapshots[index];
+        if (existingCredential.exists) {
+          const existingUid = existingCredential.data()?.uid;
+          if (typeof existingUid === "string" && existingUid) activeUidByUsername.set(member.username, existingUid);
+          continue;
+        }
+        transaction.create(member.credentialRef, {
+          uid: member.uid,
+          username: member.username,
+          ...member.passwordFields,
+          failedAttempts: 0,
+          lockedUntil: 0,
+          migratedFromLegacyRosterAt: migratedAt
+        });
+        transaction.set(member.roleRef, {
+          role: member.role,
+          username: member.username,
+          displayName: member.displayName,
+          sessionVersion: newStaffSessionVersion(),
+          addedBy: member.addedBy,
+          addedAt: member.addedAt
+        }, { merge: true });
+        activeUidByUsername.set(member.username, member.uid);
+        importedCount += 1;
+      }
+      const sanitizedMembers = [];
+      const sanitizedUsernames = /* @__PURE__ */ new Set();
+      const sanitizedIds = /* @__PURE__ */ new Set();
+      for (let index = 0; index < currentRawMembers.length; index += 1) {
+        const raw = currentRawMembers[index];
+        if (!raw || typeof raw !== "object" || typeof raw.username !== "string") continue;
+        const role = normalizeStaffRole(raw.role);
+        if (!role) continue;
+        const originalUsername = raw.username.trim().slice(0, 80);
+        const normalizedUsername = normalizeStaffUsername(originalUsername);
+        if (!normalizedUsername) continue;
+        const uid = activeUidByUsername.get(normalizedUsername);
+        const rawId = typeof raw.id === "string" ? raw.id.slice(0, 120) : "";
+        const id = uid || (rawId && !rawId.includes("/") ? rawId : `legacy_${index}`);
+        if (sanitizedUsernames.has(normalizedUsername) || sanitizedIds.has(id)) continue;
+        sanitizedUsernames.add(normalizedUsername);
+        sanitizedIds.add(id);
+        sanitizedMembers.push({
+          id,
+          username: originalUsername,
+          ...typeof raw.displayName === "string" && raw.displayName.trim() ? { displayName: raw.displayName.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, 120) } : {},
+          role,
+          ...typeof raw.addedBy === "string" ? { addedBy: raw.addedBy.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, 120) } : {},
+          addedAt: typeof raw.addedAt === "string" && !Number.isNaN(Date.parse(raw.addedAt)) ? new Date(raw.addedAt).toISOString() : (/* @__PURE__ */ new Date(0)).toISOString(),
+          ...typeof raw.lastLogin === "string" ? { lastLogin: raw.lastLogin.slice(0, 80) } : {}
+        });
+      }
+      transaction.set(rosterRef, { members: sanitizedMembers, updatedAt: migratedAt }, { merge: true });
+      if (!bootstrapSnapshot.exists) {
+        const firstAdmin = prepared.find((member) => member.role === "Admin");
+        const adminUid = firstAdmin ? activeUidByUsername.get(firstAdmin.username) : void 0;
+        if (adminUid) transaction.create(bootstrapRef, { uid: adminUid, createdAt: migratedAt });
+      }
+    });
+    if (importedCount > 0) {
+      console.info(`[Staff migration] Imported ${importedCount} legacy staff credentials; plaintext roster passwords removed.`);
+    }
+    return { matched: Boolean(matchingLegacyMember), imported: importedCount, tooMany: false };
+  };
   const requireStaff = (allowedRoles) => async (req, res, next) => {
     const adminAuth = getServerAuth();
     const db = getServerDb();
@@ -21825,6 +21966,10 @@ async function createApp() {
     }
   };
   const readSanitizedStaffRoster = async (db) => {
+    const migration = await migrateLegacyStaffCredentials(db);
+    if (migration.tooMany) {
+      throw new Error("The legacy roster is larger than the safe one-time migration limit.");
+    }
     const rosterSnapshot = await getDoc(doc(db, "system", "staffRoster"));
     const rawMembers = rosterSnapshot.exists() && Array.isArray(rosterSnapshot.data()?.members) ? rosterSnapshot.data().members : [];
     const byId = /* @__PURE__ */ new Map();
@@ -21893,6 +22038,13 @@ async function createApp() {
       if (outcome?.success !== true) return res.status(400).json({ success: false, error: "Security check failed. Please try again." });
       const credentialRef = db.collection("staffCredentials").doc(username);
       let credential = await credentialRef.get();
+      if (!credential.exists) {
+        const legacyMigration = await migrateLegacyStaffCredentials(db, { username, password });
+        if (legacyMigration.tooMany) {
+          return res.status(503).json({ success: false, error: "The old staff roster is too large for automatic sign-in migration. Please contact an administrator." });
+        }
+        if (legacyMigration.matched) credential = await credentialRef.get();
+      }
       if (!credential.exists) {
         const bootstrapRef = db.collection("system").doc("staffAuthBootstrap");
         const configuredUsername = normalizeStaffUsername(process.env.STAFF_BOOTSTRAP_USERNAME);
